@@ -1,0 +1,127 @@
+﻿<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>Malate Literary Folio Inventory System</title>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js" type="text/javascript">
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
+
+    </script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous">
+
+    </script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+    <div id="mainPageBox">
+        <div class="upperSection">
+            <div id="salesCounter">
+                <div id="soldCounter">
+                    <h1 class="counterNumber">300</h1>
+                    <h5 class="textLabel">sold</h5>
+                </div>
+                <div id="dayCounter">
+                    <h1 class="counterNumber"></h1>
+                    <h5 class="textLabel">day left</h5>
+                </div>
+                <div id="hoursCounter">
+                    <h1 class="counterNumber"></h1>
+                    <h5 class="textLabel">hours left</h5>
+                </div>
+                <div id="folioCounter">
+                    <h1 class="counterNumber"></h1>
+                    <h5 class="textLabel">folios given</h5>
+                </div>
+            </div>
+            <img id="logo">
+            <div id="userMenu">
+
+            </div>
+        </div>
+        <div id="lowerSection">
+            <div id="artistsList">
+
+            </div>
+            <div id="leftMenu">
+                <button id="newOrderButton">New Order</button>
+                <div id="addMenu">
+                    <a href="#">Add artist</a>
+                    <a href="#">Add item</a>
+                </div>
+                <div id="promoSection">
+                    <a href="#">Create sale</a>
+                </div>
+                <div id="stocksSection">
+                    <a href="#">Restock item</a>
+                    <a href="#">Reserve stocks</a>
+                </div>
+                <div id="exportData">
+                    <form>
+                        <input value="Export data" type="file" />
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="newOrderWindow">
+        
+    </div>
+
+    <div id="addArtistWindow">
+        <form id="artistSelect">
+            <div id="artistSelectSection">
+                <label for="newArtistName"></label>
+                <input id="newArtistName" name="newArtistName" type="text" />
+                <input value="add item" type="button"/>
+            </div>
+            <div id="artistItemsSection">
+                
+            </div>
+        </form>
+    </div>
+
+    <div id="addItemWindow">
+        <form id="artistSelect">
+            <div id="artistSelectSection">
+                <select name="selectedArtist" id="artistsListDropdown">
+                </select>
+            </div>
+            <div id="otherInputSection">
+                <div id="textFields">
+                    <input type="text" />
+                    <input type="number" />
+                    <input type="number" />
+                </div>
+                <input id="saveOrder" type="button" />
+            </div>
+        </form>
+    </div>
+
+    <div id="existingItemWindow">
+        <form id="artistSelect">
+            <div id="artistSelectSection">
+                <label for="newArtistName"></label>
+                <input id="newArtistName" name="newArtistName" type="text" />
+                <input value="add item" type="button" />
+            </div>
+            <div id="itemOptionsSection">
+                <div id="artistItemsSection">
+
+                </div>
+                <label for="numberExistingItemInput"></label>
+                <input id="numberExistingItemInput" name="numberExistingItemInput" type="number" />
+                <input id="saveOrder" type="button" />
+            </div>
+        </form>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,9 @@
+{
+  "name": "csswenggroup4-app",
+  "version": "0.0.0",
+  "description": "CSSWENGGroup4App",
+  "main": "server.js",
+  "author": {
+    "name": ""
+  }
+}
