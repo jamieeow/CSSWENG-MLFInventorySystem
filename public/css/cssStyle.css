@@ -16,6 +16,10 @@ body {
     padding-top: 13px;
 }
 
+#loginForm > div > label{
+    font-size: 24px;
+}
+
 #logoImage{
     width: 37%;
     height: auto;
@@ -26,6 +30,38 @@ body {
     margin-top: 30px;
 }
 
-/*#loginForm .form-group {
-    margin-top: 10px;
-}*/
+/*main.html*/
+#upperSection .card{
+    padding: 20px;
+}
+
+#salesCounter{
+    width: 30%;
+    margin-right: 100px;
+}
+
+#userMenuIcon{
+    margin-bottom: 15px;
+    margin-left: 100px;
+}
+
+#logoImageGrey {
+    width: 120px;
+    height: auto;
+}
+
+.fa-chevron-down {
+    color: white;
+}
+
+#lowerSection{
+    margin-bottom: 45px;
+}
+
+#lowerSection #leftMenu {
+    margin-left: 20px
+}
+
+#exportData{
+    margin-top: 60px;
+}

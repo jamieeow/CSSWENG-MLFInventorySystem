@@ -18,51 +18,80 @@
     </script>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <link rel="stylesheet" type="text/css" href="../public/css/cssStyle.css" />
+    <script src="js/jsFunctions.js"></script>
 </head>
 <body>
     <div id="mainPageBox">
-        <div class="upperSection">
-            <div id="salesCounter">
-                <div id="soldCounter">
-                    <h1 class="counterNumber">300</h1>
-                    <h5 class="textLabel">sold</h5>
+        <div id="upperSection" class="container mt-3">
+            <div class="card d-flex flex-row bg-secondary text-light" style="width: 80rem; height: 9rem;">
+                <div id="salesCounter" class="d-flex flex-col text-center">
+                    <div id="soldCounter" class="col">
+                        <h1 class="counterNumber">300</h1>
+                        <h5 class="textLabel">sold</h5>
+                    </div>
+                    <div id="dayCounter" class="col">
+                        <h1 class="counterNumber">1</h1>
+                        <h5 class="textLabel">day left</h5>
+                    </div>
+                    <div id="hoursCounter" class="col">
+                        <h1 class="counterNumber">10</h1>
+                        <h5 class="textLabel">hours left</h5>
+                    </div>
+                    <div id="folioCounter" class="col">
+                        <h1 class="counterNumber">400</h1>
+                        <h5 class="textLabel">folios given</h5>
+                    </div>
                 </div>
-                <div id="dayCounter">
-                    <h1 class="counterNumber"></h1>
-                    <h5 class="textLabel">day left</h5>
-                </div>
-                <div id="hoursCounter">
-                    <h1 class="counterNumber"></h1>
-                    <h5 class="textLabel">hours left</h5>
-                </div>
-                <div id="folioCounter">
-                    <h1 class="counterNumber"></h1>
-                    <h5 class="textLabel">folios given</h5>
-                </div>
-            </div>
-            <img id="logo">
-            <div id="userMenu">
 
+                <div id="userMenuIcon">
+                    <img id="logoImageGrey" src="../public/photo/logo-grey.png">
+                </div>
+
+                <div id="userMenu" class="d-flex flex-col">
+                    <div class="col mt-2">
+                        <h5 id="textLabel">User</h5>
+                    </div>
+                    <div>
+                        <img id="userIcon" src="../public/photo/icon-user.png">
+                    </div>
+                    <div class="col mt-2">
+                        <div id="userMenuArrow">
+                            <button type="button" class="close" aria-label="User Menu">
+                                <i class="fa fa-chevron-down" aria-hidden="true"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-        <div id="lowerSection">
-            <div id="artistsList">
+        <div id="lowerSection" class="container d-flex flex-row mt-4">
+            <div id="artistsList" class="card p-2" style="width: 60rem;">
 
             </div>
-            <div id="leftMenu">
-                <button id="newOrderButton">New Order</button>
-                <div id="addMenu">
-                    <a href="#">Add artist</a>
-                    <a href="#">Add item</a>
+            <div id="leftMenu" class="card p-3" style="width: 15rem;">
+                <div id="newOrderButtonSection" class="nav-item text-center mb-2">
+                    <button id="newOrderButton" class="btn btn-secondary btn-md col-11">New Order</button>
                 </div>
-                <div id="promoSection">
-                    <a href="#">Create sale</a>
+                <hr />
+                <div id="addMenu" class="nav-item">
+                    <h6 class="text-center">add</h6>
+                    <a href="#" class="nav-link" data-toggle="modal" data-target="#addArtistWindow">Add artist</a>
+                    <a href="#" class="nav-link" data-toggle="modal" data-target="#addItemWindow">Add item</a>
                 </div>
-                <div id="stocksSection">
-                    <a href="#">Restock item</a>
-                    <a href="#">Reserve stocks</a>
+                <hr />
+                <div id="promoSection" class="nav-item">
+                    <h6 class="text-center">promos</h6>
+                    <a href="#" class="nav-link" data-toggle="modal" data-target="#financialWindow">Create sale</a>
                 </div>
-                <div id="exportData">
+                <div id="stocksSection" class="nav-item">
+                    <h6 class="text-center">stocks</h6>
+                    <a href="#" class="nav-link" data-toggle="modal" data-target="#financialWindow">Restock item</a>
+                    <a href="#" class="nav-link" data-toggle="modal" data-target="#financialWindow">Reserve stocks</a>
+                </div>
+                <hr />
+                <div id="exportData" class="nav-item">
                     <form>
                         <input value="Export data" type="file" />
                     </form>
@@ -75,38 +104,119 @@
         
     </div>
 
-    <div id="addArtistWindow">
-        <form id="artistSelect">
-            <div id="artistSelectSection">
-                <label for="newArtistName"></label>
-                <input id="newArtistName" name="newArtistName" type="text" />
-                <input value="add item" type="button"/>
-            </div>
-            <div id="artistItemsSection">
-                
-            </div>
-        </form>
-    </div>
+    <div id="addArtistWindow" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <form id="artistSelect" class="form-inline">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <div class="form-group mb-2">
+                            <label for="newArtistName" class="font-weight-normal">artist name</label>
+                            <input id="newArtistName" class="form-control" name="newArtistName" type="text" />
+                            <input id="addItemButton" class="btn btn-secondary btn-sm col-3" value="add item" type="button" />
+                        </div>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div id="artistItemsSection">
 
-    <div id="addItemWindow">
-        <form id="artistSelect">
-            <div id="artistSelectSection">
-                <select name="selectedArtist" id="artistsListDropdown">
-                </select>
-            </div>
-            <div id="otherInputSection">
-                <div id="textFields">
-                    <input type="text" />
-                    <input type="number" />
-                    <input type="number" />
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <input class="btn btn-secondary btn-sm col-2" type="submit" value="save">
+                    </div>
                 </div>
-                <input id="saveOrder" type="button" />
-            </div>
-        </form>
+            </form>
+        </div>
     </div>
 
-    <div id="existingItemWindow">
-        <form id="artistSelect">
+    <div id="addItemWindow" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <form id="artistSelect" class="form-inline">
+                <div class="modal-content bg-secondary">
+                    <div class="modal-header">
+                        <div id="artistSelectSection">
+                            <select id="artistsListDropdown" class="form-control" name="selectedArtist">
+                                <option value="" disabled selected>select artist</option>
+                            </select>
+                        </div>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body bg-light">
+                        <div id="artistItemsSection">
+                            <div id="otherInputSection">
+                                <div id="textFields">
+                                    <div class="form-group mb-2">
+                                        <label for="newItemName" class="font-weight-normal">item name</label>
+                                        <input id="newItemName" class="form-control"type="text" />
+                                    </div>
+                                    <div class="form-group mb-2">
+                                        <label for="newPriceStock" class="font-weight-normal">price</label>
+                                        <input id="newPriceStock" class="form-control" type="number" />
+                                    </div>
+                                    <div class="form-group mb-2">
+                                        <label for="newStockQuantity" class="font-weight-normal">quantity</label>
+                                        <input id="newStockQuantity" class="form-control" type="number" />
+                                    </div>
+                                </div>
+                                
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer bg-light">
+                        <input id="saveOrder" class="btn btn-secondary btn-sm col-2" type="button" value="save"/>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div id="financialWindow" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <form id="existingItemSelect">
+                <div class="modal-content bg-secondary">
+                    <div class="modal-header">
+                        <div id="artistSelectSection">
+                            <select id="artistsListDropdown" class="form-control" name="financeSelectedArtist">
+                                <option value="" disabled selected>select artist</option>
+                            </select>
+                        </div>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body bg-light">
+                        <div id="artistItemsSection">
+                            <div id="otherInputSection">
+                                <div id="itemList">
+                                    <div class="form-group">
+                                        <label for="financialItemList" class="font-weight-normal">select item</label>
+                                        <div id="financialItemList" class="card" data-spy="scroll" data-offset="0">
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="textFields">
+                                    <div class="form-group">
+                                        <label for="newPriceStock" class="font-weight-normal">price</label>
+                                        <input id="newPriceStock" class="form-control" type="number" />
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer bg-light">
+                        <input id="saveOrder" class="btn btn-secondary btn-sm col-2" type="button" value="save" />
+                    </div>
+                </div>
+            </form>
+        </div>
+        
+        <!--<form id="artistSelect">
             <div id="artistSelectSection">
                 <label for="newArtistName"></label>
                 <input id="newArtistName" name="newArtistName" type="text" />
@@ -120,7 +230,7 @@
                 <input id="numberExistingItemInput" name="numberExistingItemInput" type="number" />
                 <input id="saveOrder" type="button" />
             </div>
-        </form>
+        </form>-->
     </div>
 
 </body>
