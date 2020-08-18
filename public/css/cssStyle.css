@@ -36,17 +36,35 @@ body {
 }
 
 #salesCounter{
-    width: 30%;
-    margin-right: 100px;
+    width: 60%;
+    margin-right: 55px;
+    margin-top: 5px;
+}
+
+#salesCounter h1{
+    font-size: 56px;
+}
+
+#salesCounter h5{
+    font-size: 19px;
 }
 
 #userMenuIcon{
-    margin-bottom: 15px;
-    margin-left: 100px;
+    margin-bottom:10px;
 }
 
 #logoImageGrey {
-    width: 120px;
+    width: 118px;
+    height: auto;
+}
+
+#userMenu{
+    margin-top: 30px;
+    margin-left: 50px;
+}
+
+#userIconImage {
+    width: 60px;
     height: auto;
 }
 
@@ -62,6 +80,10 @@ body {
     margin-left: 20px
 }
 
-#exportData{
+#leftMenu{
+    font-size: 19px;
+}
+
+#exportData {
     margin-top: 60px;
 }
