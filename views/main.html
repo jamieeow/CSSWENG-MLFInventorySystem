@@ -53,12 +53,16 @@
                     <div id="userIcon" class="col">
                         <img id="userIconImage" src="../public/photo/icon-user.png">
                     </div>
-                    <div id="userNameandArrow" class="d-flex flex-col mt-3">
-                        <h5 id="textLabel" class="mr-3">User</h5>
-                        <div id="userMenuArrow">
-                            <button type="button" class="close" aria-label="User Menu">
-                                <i class="fa fa-chevron-down" aria-hidden="true"></i>
-                            </button>
+                    <div id="userNameandArrow" class="d-flex flex-col justify-content-left">
+                        <div class="nav-item dropdown">
+                            <a id="userMenuDropdown" class="nav-link dropdown-toggle text-light" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                User
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right mt-4" aria-labelledby="userMenuDropdown">
+                                <a class="dropdown-item" href="#">Settings</a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="#">Log out</a>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -70,7 +74,7 @@
             </div>
             <div id="leftMenu" class="card p-3" style="width: 20rem;">
                 <div id="newOrderButtonSection" class="nav-item text-center mb-2">
-                    <button id="newOrderButton" class="btn btn-secondary btn-md col-11">New Order</button>
+                    <button id="newOrderButton" class="btn btn-secondary btn-md col-11" data-toggle="modal" data-target="#newOrderWindow">new order</button>
                 </div>
                 <hr />
                 <div id="addMenu" class="nav-item">
@@ -102,8 +106,50 @@
         </div>
     </div>
 
-    <div id="newOrderWindow">
-        
+    <div id="newOrderWindow" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <form id="artistSelect" class="form">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body d-flex flex-col">
+                        <div id="buyItemSection" class="card" style="width: 60rem; height: 30rem;">
+                            <div id="buyArtistSection" class="card-header bg-secondary">
+                                <select id="artistsListDropdown" class="form-control" name="selectedArtist">
+                                    <option value="" disabled selected>select artist</option>
+                                </select>
+                            </div>
+                            <div id="buyItemSection" class="card-body">
+
+                            </div>
+                        </div>
+                        <div id="checkoutSection" class="card p-4" style="width: 20rem;">
+                            <h5 class="card-title">items</h5>
+                            <table id="checkoutItemsList">
+                                <tr>
+                                    <td>item 1</td>
+                                    <td>20</td>
+                                </tr>
+                                <tr>
+                                    <td>item 1</td>
+                                    <td>20</td>
+                                </tr>
+                            </table>
+                            <table id="totalItems" class="card-title">
+                                <tr>
+                                    <th>total</th>
+                                    <th>20</th>
+                                </tr>
+                            </table>
+                            <input class="btn btn-secondary col-sm-8 mt-1 ml-3" type="submit" value="check out">
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
     </div>
 
     <div id="addArtistWindow" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
@@ -135,7 +181,7 @@
 
     <div id="addItemWindow" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog" role="document">
-            <form id="artistSelect" class="form-inline">
+            <form id="artistSelect" class="form">
                 <div class="modal-content bg-secondary">
                     <div class="modal-header">
                         <div id="artistSelectSection">
@@ -152,19 +198,23 @@
                             <div id="otherInputSection">
                                 <div id="textFields">
                                     <div class="form-group mb-2">
-                                        <label for="newItemName" class="font-weight-normal">item name</label>
-                                        <input id="newItemName" class="form-control"type="text" />
+                                        <label for="newItemName" class="font-weight-normal mr-2">item name</label>
+                                        <input id="newItemName" class="form-control col-8"type="text" />
                                     </div>
                                     <div class="form-group mb-2">
-                                        <label for="newPriceStock" class="font-weight-normal">price</label>
-                                        <input id="newPriceStock" class="form-control" type="number" />
+                                        <label for="newPriceStock" class="font-weight-normal mr-2">price</label>
+                                        <input id="newPriceStock" class="form-control col-8" type="number" />
                                     </div>
                                     <div class="form-group mb-2">
-                                        <label for="newStockQuantity" class="font-weight-normal">quantity</label>
-                                        <input id="newStockQuantity" class="form-control" type="number" />
+                                        <label for="newStockQuantity" class="font-weight-normal mr-2">quantity</label>
+                                        <input id="newStockQuantity" class="form-control col-8" type="number" />
                                     </div>
                                 </div>
-                                
+                                <div id="itemPhotoPicker">
+                                    <div class="file-field">
+
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -217,22 +267,6 @@
                 </div>
             </form>
         </div>
-        
-        <!--<form id="artistSelect">
-            <div id="artistSelectSection">
-                <label for="newArtistName"></label>
-                <input id="newArtistName" name="newArtistName" type="text" />
-                <input value="add item" type="button" />
-            </div>
-            <div id="itemOptionsSection">
-                <div id="artistItemsSection">
-
-                </div>
-                <label for="numberExistingItemInput"></label>
-                <input id="numberExistingItemInput" name="numberExistingItemInput" type="number" />
-                <input id="saveOrder" type="button" />
-            </div>
-        </form>-->
     </div>
 
 </body>

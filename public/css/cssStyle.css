@@ -45,7 +45,7 @@ body {
     font-size: 56px;
 }
 
-#salesCounter h5, #leftMenu, #userMenuDropdown {
+#salesCounter h5, #leftMenu, #userMenuDropdown, #userNameandArrow .dropdown-menu {
     font-size: 19px;
 }
 
@@ -90,4 +90,19 @@ body {
 
 #exportData {
     margin-top: 60px;
+}
+
+/*modals new order*/
+#checkoutItemsList{
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+#buyItemSection{
+    margin-right: 20px;
+}
+
+#totalItems {
+    margin-top: 270px;
 }
