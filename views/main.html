@@ -20,6 +20,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
     <link rel="stylesheet" type="text/css" href="../public/css/cssStyle.css" />
+
+
 </head>
 <body>
     <div id="mainPageBox">
@@ -60,7 +62,7 @@
                             <div class="dropdown-menu dropdown-menu-right mt-4" aria-labelledby="userMenuDropdown">
                                 <a class="dropdown-item" href="#">Settings</a>
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="#">Log out</a>
+                                <a class="dropdown-item" href="../public/login.html">Log out</a>
                             </div>
                         </div>
                     </div>
@@ -107,7 +109,7 @@
 
     <div id="newOrderWindow" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog modal-lg" role="document">
-            <form id="artistSelect" class="form">
+            <form id="artistSelect" class="form" action="main.html">
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -152,22 +154,27 @@
     </div>
 
     <div id="addArtistWindow" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <form id="artistSelect" class="form-inline">
+        <div class="modal-dialog modal-lg" role="document">
+            <form id="artistSelect" class="form" action="main.html">
                 <div class="modal-content">
                     <div class="modal-header">
                         <div class="form-group mb-2">
                             <label for="newArtistName" class="font-weight-normal">artist name</label>
-                            <input id="newArtistName" class="form-control" name="newArtistName" type="text" />
-                            <input id="addItemButton" class="btn btn-secondary btn-sm col-3" value="add item" type="button" />
+                            <div class="d-flex flex-col">
+                                <input id="newArtistName" class="form-control" name="newArtistName" type="text"/>
+                                <input id="addItemButton" class="btn btn-secondary btn-sm col-4 ml-2" value="add item" type="button" data-toggle="modal" data-target="#addItemWindow"/>
+                            </div>
                         </div>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
                     <div class="modal-body">
-                        <div id="artistItemsSection">
+                        <div class="form-group">
+                            <label for="artistItemsSection" class="font-weight-normal">select item</label>
+                            <div id="artistItemsSection" class="card" style="height: 18rem; width: 47.5rem;" data-spy="scroll" data-offset="0">
 
+                            </div>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -180,7 +187,7 @@
 
     <div id="addItemWindow" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog" role="document">
-            <form id="artistSelect" class="form">
+            <form id="artistSelect" class="form" action="main.html">
                 <div class="modal-content bg-secondary">
                     <div class="modal-header">
                         <div id="artistSelectSection">
@@ -218,7 +225,7 @@
                         </div>
                     </div>
                     <div class="modal-footer bg-light">
-                        <input id="saveOrder" class="btn btn-secondary btn-sm col-2" type="button" value="save"/>
+                        <input id="saveOrder" class="btn btn-secondary btn-sm col-2" type="button" data-dismiss="modal" value="save"/>
                     </div>
                 </div>
             </form>
@@ -227,7 +234,7 @@
 
     <div id="financialWindow" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog" role="document">
-            <form id="existingItemSelect">
+            <form id="existingItemSelect" action="main.html">
                 <div class="modal-content bg-secondary">
                     <div class="modal-header">
                         <div id="artistSelectSection">
@@ -245,7 +252,7 @@
                                 <div id="itemList">
                                     <div class="form-group">
                                         <label for="financialItemList" class="font-weight-normal">select item</label>
-                                        <div id="financialItemList" class="card" data-spy="scroll" data-offset="0">
+                                        <div id="financialItemList" class="card" style="height: 20rem;" data-spy="scroll" data-offset="0">
 
                                         </div>
                                     </div>
@@ -261,7 +268,7 @@
                         </div>
                     </div>
                     <div class="modal-footer bg-light">
-                        <input id="saveOrder" class="btn btn-secondary btn-sm col-2" type="button" value="save" />
+                        <input id="saveOrder" class="btn btn-secondary btn-sm col-2" type="submit" value="save"/>
                     </div>
                 </div>
             </form>
