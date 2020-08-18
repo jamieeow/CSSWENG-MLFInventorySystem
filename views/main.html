@@ -24,24 +24,24 @@
 </head>
 <body>
     <div id="mainPageBox">
-        <div id="upperSection" class="container mt-3">
-            <div class="card d-flex flex-row bg-secondary text-light" style="width: 80rem; height: 9rem;">
+        <div id="upperSection" class="container mt-4">
+            <div class="card d-flex flex-row bg-secondary text-light" style="width: 69.3rem; height: 10rem;">
                 <div id="salesCounter" class="d-flex flex-col text-center">
                     <div id="soldCounter" class="col">
-                        <h1 class="counterNumber">300</h1>
-                        <h5 class="textLabel">sold</h5>
+                        <h1 id="counterNumber" class="font-weight-bold">300</h1>
+                        <h5 id="textLabel">sold</h5>
                     </div>
                     <div id="dayCounter" class="col">
-                        <h1 class="counterNumber">1</h1>
-                        <h5 class="textLabel">day left</h5>
+                        <h1 id="counterNumber" class="font-weight-bold">1</h1>
+                        <h5 id="textLabel">day left</h5>
                     </div>
                     <div id="hoursCounter" class="col">
-                        <h1 class="counterNumber">10</h1>
-                        <h5 class="textLabel">hours left</h5>
+                        <h1 id="counterNumber" class="font-weight-bold">10</h1>
+                        <h5 id="textLabel">hours left</h5>
                     </div>
                     <div id="folioCounter" class="col">
-                        <h1 class="counterNumber">400</h1>
-                        <h5 class="textLabel">folios given</h5>
+                        <h1 id="counterNumber" class="font-weight-bold">400</h1>
+                        <h5 id="textLabel">folios given</h5>
                     </div>
                 </div>
 
@@ -49,14 +49,12 @@
                     <img id="logoImageGrey" src="../public/photo/logo-grey.png">
                 </div>
 
-                <div id="userMenu" class="d-flex flex-col">
-                    <div class="col mt-2">
-                        <h5 id="textLabel">User</h5>
+                <div id="userMenu" class="d-flex flex-col text-left">
+                    <div id="userIcon" class="col">
+                        <img id="userIconImage" src="../public/photo/icon-user.png">
                     </div>
-                    <div>
-                        <img id="userIcon" src="../public/photo/icon-user.png">
-                    </div>
-                    <div class="col mt-2">
+                    <div id="userNameandArrow" class="d-flex flex-col mt-3">
+                        <h5 id="textLabel" class="mr-3">User</h5>
                         <div id="userMenuArrow">
                             <button type="button" class="close" aria-label="User Menu">
                                 <i class="fa fa-chevron-down" aria-hidden="true"></i>
@@ -70,7 +68,7 @@
             <div id="artistsList" class="card p-2" style="width: 60rem;">
 
             </div>
-            <div id="leftMenu" class="card p-3" style="width: 15rem;">
+            <div id="leftMenu" class="card p-3" style="width: 20rem;">
                 <div id="newOrderButtonSection" class="nav-item text-center mb-2">
                     <button id="newOrderButton" class="btn btn-secondary btn-md col-11">New Order</button>
                 </div>
@@ -85,6 +83,7 @@
                     <h6 class="text-center">promos</h6>
                     <a href="#" class="nav-link" data-toggle="modal" data-target="#financialWindow">Create sale</a>
                 </div>
+                <hr />
                 <div id="stocksSection" class="nav-item">
                     <h6 class="text-center">stocks</h6>
                     <a href="#" class="nav-link" data-toggle="modal" data-target="#financialWindow">Restock item</a>
@@ -92,9 +91,12 @@
                 </div>
                 <hr />
                 <div id="exportData" class="nav-item">
-                    <form>
-                        <input value="Export data" type="file" />
-                    </form>
+                    <div class="custom-file">
+                        <form>
+                            <input id="exportDataInput" type="file" class="custom-file-input" />
+                            <label class="custom-file-label" for="exportDataInput">Export data</label>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
