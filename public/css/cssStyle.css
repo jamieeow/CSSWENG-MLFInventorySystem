@@ -45,7 +45,7 @@ body {
     font-size: 56px;
 }
 
-#salesCounter h5{
+#salesCounter h5, #leftMenu, #userMenuDropdown {
     font-size: 19px;
 }
 
@@ -68,6 +68,10 @@ body {
     height: auto;
 }
 
+#userMenuDropdown {
+    margin-top: 8px;
+}
+
 .fa-chevron-down {
     color: white;
 }
@@ -80,8 +84,8 @@ body {
     margin-left: 20px
 }
 
-#leftMenu{
-    font-size: 19px;
+#newOrderButton{
+    font-size: 24px;
 }
 
 #exportData {
