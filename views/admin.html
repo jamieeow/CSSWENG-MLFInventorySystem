@@ -73,20 +73,12 @@
             <div id="artistsList" class="card p-2" style="width: 60rem;">
 
             </div>
-            <div id="leftMenu" class="card p-3" style="width: 20rem;">
-                <div id="newOrderButtonSection" class="nav-item text-center mb-2">
-                    <button id="newOrderButton" class="btn btn-secondary btn-md col-11" data-toggle="modal" data-target="#newOrderWindow">new order</button>
-                </div>
-                <hr />
-                <div id="promoSection" class="nav-item">
-                    <h6 class="text-center">promos</h6>
-                    <a href="#" class="nav-link" data-toggle="modal" data-target="#financialWindow">Create sale</a>
-                </div>
-                <hr />
-                <div id="stocksSection" class="nav-item">
-                    <h6 class="text-center">stocks</h6>
-                    <a href="#" class="nav-link" data-toggle="modal" data-target="#financialWindow">Restock item</a>
-                    <a href="#" class="nav-link" data-toggle="modal" data-target="#financialWindow">Reserve stocks</a>
+            <div id="leftMenu" class="card p-3" data-spy="scroll" data-offset="0" style="width: 20rem;">
+                <div id="addMenu" class="nav-item">
+                    <h6 class="text-center">add</h6>
+                    <a href="#" class="nav-link" data-toggle="modal" data-target="#addArtistWindow">Add artist</a>
+                    <a href="#" class="nav-link" data-toggle="modal" data-target="#addItemWindow">Add item</a>
+                    <a href="#" class="nav-link" data-toggle="modal" data-target="#addBundleWindow">Add bundle</a>
                 </div>
                 <hr />
                 <div id="exportData" class="nav-item">
@@ -103,7 +95,7 @@
 
     <div id="newOrderWindow" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog modal-lg" role="document">
-            <form id="artistSelect" class="form" method = 'POST' action="/orderCheckOut">
+            <form id="artistSelect" class="form" method='POST' action="/orderCheckOut">
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -149,14 +141,14 @@
 
     <div id="addArtistWindow" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog modal-lg" role="document">
-            <form id="artistSelect" class="form" method = 'POST' action="/addArtist">
+            <form id="artistSelect" class="form" method='POST' action="/addArtist">
                 <div class="modal-content">
                     <div class="modal-header">
                         <div class="form-group mb-2">
                             <label for="newArtistName" class="font-weight-normal">artist name</label>
                             <div class="d-flex flex-col">
-                                <input id="newArtistName" class="form-control" name="newArtistName" type="text"/>
-                                <input id="addItemButton" class="btn btn-secondary btn-sm col-4 ml-2" value="add item" type="button" data-toggle="modal" data-target="#addItemWindow"/>
+                                <input id="newArtistName" class="form-control" name="newArtistName" type="text" />
+                                <input id="addItemButton" class="btn btn-secondary btn-sm col-4 ml-2" value="add item" type="button" data-toggle="modal" data-target="#addItemWindow" />
                             </div>
                         </div>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -181,7 +173,7 @@
 
     <div id="addItemWindow" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog" role="document">
-            <form id="artistSelect" class="form" method = 'POST' action="/addItem">
+            <form id="artistSelect" class="form" method='POST' action="/addItem">
                 <div class="modal-content bg-secondary">
                     <div class="modal-header">
                         <div id="artistSelectSection">
@@ -199,7 +191,7 @@
                                 <div id="textFields">
                                     <div class="form-group mb-2">
                                         <label for="newItemName" class="font-weight-normal mr-2">item name</label>
-                                        <input id="newItemName" class="form-control col-8"type="text" />
+                                        <input id="newItemName" class="form-control col-8" type="text" />
                                     </div>
                                     <div class="form-group mb-2">
                                         <label for="newPriceStock" class="font-weight-normal mr-2">price</label>
@@ -220,7 +212,7 @@
                         </div>
                     </div>
                     <div class="modal-footer bg-light">
-                        <input id="saveOrder" class="btn btn-secondary btn-sm col-2" type="button" data-dismiss="modal" value="save"/>
+                        <input id="saveOrder" class="btn btn-secondary btn-sm col-2" type="button" data-dismiss="modal" value="save" />
                     </div>
                 </div>
             </form>
@@ -229,7 +221,7 @@
 
     <div id="financialWindow" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog" role="document">
-            <form id="existingItemSelect" method = 'POST' action="/addPromo">
+            <form id="existingItemSelect" method='POST' action="/addPromo">
                 <div class="modal-content bg-secondary">
                     <div class="modal-header">
                         <div id="artistSelectSection">
@@ -263,7 +255,7 @@
                         </div>
                     </div>
                     <div class="modal-footer bg-light">
-                        <input id="saveOrder" class="btn btn-secondary btn-sm col-2" type="submit" value="save"/>
+                        <input id="saveOrder" class="btn btn-secondary btn-sm col-2" type="submit" value="save" />
                     </div>
                 </div>
             </form>
