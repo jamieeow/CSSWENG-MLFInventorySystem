@@ -106,3 +106,24 @@ body {
 #totalItems {
     margin-top: 270px;
 }
+
+/*modal new artist*/
+#newArtistNameInputs {
+    width: 800px;
+}
+
+#newArtistName {
+    width: 500px;
+}
+
+/*modal new item*/
+#newItemPhoto {
+    width: 82%;
+    height: auto;
+}
+
+#artistSelectSection {
+    margin-left: 130px;
+    width: 500px;
+}
+
