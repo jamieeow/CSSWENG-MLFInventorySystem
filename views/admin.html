@@ -19,7 +19,7 @@
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-    <link rel="stylesheet" type="text/css" href="../css/cssStyle.css" />
+    <link rel="stylesheet" type="text/css" href="css/cssStyle.css" />
 
 
 </head>
@@ -52,7 +52,7 @@
 
                 <div id="userMenu" class="d-flex flex-col text-left">
                     <div id="userIcon" class="col">
-                        <img id="userIconImage" src="../photo/icon-user.png">
+                        <img id="userIconImage" src="photo/icon-user.png">
                     </div>
                     <div id="userNameandArrow" class="d-flex flex-col justify-content-left">
                         <div class="nav-item dropdown">
@@ -78,7 +78,7 @@
                     <h6 class="text-center">add</h6>
                     <a href="#" class="nav-link" data-toggle="modal" data-target="#addArtistWindow">Add artist</a>
                     <a href="#" class="nav-link" data-toggle="modal" data-target="#addItemWindow">Add item</a>
-                    <a href="#" class="nav-link" data-toggle="modal" data-target="#addBundleWindow">Add bundle</a>
+                    <a href="#" class="nav-link" data-toggle="modal" data-target="#addItemWindow">Add bundle</a>
                 </div>
                 <hr />
                 <div id="exportData" class="nav-item">
@@ -146,9 +146,9 @@
                     <div class="modal-header">
                         <div class="form-group mb-2">
                             <label for="newArtistName" class="font-weight-normal">artist name</label>
-                            <div class="d-flex flex-col">
+                            <div id="newArtistNameInputs" class="d-flex flex-col">
                                 <input id="newArtistName" class="form-control" name="newArtistName" type="text" />
-                                <input id="addItemButton" class="btn btn-secondary btn-sm col-4 ml-2" value="add item" type="button" data-toggle="modal" data-target="#addItemWindow" />
+                                <input id="addItemButton" class="btn btn-secondary btn-sm col-2 ml-2" value="add item" type="button" data-toggle="modal" data-target="#addItemWindow" />
                             </div>
                         </div>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -158,7 +158,7 @@
                     <div class="modal-body">
                         <div class="form-group">
                             <label for="artistItemsSection" class="font-weight-normal">select item</label>
-                            <div id="artistItemsSection" class="card" style="height: 18rem; width: 47.5rem;" data-spy="scroll" data-offset="0">
+                            <div id="artistItemsSection" class="card" style="height: 18rem; width: 100%;" data-spy="scroll" data-offset="0">
 
                             </div>
                         </div>
@@ -172,7 +172,7 @@
     </div>
 
     <div id="addItemWindow" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog" role="document">
+        <div class="modal-dialog modal-lg" role="document">
             <form id="artistSelect" class="form" method='POST' action="/addItem">
                 <div class="modal-content bg-secondary">
                     <div class="modal-header">
@@ -187,75 +187,36 @@
                     </div>
                     <div class="modal-body bg-light">
                         <div id="artistItemsSection">
-                            <div id="otherInputSection">
-                                <div id="textFields">
+                            <div id="otherInputSection" class="d-flex flex-col">
+                                <div id="textFields" style="width: 500px;">
                                     <div class="form-group mb-2">
                                         <label for="newItemName" class="font-weight-normal mr-2">item name</label>
-                                        <input id="newItemName" class="form-control col-8" type="text" />
+                                        <input id="newItemName" class="form-control col-10" type="text" />
                                     </div>
                                     <div class="form-group mb-2">
                                         <label for="newPriceStock" class="font-weight-normal mr-2">price</label>
-                                        <input id="newPriceStock" class="form-control col-8" type="number" />
+                                        <input id="newPriceStock" class="form-control col-10" type="number" />
                                     </div>
                                     <div class="form-group mb-2">
                                         <label for="newStockQuantity" class="font-weight-normal mr-2">quantity</label>
-                                        <input id="newStockQuantity" class="form-control col-8" type="number" />
+                                        <input id="newStockQuantity" class="form-control col-10" type="number" />
                                     </div>
                                 </div>
-                                <div id="itemPhotoPicker">
-                                    <div class="custom-file">
+                                <div id="itemPhotoPicker" class="m-4">
+                                    <div class="d-flex justify-content-center">
+                                        <img id="newItemPhoto" src="photo/item-photo.png"/>
+                                    </div>
+                                    <div class="custom-file mt-2">
                                         <input id="itemPhotoPickerInput" type="file" class="custom-file-input" />
-                                        <label class="custom-file-label" for="itemPhotoPickerInput">Choose photo</label>
+                                        <label class="custom-file-label " for="itemPhotoPickerInput">Choose photo</label>
                                     </div>
                                 </div>
+
                             </div>
                         </div>
                     </div>
                     <div class="modal-footer bg-light">
                         <input id="saveOrder" class="btn btn-secondary btn-sm col-2" type="button" data-dismiss="modal" value="save" />
-                    </div>
-                </div>
-            </form>
-        </div>
-    </div>
-
-    <div id="financialWindow" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <form id="existingItemSelect" method='POST' action="/addPromo">
-                <div class="modal-content bg-secondary">
-                    <div class="modal-header">
-                        <div id="artistSelectSection">
-                            <select id="artistsListDropdown" class="form-control" name="financeSelectedArtist">
-                                <option value="" disabled selected>select artist</option>
-                            </select>
-                        </div>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body bg-light">
-                        <div id="artistItemsSection">
-                            <div id="otherInputSection">
-                                <div id="itemList">
-                                    <div class="form-group">
-                                        <label for="financialItemList" class="font-weight-normal">select item</label>
-                                        <div id="financialItemList" class="card" style="height: 20rem;" data-spy="scroll" data-offset="0">
-
-                                        </div>
-                                    </div>
-                                </div>
-                                <div id="textFields">
-                                    <div class="form-group">
-                                        <label for="newPriceStock" class="font-weight-normal">price</label>
-                                        <input id="newPriceStock" class="form-control" type="number" />
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-footer bg-light">
-                        <input id="saveOrder" class="btn btn-secondary btn-sm col-2" type="submit" value="save" />
                     </div>
                 </div>
             </form>

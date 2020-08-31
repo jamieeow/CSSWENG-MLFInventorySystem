@@ -147,88 +147,8 @@
         </div>
     </div>
 
-    <div id="addArtistWindow" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog modal-lg" role="document">
-            <form id="artistSelect" class="form" method = 'POST' action="/addArtist">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <div class="form-group mb-2">
-                            <label for="newArtistName" class="font-weight-normal">artist name</label>
-                            <div class="d-flex flex-col">
-                                <input id="newArtistName" class="form-control" name="newArtistName" type="text"/>
-                                <input id="addItemButton" class="btn btn-secondary btn-sm col-4 ml-2" value="add item" type="button" data-toggle="modal" data-target="#addItemWindow"/>
-                            </div>
-                        </div>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="form-group">
-                            <label for="artistItemsSection" class="font-weight-normal">select item</label>
-                            <div id="artistItemsSection" class="card" style="height: 18rem; width: 47.5rem;" data-spy="scroll" data-offset="0">
-
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <input class="btn btn-secondary btn-sm col-2" type="submit" value="save">
-                    </div>
-                </div>
-            </form>
-        </div>
-    </div>
-
-    <div id="addItemWindow" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <form id="artistSelect" class="form" method = 'POST' action="/addItem">
-                <div class="modal-content bg-secondary">
-                    <div class="modal-header">
-                        <div id="artistSelectSection">
-                            <select id="artistsListDropdown" class="form-control" name="selectedArtist">
-                                <option value="" disabled selected>select artist</option>
-                            </select>
-                        </div>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body bg-light">
-                        <div id="artistItemsSection">
-                            <div id="otherInputSection">
-                                <div id="textFields">
-                                    <div class="form-group mb-2">
-                                        <label for="newItemName" class="font-weight-normal mr-2">item name</label>
-                                        <input id="newItemName" class="form-control col-8"type="text" />
-                                    </div>
-                                    <div class="form-group mb-2">
-                                        <label for="newPriceStock" class="font-weight-normal mr-2">price</label>
-                                        <input id="newPriceStock" class="form-control col-8" type="number" />
-                                    </div>
-                                    <div class="form-group mb-2">
-                                        <label for="newStockQuantity" class="font-weight-normal mr-2">quantity</label>
-                                        <input id="newStockQuantity" class="form-control col-8" type="number" />
-                                    </div>
-                                </div>
-                                <div id="itemPhotoPicker">
-                                    <div class="custom-file">
-                                        <input id="itemPhotoPickerInput" type="file" class="custom-file-input" />
-                                        <label class="custom-file-label" for="itemPhotoPickerInput">Choose photo</label>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-footer bg-light">
-                        <input id="saveOrder" class="btn btn-secondary btn-sm col-2" type="button" data-dismiss="modal" value="save"/>
-                    </div>
-                </div>
-            </form>
-        </div>
-    </div>
-
     <div id="financialWindow" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog" role="document">
+        <div class="modal-dialog modal-lg" role="document">
             <form id="existingItemSelect" method = 'POST' action="/addPromo">
                 <div class="modal-content bg-secondary">
                     <div class="modal-header">
