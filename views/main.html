@@ -90,6 +90,11 @@
                     <a id="reserveStocks" href="#" class="nav-link" data-toggle="modal" data-target="#financialWindow">Reserve stocks</a>
                 </div>
                 <hr />
+                <div id="salesReportSection" class="nav-item">
+                    <h6 class="text-center">sales report</h6>
+                    <a id="currentSalesReport" href="#" class="nav-link" data-toggle="modal" data-target="#salesReportWindow">Current sales report</a>
+                </div>
+                <hr />
                 <div id="exportData" class="nav-item">
                     <div class="custom-file">
                         <form>
@@ -104,7 +109,7 @@
 
     <div id="newOrderWindow" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog modal-lg" role="document">
-            <form id="artistSelect" class="form" method = 'POST' action="/orderCheckOut">
+            <form id="artistSelect" class="form" method='POST' action="/orderCheckOut">
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -150,7 +155,7 @@
 
     <div id="financialWindow" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog modal-lg" role="document">
-            <form id="existingItemSelect" method = 'POST' action="/addPromo">
+            <form id="existingItemSelect" method='POST' action="/addPromo">
                 <div class="modal-content bg-secondary">
                     <div class="modal-header">
                         <div id="artistSelectSection">
@@ -184,7 +189,38 @@
                         </div>
                     </div>
                     <div class="modal-footer bg-light">
-                        <input id="saveOrder" class="btn btn-secondary btn-sm col-2" type="submit" value="save"/>
+                        <input id="saveOrder" class="btn btn-secondary btn-sm col-2" type="submit" value="save" />
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div id="salesReportWindow" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <form id="salesReportForm" method='' action="">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Current sales report</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body bg-light">
+                        <table id="soldItemsTable" class="table table-bordered">
+                            <thead class="thead bg-secondary text-light">
+                                <tr>
+                                    <th scope="col">Item/Bundle</th>
+                                    <th scope="col">Price</th>
+                                    <th scope="col">Quantity sold</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="modal-footer bg-light">
+                        <input id="saveOrder" class="btn btn-secondary btn-sm col-2" type="submit" value="export data" />
                     </div>
                 </div>
             </form>

@@ -82,6 +82,11 @@
                     <a id="addBundle" href="#" class="nav-link" data-toggle="modal" data-target="#addItemWindow">Add bundle</a>
                 </div>
                 <hr />
+                <div id="salesReportSection" class="nav-item">
+                    <h6 class="text-center">sales report</h6>
+                    <a id="currentSalesReport" href="#" class="nav-link" data-toggle="modal" data-target="#salesReportWindow">Current sales report</a>
+                </div>
+                <hr />
                 <div id="exportData" class="nav-item">
                     <div class="custom-file">
                         <form>
@@ -159,7 +164,7 @@
                                 </div>
                                 <div id="itemPhotoPicker" class="m-4">
                                     <div class="d-flex justify-content-center">
-                                        <img id="newItemPhoto" src="photo/item-photo.png"/>
+                                        <img id="newItemPhoto" src="photo/item-photo.png" />
                                     </div>
                                     <div class="custom-file mt-2">
                                         <input id="itemPhotoPickerInput" type="file" class="custom-file-input" />
@@ -172,6 +177,37 @@
                     </div>
                     <div class="modal-footer bg-light">
                         <input id="saveOrder" class="btn btn-secondary btn-sm col-2" type="button" data-dismiss="modal" value="save" />
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div id="salesReportWindow" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <form id="salesReportForm" method='' action="">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Current sales report</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body bg-light">
+                        <table id="soldItemsTable" class="table table-bordered">
+                            <thead class="thead bg-secondary text-light">
+                                <tr>
+                                    <th scope="col">Item/Bundle</th>
+                                    <th scope="col">Price</th>
+                                    <th scope="col">Quantity sold</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="modal-footer bg-light">
+                        <input id="saveOrder" class="btn btn-secondary btn-sm col-2" type="submit" value="export data" />
                     </div>
                 </div>
             </form>
