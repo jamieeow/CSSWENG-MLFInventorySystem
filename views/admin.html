@@ -21,6 +21,7 @@
 
     <link rel="stylesheet" type="text/css" href="css/cssStyle.css" />
 
+    <script src="js/script.js"></script>
 
 </head>
 <body>
@@ -76,9 +77,9 @@
             <div id="leftMenu" class="card p-3" data-spy="scroll" data-offset="0" style="width: 20rem;">
                 <div id="addMenu" class="nav-item">
                     <h6 class="text-center">add</h6>
-                    <a href="#" class="nav-link" data-toggle="modal" data-target="#addArtistWindow">Add artist</a>
-                    <a href="#" class="nav-link" data-toggle="modal" data-target="#addItemWindow">Add item</a>
-                    <a href="#" class="nav-link" data-toggle="modal" data-target="#addItemWindow">Add bundle</a>
+                    <a id="addArtist" href="#" class="nav-link" data-toggle="modal" data-target="#addArtistWindow">Add artist</a>
+                    <a id="addItem" href="#" class="nav-link" data-toggle="modal" data-target="#addItemWindow">Add item</a>
+                    <a id="addBundle" href="#" class="nav-link" data-toggle="modal" data-target="#addItemWindow">Add bundle</a>
                 </div>
                 <hr />
                 <div id="exportData" class="nav-item">
@@ -90,52 +91,6 @@
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
-
-    <div id="newOrderWindow" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog modal-lg" role="document">
-            <form id="artistSelect" class="form" method='POST' action="/orderCheckOut">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body d-flex flex-col">
-                        <div id="buyItemSection" class="card" style="width: 60rem; height: 30rem;">
-                            <div id="buyArtistSection" class="card-header bg-secondary">
-                                <select id="artistsListDropdown" class="form-control" name="selectedArtist">
-                                    <option value="" disabled selected>select artist</option>
-                                </select>
-                            </div>
-                            <div id="buyItemSection" class="card-body">
-
-                            </div>
-                        </div>
-                        <div id="checkoutSection" class="card p-4" style="width: 20rem;">
-                            <h5 class="card-title">items</h5>
-                            <table id="checkoutItemsList">
-                                <tr>
-                                    <td>item 1</td>
-                                    <td>20</td>
-                                </tr>
-                                <tr>
-                                    <td>item 1</td>
-                                    <td>20</td>
-                                </tr>
-                            </table>
-                            <table id="totalItems" class="card-title">
-                                <tr>
-                                    <th>total</th>
-                                    <th>20</th>
-                                </tr>
-                            </table>
-                            <input class="btn btn-secondary col-sm-8 mt-1 ml-3" type="submit" value="check out">
-                        </div>
-                    </div>
-                </div>
-            </form>
         </div>
     </div>
 
