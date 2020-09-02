@@ -1,0 +1,16 @@
+{{#each artistItems}}
+    <div class="row row-cols-1 row-cols-sm-1 row-cols-md-2 row-cols-lg-{{../lgsize}} itemGrid" id="{{artistID}}-{{../section}}">
+        {{#each item}}
+            <div class="col mb-3" style="padding: 5px">
+                <div class="card">
+                <img src="{{itemPicture}}" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">{{itemName}}</h5>
+                    <p class="card-text">PHP {{itemPrice}} | {{stocksQuantity}} left</p>
+                </div>
+                </div>
+            </div>
+        {{/each}}
+    </div>
+
+{{/each}}
