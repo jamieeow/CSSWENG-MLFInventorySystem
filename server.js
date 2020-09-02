@@ -32,6 +32,11 @@ const mainRoutes = require('./router/mainRoutes');
 app.use('/', mainRoutes);
 app.use('/login', loginRoutes);
 
+// Handlebars
+const hbs = require('hbs');
+app.set('view engine', 'hbs');
+hbs.registerPartials(__dirname + '/views/partials');
+
 app.listen(port, () => {
   console.log('App listening at : localhost:' + port)
 })
