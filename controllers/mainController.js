@@ -19,6 +19,35 @@ const mainController = {
             {
                 artistID: 3,
                 artistName: "Artist 3"
+            }],
+            artistItems: [{
+                artistID: 1,
+                item: [{
+                    itemPicture: "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSWxMyKjtheIlC1HLrWeJMU4t4aynpeaJ-VlA&usqp=CAU",
+                    itemName: "Item 1",
+                    itemPrice: 5.00,
+                    stocksQuantity: 20
+                },{
+                    itemPicture: "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSWxMyKjtheIlC1HLrWeJMU4t4aynpeaJ-VlA&usqp=CAU",
+                    itemName: "Item 2",
+                    itemPrice: 5.00,
+                    stocksQuantity: 20
+                },{
+                    itemPicture: "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSWxMyKjtheIlC1HLrWeJMU4t4aynpeaJ-VlA&usqp=CAU",
+                    itemName: "Item 3",
+                    itemPrice: 5.00,
+                    stocksQuantity: 20
+                },{
+                    itemPicture: "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSWxMyKjtheIlC1HLrWeJMU4t4aynpeaJ-VlA&usqp=CAU",
+                    itemName: "Item 2",
+                    itemPrice: 5.00,
+                    stocksQuantity: 20
+                },{
+                    itemPicture: "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSWxMyKjtheIlC1HLrWeJMU4t4aynpeaJ-VlA&usqp=CAU",
+                    itemName: "Item 3",
+                    itemPrice: 5.00,
+                    stocksQuantity: 20
+                }]
             }]
         }
 
