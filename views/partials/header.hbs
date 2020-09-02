@@ -1,0 +1,44 @@
+<div id="upperSection" class="container mt-4">
+    <div class="card d-flex flex-row bg-secondary text-light" style="width: 69.3rem; height: 10rem;">
+        <div id="salesCounter" class="d-flex flex-col text-center">
+            <div id="soldCounter" class="col">
+                <h1 id="counterNumber" class="font-weight-bold">{{totalSold}}</h1>
+                <h5 id="textLabel">sold</h5>
+            </div>
+            <div id="dayCounter" class="col">
+                <h1 id="counterNumber" class="font-weight-bold">{{daysLeft}}</h1>
+                <h5 id="textLabel">day left</h5>
+            </div>
+            <div id="hoursCounter" class="col">
+                <h1 id="counterNumber" class="font-weight-bold">{{hoursLeft}}</h1>
+                <h5 id="textLabel">hours left</h5>
+            </div>
+            <div id="folioCounter" class="col">
+                <h1 id="counterNumber" class="font-weight-bold">{{foliosGiven}}</h1>
+                <h5 id="textLabel">folios given</h5>
+            </div>
+        </div>
+
+        <div id="userMenuIcon">
+            <img id="logoImageGrey" src="photo/logo-grey.png">
+        </div>
+
+        <div id="userMenu" class="d-flex flex-col text-left">
+            <div id="userIcon" class="col">
+                <img id="userIconImage" src="../photo/icon-user.png">
+            </div>
+            <div id="userNameandArrow" class="d-flex flex-col justify-content-left">
+                <div class="nav-item dropdown">
+                    <a id="userMenuDropdown" class="nav-link dropdown-toggle text-light" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        User
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right mt-4" aria-labelledby="userMenuDropdown">
+                        <a class="dropdown-item" href="#">Settings</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="../login">Log out</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
