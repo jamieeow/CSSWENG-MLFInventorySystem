@@ -14,7 +14,7 @@ itemPicture - URL of item picture
 */
 const ItemSchema = new mongoose.Schema({
 	_id: Schema.Types.ObjectId,
-    artistID: { type: Schema.Types.ObjectId, ref: 'Artist' },
+    artistID: { type: Number, required: true },
     eventID: { type: Schema.Types.ObjectId, ref: 'Event' },
     itemName: {type: String, required: true},
     itemPrice: {type: Number, required: true},

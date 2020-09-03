@@ -14,7 +14,7 @@ bundleStock - Number of stocks the bundle currently have
 */
 const BundleSchema = new mongoose.Schema({
 	_id: Schema.Types.ObjectId,
-    artistID: { type: Schema.Types.ObjectId, ref: 'Artist' },
+    artistID: { type: Number, required: true },
     eventID: { type: Schema.Types.ObjectId, ref: 'Event' },
     includedItems: {type: Array, required: true},
     bundleName: {type: String, required: true},
