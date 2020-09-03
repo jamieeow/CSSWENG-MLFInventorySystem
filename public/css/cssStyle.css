@@ -103,10 +103,6 @@ body {
     margin-right: 20px;
 }
 
-#totalItems {
-    margin-top: 270px;
-}
-
 /*modal new artist*/
 #newArtistNameInputs {
     width: 800px;
