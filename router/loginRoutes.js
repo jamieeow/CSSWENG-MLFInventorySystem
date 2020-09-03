@@ -5,14 +5,8 @@ const loginController = require("../controllers/loginController");
 
 //These goes to the URL: /login because of Routes in server.js
 //get is used when a user chose to log out
-router.get('/login', loginController.getLogin);
+router.get('/', loginController.getLogin);
 //post is used when logging in
-router.post('/login', loginController.postLogin);
-
-router.get('/admin', loginController.getLoginAdmin);
-//post is used when logging in
-router.post('/admin', loginController.postLoginAdmin);
-
-
+router.post('/', loginController.postLogin);
 
 module.exports = router;

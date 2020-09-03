@@ -4,7 +4,7 @@ const client = mongodb.MongoClient;
 //Database name
 const databaseName = 'MalateLiteraryFolio'
 //Database url
-const url = 'mongodb://localhost:27017/?readPreference=primary&appname=MongoDB%20Compass%20Community&ssl=false;'
+const url = 'mongodb://localhost:27017/MalateLiteraryFolio'
 // Place all schemas here
 const admin = require('./AdminModel.js');
 const artist = require('./ArtistModel.js');

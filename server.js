@@ -1,6 +1,6 @@
 'use strict';
 var http = require('http');
-var port = process.env.PORT || 1337;
+var port = /*process.env.PORT ||*/ 1337;
 const express = require('express')
 const bodyParser = require("body-parser");
 const app = express()
@@ -14,6 +14,11 @@ http.createServer(function (req, res) {
     res.end('Hello World\n');
 }).listen(port);
 */
+
+//connecting to database
+try {
+  db.connect();
+  } catch (e) {console.log(e);}
 
 app.use(express.static(__dirname + '/public'));
 
@@ -30,9 +35,11 @@ app.get("/" , MainController.getMain);
 //Routes
 const loginRoutes = require('./router/loginRoutes');
 const mainRoutes = require('./router/mainRoutes');
+const adminRoutes = require('./router/adminRoutes');
 //Routes
 app.use('/', mainRoutes);
 app.use('/', loginRoutes);
+app.use('/', adminRoutes);
 
 // Handlebars
 const hbs = require('hbs');

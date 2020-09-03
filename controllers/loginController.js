@@ -10,16 +10,6 @@ const loginController = {
     postLogin: function(req, res, next){
         res.redirect('/');
     },
-
-    //Render admin
-    getLoginAdmin: function(req, res, next){
-        res.render('admin')
-    },
-
-    //Render admin with data
-    postLoginAdmin: function(req, res, next){
-        res.redirect('/admin');
-    },
     
 }
 
