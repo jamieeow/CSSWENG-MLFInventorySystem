@@ -32,7 +32,7 @@ const loginRoutes = require('./router/loginRoutes');
 const mainRoutes = require('./router/mainRoutes');
 //Routes
 app.use('/', mainRoutes);
-app.use('/login', loginRoutes);
+app.use('/', loginRoutes);
 
 // Handlebars
 const hbs = require('hbs');
