@@ -8,6 +8,7 @@ const adminController = {
     getLoginAdmin: function(req, res, next){
         //find artist then render with details
         db.findMany(Artist, {}, '', result=>{
+        /*
             let artistArray = [];
 
             for (let i=0;i<result.length;i++){
@@ -21,7 +22,9 @@ const adminController = {
                 artist: artistArray,
             }
             res.render('admin',details)
+            */
         })
+        res.render('admin')
     },
 
     /*
