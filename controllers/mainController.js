@@ -23,26 +23,31 @@ const mainController = {
             artistItems: [{
                 artistID: 1,
                 item: [{
+                    itemID: 001,
                     itemPicture: "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSWxMyKjtheIlC1HLrWeJMU4t4aynpeaJ-VlA&usqp=CAU",
                     itemName: "Item 1",
                     itemPrice: 5.00,
                     stocksQuantity: 20
                 },{
+                    itemID: 002,
                     itemPicture: "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSWxMyKjtheIlC1HLrWeJMU4t4aynpeaJ-VlA&usqp=CAU",
                     itemName: "Item 2",
                     itemPrice: 5.00,
                     stocksQuantity: 20
                 },{
+                    itemID: 003,
                     itemPicture: "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSWxMyKjtheIlC1HLrWeJMU4t4aynpeaJ-VlA&usqp=CAU",
                     itemName: "Item 3",
                     itemPrice: 5.00,
                     stocksQuantity: 20
                 },{
+                    itemID: 004,
                     itemPicture: "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSWxMyKjtheIlC1HLrWeJMU4t4aynpeaJ-VlA&usqp=CAU",
                     itemName: "Item 2",
                     itemPrice: 5.00,
                     stocksQuantity: 20
                 },{
+                    itemID: 005,
                     itemPicture: "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSWxMyKjtheIlC1HLrWeJMU4t4aynpeaJ-VlA&usqp=CAU",
                     itemName: "Item 3",
                     itemPrice: 5.00,
