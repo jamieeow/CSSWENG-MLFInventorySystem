@@ -9,7 +9,7 @@ password - password of cashier
 */
 const CashierSchema = new mongoose.Schema({
 	_id: Schema.Types.ObjectId,
-    artistID: {type: type: Schema.Types.ObjectId, required: true, ref: 'Artist' },
+    artistID: {type: Schema.Types.ObjectId, required: true, ref: 'Artist' },
     password: {type: String, required: true},
 });
 

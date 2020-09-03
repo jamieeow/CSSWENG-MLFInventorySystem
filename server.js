@@ -5,6 +5,8 @@ const express = require('express')
 const bodyParser = require("body-parser");
 const app = express()
 const path = require('path');
+const db = require('./models/database.js');
+const mongoose = require('mongoose');
 
 /*
 http.createServer(function (req, res) {
