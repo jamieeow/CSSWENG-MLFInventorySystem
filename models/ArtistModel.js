@@ -9,7 +9,7 @@ artistName - Name of artist
 */
 const ArtistSchema = new mongoose.Schema({
 	_id: Schema.Types.ObjectId,
-	artistID: {type: Number, required: true},
+	artistID: {type: Number, required: true, unique:true},
     artistName: {type: String, required: true},
 });
 
