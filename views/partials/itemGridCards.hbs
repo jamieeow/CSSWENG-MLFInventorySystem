@@ -3,11 +3,12 @@
         {{#each item}}
             <div class="col mb-3" style="padding: 5px">
                 <div class="card">
-                <img src="{{itemPicture}}" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h5 class="card-title">{{itemName}}</h5>
-                    <p class="card-text">PHP {{itemPrice}} | {{stocksQuantity}} left</p>
-                </div>
+                    <img src="{{itemPicture}}" class="card-img-top" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">{{itemName}}</h5>
+                        <p class="card-text">PHP {{itemPrice}} | {{stocksQuantity}} left</p>
+                        <a href="#" class="stretched-link" onclick="{{../../section}}('{{itemID}}', '{{itemName}}', '{{itemPrice}}')" style="size: 0px;"></a>
+                    </div>
                 </div>
             </div>
         {{/each}}

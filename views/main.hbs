@@ -89,28 +89,25 @@
                                 </select>
                             </div>
                             <div id="buyItemSection" class="card-body overflow-auto">
-                                {{> itemGridCards section="buyItemSection" lgsize="3"}}
+                                {{> itemGridCards section="buyItem" lgsize="3"}}
                             </div>
                         </div>
-                        <div id="checkoutSection" class="card p-4" style="width: 20rem;">
-                            <h5 class="card-title">items</h5>
-                            <table id="checkoutItemsList">
-                                <tr>
-                                    <td>item 1</td>
-                                    <td>20</td>
-                                </tr>
-                                <tr>
-                                    <td>item 1</td>
-                                    <td>20</td>
-                                </tr>
-                            </table>
-                            <table id="totalItems" class="card-title">
-                                <tr>
-                                    <th>total</th>
-                                    <th>20</th>
-                                </tr>
-                            </table>
-                            <input class="btn btn-secondary col-sm-8 mt-1 ml-3" type="submit" value="check out">
+                        <div id="checkoutSection align-items-end" class="card p-4" style="width: 20rem;">
+                            <div>
+                                <h5 class="card-title">items</h5>
+                                <table id="checkoutItemsList" class="overflow-auto table table-borderless table-sm">
+                                    
+                                </table>
+                            </div>
+                            <div class="mt-auto">
+                                <table id="totalItems" class="card-title table">
+                                    <tr>
+                                        <th>total</th>
+                                        <th id="totalPrice" class='text-right'>0</th>
+                                    </tr>
+                                </table>
+                                <input class="btn btn-secondary col-sm-8 mt-1 ml-3" type="submit" value="check out">
+                            </div>
                         </div>
                     </div>
                 </div>
