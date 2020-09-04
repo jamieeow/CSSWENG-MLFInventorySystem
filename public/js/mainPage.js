@@ -1,6 +1,7 @@
 var buyCart = []
 var inCart = []
 var totalPrice = 0
+var financialSelected
 
 /* updates the checkout List and local variables when an item card is clicked */
 function buyItem(itemID, itemName, itemPrice) {
@@ -27,7 +28,6 @@ function buyItem(itemID, itemName, itemPrice) {
     
     totalPrice += parseFloat(itemPrice)
     $("#totalPrice").html(parseFloat(totalPrice))
-    console.log(buyCart)
 }
 
 /*  updates the checkout list and local variables when the remove item button is clicked */
@@ -37,24 +37,46 @@ function removeCartItem(itemID, itemPrice) {
 
     buyCart.splice(i, 1)
     inCart.splice(i, 1)
-    console.log(buyCart)
 
     $("#" + itemID + "Cart").remove()
     $("#totalPrice").html(parseFloat(totalPrice))
 }
 
+/*  highlights selected item in financialItemList modals */
+function financialItem(itemID, itemName, itemPrice) {
+    $("[id$=financialItem-item]").removeClass('bg-secondary')
+    $("#" + itemID + "-financialItem-item").addClass('bg-secondary')
+    financialSelected = itemID
+}
+
+
 $(document).ready(function () {
     $(".itemGrid").hide()
     
+    /*  changes the item cards in buyItemSection according to selected artist */
     $("select[name='selectedArtist']").change(function() {
         var selected = $(this).children("option:selected").val();
         $(".itemGrid").hide()
         $("#" + selected + "-buyItem").show()
     })
     
+    /*  changes the item cards in financialItemList according to selected artist */
     $("select[name='financeSelectedArtist']").change(function() {
         var selected = $(this).children("option:selected").val();
         $(".itemGrid").hide()
-        $("#" + selected + "-financialItemList").show()
+        $("#" + selected + "-financialItem").show()
+    })
+
+    /*  resets all values upon closing of any modal */
+    $(".modal").on('hidden.bs.modal', function() {
+        $(".defaultVal").prop("selected", true)
+        $(".itemGrid").hide()
+        $("[id$=financialItem-item]").removeClass('bg-secondary')
+        $("#checkoutItemsList").html('')
+
+        buyCart = []
+        inCart = []
+        totalPrice = 0
+        financialSelected = ''
     })
 })

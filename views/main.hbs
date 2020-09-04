@@ -82,7 +82,7 @@
                         <div id="buySection" class="card" style="width: 60rem; height: 30rem;">
                             <div id="buyArtistSection" class="card-header bg-secondary">
                                 <select id="artistsListDropdown" class="form-control" name="selectedArtist">
-                                    <option value="" disabled selected>select artist</option>
+                                    <option value="" class="defaultVal" disabled selected>select artist</option>
                                     {{#each artist}}
                                         <option value="{{artistID}}">{{artistName}}</option>
                                     {{/each}}
@@ -122,7 +122,7 @@
                     <div class="modal-header">
                         <div id="artistSelectSection">
                             <select id="artistsListDropdown" class="form-control" name="financeSelectedArtist">
-                                <option value="" disabled selected>select artist</option>
+                                <option value="" class="defaultVal" disabled selected>select artist</option>
                                     {{#each artist}}
                                         <option value="{{artistID}}">{{artistName}}</option>
                                     {{/each}}
@@ -139,7 +139,7 @@
                                     <div class="form-group">
                                         <label for="financialItemList" class="font-weight-normal">select item</label>
                                         <div id="financialItemList" class="card overflow-auto" style="height: 20rem;" data-spy="scroll" data-offset="0">
-                                            {{> itemGridCards section="financialItemList" lgsize="4"}}
+                                            {{> itemGridCards section="financialItem" lgsize="4"}}
                                         </div>
                                     </div>
                                 </div>
