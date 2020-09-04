@@ -111,9 +111,6 @@ body {
 * admin.html
 */
 /*modal new artist*/
-#newArtistName {
-    width: 230%;
-}
 
 /*modal new item*/
 #newItemPhoto {
