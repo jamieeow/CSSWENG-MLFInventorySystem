@@ -5,7 +5,7 @@ $(document).ready(function () {
             url: '/admin/addArtist',
             method: 'POST',
             data: {
-                artistID: $('#newArtistID').val(),
+                artistID: $('#newArtistIDNo').val(),
                 artistName: $('#newArtistName').val(),
             }
         })
@@ -13,34 +13,18 @@ $(document).ready(function () {
         //if added successfully do these 
         //TODO: error checking e.g. empty
         $('#artistsListDropdownItem').append($('<option>', { 
-            text: $('#newArtistName').val()
+            text: $('#newArtistName').val(),
+            value: $('#newArtistIDNo').val(),
         }));
         $('#artistsListDropdownBundle').append($('<option>', { 
-            text: $('#newArtistName').val()
+            text: $('#newArtistName').val(),
+            value: $('#newArtistIDNo').val(),
         }));
         $('#addArtistWindow').modal('toggle');
         $('#newArtistName').val("");
-        $('#newArtistID').val("");
+        $('#newArtistIDNo').val("");
     });
 
-    $('#addItemButton').click(function () {
-        $.ajax({
-            url: '/admin/addItem',
-            method: 'POST',
-            data: {
-                artistID: $('#artistsListDropdownItem').val(),
-                //eventID: ,
-                itemName: $('#newItemName').val(),
-                itemPrice: $('#newPriceStock').val(),
-                stockQuantity: $('#newStockQuantity').val(),
-                //itemsSold: {type: Number, required: true},
-                //itemPicture: {type: String, required: true},
-            }
-        })
-        $('#artistsListDropdown').val("");
-        $('#newItemName').val("");
-        $('#newPriceStock').val("");
-        $('#newStockQuantity').val("");
-    });
+    
 
 });

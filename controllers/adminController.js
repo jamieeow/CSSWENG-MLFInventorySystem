@@ -1,5 +1,6 @@
 const path = require('path');
 const mongoose = require('mongoose');
+const multer = require('multer');
 const db = require('../models/database.js');
 const Artists = require('../models/ArtistModel.js');
 const Items = require('../models/ItemModel.js');
@@ -61,34 +62,41 @@ const adminController = {
     //Add item to database
     //TODO: eventID and multer for itemPicture
     postAddItem: function(req, res, next){
-        console.log(req.body);
-        data = {
-            _id: new mongoose.Types.ObjectId(),
-            artistID: req.body.artistID,
-            eventID: new mongoose.Types.ObjectId(), //temp
-            itemName: req.body.itemName,
-            itemPrice: req.body.itemPrice,
-            stockQuantity: req.body.stockQuantity,
-            itemsSold: 0,
-            itemPicture: 'temp', //temp
-        }
-        db.insertOne(Items, data, result=>{
-            if (result) {
-                console.log("Successfully added item to the Items collection");
+        //multer storage
+        const storage = multer.diskStorage({
+            destination: './public/photo/',
+            filename: function(req, file, cb) {
+              cb(null,file.originalname);
             }
-            else {
-                console.log("Error adding item to the Items collection");
+          });
+  
+          const upload = multer({
+              storage: storage
+          }).single('itemPhotoPickerInput');
+
+          upload(req, res, (err) => {
+            if (!err){
+                data = {
+                    _id: new mongoose.Types.ObjectId(),
+                    artistID: req.body.selectedArtist,
+                    eventID: new mongoose.Types.ObjectId(), //temp
+                    itemName: req.body.newItemName,
+                    itemPrice: req.body.newPriceStock,
+                    stockQuantity: req.body.newStockQuantity,
+                    itemsSold: 0,
+                    itemPicture: '/photo/'+ req.file.originalname,
+                }
+                db.insertOne(Items, data, result=>{
+                    if (result) {
+                        console.log("Successfully added item to the Items collection");
+                    }
+                    else {
+                        console.log("Error adding item to the Items collection");
+                    }
+                });  
+                res.redirect('/admin');
             }
-        });
-        db.insertOne(Items, data, result=>{
-            if (result) {
-                console.log("Successfully added item to the Items collection");
-            }
-            else {
-                console.log("Error adding item to the Items collection");
-            }
-        });
-        res.redirect('/admin');
+        })
     },
     
 }

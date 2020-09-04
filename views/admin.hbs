@@ -21,7 +21,6 @@
 
     <link rel="stylesheet" type="text/css" href="css/cssStyle.css" />
 
-    <script src="js/script.js"></script>
     <script src="js/adminPage.js"></script>
 
 </head>
@@ -79,7 +78,7 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <input class="btn btn-secondary btn-sm col-2" type="submit" value="save">
+                        <input id="addArtistButton" class="btn btn-secondary btn-sm col-2" type="button" value="save">
                     </div>
                 </div>
             </form>
@@ -88,7 +87,7 @@
 
     <div id="addItemWindow" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog modal-lg" role="document">
-            <form id="artistSelect" class="form">
+            <form id="artistSelect" class="form" method="POST" action="/admin/addItem" enctype="multipart/form-data">
                 <div class="modal-content bg-secondary">
                     <div class="modal-header">
                         <div id="artistSelectSection">
@@ -109,23 +108,23 @@
                                 <div id="textFields" style="width: 500px;">
                                     <div class="form-group mb-2">
                                         <label for="newItemName" class="font-weight-normal mr-2">item name</label>
-                                        <input id="newItemName" class="form-control col-10" type="text" />
+                                        <input name="newItemName" id="newItemName" class="form-control col-10" type="text" />
                                     </div>
                                     <div class="form-group mb-2">
                                         <label for="newPriceStock" class="font-weight-normal mr-2">price</label>
-                                        <input id="newPriceStock" class="form-control col-10" type="number" />
+                                        <input name="newPriceStock" id="newPriceStock" class="form-control col-10" type="number" />
                                     </div>
                                     <div class="form-group mb-2">
                                         <label for="newStockQuantity" class="font-weight-normal mr-2">quantity</label>
-                                        <input id="newStockQuantity" class="form-control col-10" type="number" />
+                                        <input name="newStockQuantity" id="newStockQuantity" class="form-control col-10" type="number" />
                                     </div>
                                 </div>
                                 <div id="itemPhotoPicker" class="m-4">
                                     <div class="d-flex justify-content-center">
-                                        <img id="newItemPhoto" src="photo/item-photo.png" />
+                                        <img name="newItemPhoto" id="newItemPhoto" src="photo/item-photo.png" />
                                     </div>
                                     <div class="custom-file mt-2">
-                                        <input id="itemPhotoPickerInput" type="file" class="custom-file-input" />
+                                        <input name="itemPhotoPickerInput" id="itemPhotoPickerInput" type="file" class="custom-file-input" />
                                         <label class="custom-file-label " for="itemPhotoPickerInput">Choose photo</label>
                                     </div>
                                 </div>
@@ -134,7 +133,7 @@
                         </div>
                     </div>
                     <div class="modal-footer bg-light">
-                        <input name="addItemButton" id="addItemButton" class="btn btn-secondary btn-sm col-2" type="button" data-dismiss="modal" value="save" />
+                        <button name="addItemButton" id="addItemButton" class="btn btn-secondary btn-sm col-2" type="submit">save</button>
                     </div>
                 </div>
             </form>
@@ -143,7 +142,7 @@
 
     <div id="addBundleWindow" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog modal-lg" role="document">
-            <form id="artistSelect" class="form" method='POST' action="/addItem">
+            <form id="artistSelect" class="form" method='POST' action="/admin/addBundle">
                 <div class="modal-content bg-secondary">
                     <div class="modal-header">
                         <div id="artistSelectSection">
@@ -164,7 +163,7 @@
                                 <div id="bundleInfoSection" class="d-flex flex-col">
                                     <div id="textFields" style="width: 500px;">
                                         <div class="form-group mb-2">
-                                            <label for="newItemName" class="font-weight-normal mr-2">item name</label>
+                                            <label for="newItemName" class="font-weight-normal mr-2">bundle name</label>
                                             <input id="newItemName" class="form-control col-10" type="text" />
                                         </div>
                                         <div class="form-group mb-2">
@@ -176,13 +175,13 @@
                                             <input id="newStockQuantity" class="form-control col-10" type="number" />
                                         </div>
                                     </div>
-                                    <div id="itemPhotoPicker" class="m-4">
+                                    <div id="BundlePhotoPicker" class="m-4">
                                         <div class="d-flex justify-content-center">
                                             <img id="newItemPhoto" src="photo/item-photo.png" />
                                         </div>
                                         <div class="custom-file mt-2">
-                                            <input id="itemPhotoPickerInput" type="file" class="custom-file-input" />
-                                            <label class="custom-file-label " for="itemPhotoPickerInput">Choose photo</label>
+                                            <input id="BundlePhotoPicker" type="file" class="custom-file-input" />
+                                            <label class="custom-file-label " for="BundlePhotoPicker">Choose photo</label>
                                         </div>
                                     </div>
                                 </div>
