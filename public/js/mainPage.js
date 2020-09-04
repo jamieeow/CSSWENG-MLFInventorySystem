@@ -52,6 +52,7 @@ function financialItem(itemID, itemName, itemPrice) {
 
 $(document).ready(function () {
     $(".itemGrid").hide()
+    $("[id$=financialItem]").addClass("mx-0")
     
     /*  changes the item cards in buyItemSection according to selected artist */
     $("select[name='selectedArtist']").change(function() {
