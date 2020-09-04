@@ -99,22 +99,25 @@ body {
     margin: 0;
 }
 
-#buySection{
+#buyItemSection{
     margin-right: 20px;
 }
 
-/*modal new artist*/
-#newArtistNameInputs {
-    width: 800px;
+#totalItems {
+    margin-top: 270px;
 }
 
+/*
+* admin.html
+*/
+/*modal new artist*/
 #newArtistName {
-    width: 500px;
+    width: 230%;
 }
 
 /*modal new item*/
 #newItemPhoto {
-    width: 82%;
+    width: 70%;
     height: auto;
 }
 
@@ -122,3 +125,4 @@ body {
     margin-left: 130px;
     width: 500px;
 }
+
