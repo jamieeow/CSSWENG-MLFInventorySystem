@@ -11,19 +11,23 @@ $(document).ready(function () {
     createDiscount = $("#createDiscount");
 
     addBundle = $("#addBundle");
-    //restockItem = $("");
-    //reserveStocks = $("");
+    restockItem = $("#restockItem");
+    reserveStocks = $("#reserveStocks");
 
-    $("label[for='newPriceStock']").text("price");
-
+    /*  Main Page   */
     createDiscount.click(function () {
         $("label[for='newPriceStock']").text("discount percentage");
-
-        $("#financialWindow").on('hidden.bs.modal', function () {
-            $("label[for='newPriceStock']").text("price");
-        })
     });
 
+    restockItem.click(function () {
+        $("label[for='newPriceStock']").text("quantity to add");
+    });
+
+    restockItem.click(function () {
+        $("label[for='newPriceStock']").text("quantity to reserve");
+    });
+
+    /*  Admin Page */
     addBundle.click(function () {
         $("label[for='newItemName']").text("bundle name");
 
