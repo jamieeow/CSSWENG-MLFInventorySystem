@@ -13,4 +13,4 @@ const CashierSchema = new mongoose.Schema({
     password: {type: String, required: true},
 });
 
-module.exports = mongoose.model("Cashier", CashierSchema);
+module.exports = mongoose.model("Cashiers", CashierSchema);

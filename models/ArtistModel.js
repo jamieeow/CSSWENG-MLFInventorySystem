@@ -13,4 +13,4 @@ const ArtistSchema = new mongoose.Schema({
     artistName: {type: String, required: true},
 });
 
-module.exports = mongoose.model("Artist", ArtistSchema);
+module.exports = mongoose.model("Artists", ArtistSchema);

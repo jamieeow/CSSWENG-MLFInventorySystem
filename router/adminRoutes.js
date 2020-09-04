@@ -1,17 +1,17 @@
 const express = require('express');
 const router = express();
 
-const loginController = require("../controllers/adminController");
+const adminController = require("../controllers/adminController");
 
 //get admin page
-router.get('/admin', loginController.getLoginAdmin);
+router.get('/admin', adminController.getLoginAdmin);
 /*
 //post is used when logging in
 router.post('/admin', loginController.postLoginAdmin);
 */
 //adds artist to database
-router.post('/admin/addArtist', loginController.postAddArtist);
+router.post('/admin/addArtist', adminController.postAddArtist);
 //adds item to database
-router.post('/admin/addItem', loginController.postAddItem);
+router.post('/admin/addItem', adminController.postAddItem);
 
 module.exports = router;

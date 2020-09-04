@@ -23,4 +23,4 @@ const ItemSchema = new mongoose.Schema({
     itemPicture: {type: String, required: true},
 });
 
-module.exports = mongoose.model("Item", ItemSchema);
+module.exports = mongoose.model("Items", ItemSchema);
