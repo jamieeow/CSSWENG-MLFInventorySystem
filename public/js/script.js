@@ -17,14 +17,17 @@ $(document).ready(function () {
     /*  Main Page   */
     createDiscount.click(function () {
         $("label[for='newPriceStock']").text("discount percentage");
+        $("#newPriceStock").prop("step", "0.01")
     });
 
     restockItem.click(function () {
         $("label[for='newPriceStock']").text("quantity to add");
+        $("#newPriceStock").prop("step", "1")
     });
 
-    restockItem.click(function () {
+    reserveStocks.click(function () {
         $("label[for='newPriceStock']").text("quantity to reserve");
+        $("#newPriceStock").prop("step", "1")
     });
 
     /*  Admin Page */
