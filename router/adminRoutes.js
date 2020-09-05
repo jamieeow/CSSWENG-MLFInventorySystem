@@ -13,5 +13,7 @@ router.post('/admin', loginController.postLoginAdmin);
 router.post('/admin/addArtist', adminController.postAddArtist);
 //adds item to database
 router.post('/admin/addItem', adminController.postAddItem);
+//adds bundle to database
+router.post('/admin/addBundle', adminController.postAddBundle);
 
 module.exports = router;

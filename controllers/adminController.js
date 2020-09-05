@@ -4,6 +4,7 @@ const multer = require('multer');
 const db = require('../models/database.js');
 const Artists = require('../models/ArtistModel.js');
 const Items = require('../models/ItemModel.js');
+const Bundles = require('../models/BundleModel.js');
 
 const adminController = {
     //Render admin
@@ -20,9 +21,46 @@ const adminController = {
                     }
                 artistArray.push(artistObj);
             }
+
+            //details of admin page
             var details = {
                 artist: artistArray,
+                artistItems: [{
+                    artistID: 1,
+                    item: [{
+                        itemID: 001,
+                        itemPicture: "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSWxMyKjtheIlC1HLrWeJMU4t4aynpeaJ-VlA&usqp=CAU",
+                        itemName: "Item 1",
+                        itemPrice: 5.00,
+                        stocksQuantity: 20
+                    },{
+                        itemID: 002,
+                        itemPicture: "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSWxMyKjtheIlC1HLrWeJMU4t4aynpeaJ-VlA&usqp=CAU",
+                        itemName: "Item 2",
+                        itemPrice: 5.00,
+                        stocksQuantity: 20
+                    },{
+                        itemID: 003,
+                        itemPicture: "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSWxMyKjtheIlC1HLrWeJMU4t4aynpeaJ-VlA&usqp=CAU",
+                        itemName: "Item 3",
+                        itemPrice: 5.00,
+                        stocksQuantity: 20
+                    },{
+                        itemID: 004,
+                        itemPicture: "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSWxMyKjtheIlC1HLrWeJMU4t4aynpeaJ-VlA&usqp=CAU",
+                        itemName: "Item 2",
+                        itemPrice: 5.00,
+                        stocksQuantity: 20
+                    },{
+                        itemID: 005,
+                        itemPicture: "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSWxMyKjtheIlC1HLrWeJMU4t4aynpeaJ-VlA&usqp=CAU",
+                        itemName: "Item 3",
+                        itemPrice: 5.00,
+                        stocksQuantity: 20
+                    }]
+                }]
             }
+
             if (result){
                 res.render('admin',details)
             }
@@ -33,13 +71,6 @@ const adminController = {
         
     },
 
-    /*
-    //Render admin with data
-    postLoginAdmin: function(req, res, next){
-        res.redirect('/admin');
-    },
-    */
-
     //Add artist to database
     postAddArtist: function(req, res, next){
         data = {
@@ -49,10 +80,10 @@ const adminController = {
         }
         db.insertOne(Artists, data, result=>{
             if (result) {
-                console.log("Successfully added artist to the Artist collection");
+                console.log("Successfully added artist to the artists collection");
             }
             else {
-                console.log("Error adding artist to the Artist collection");
+                console.log("Error adding artist to the artists collection");
             }
         });
         
@@ -88,15 +119,41 @@ const adminController = {
                 }
                 db.insertOne(Items, data, result=>{
                     if (result) {
-                        console.log("Successfully added item to the Items collection");
+                        console.log("Successfully added item to the items collection");
                     }
                     else {
-                        console.log("Error adding item to the Items collection");
+                        console.log("Error adding item to the items collection");
                     }
                 });  
                 res.redirect('/admin');
             }
         })
+    },
+
+    //Add bundle to database
+    postAddBundle: function(req, res, next){
+        data = {
+            _id: new mongoose.Types.ObjectId(),
+            //artistID: req.body.artistID,
+            //eventID:,
+            //includedItems:,
+            //bundleName:,
+            //bundlePrice:,
+            //bundleSold:,
+            //bundleStock:,
+        }
+
+        /*
+        db.insertOne(Bundles, data, result=>{
+            if (result) {
+                console.log("Successfully added bundle to the bundles collection");
+            }
+            else {
+                console.log("Error adding bundle to the bundles collection");
+            }
+        });
+        */
+        res.redirect('/admin');
     },
     
 }
