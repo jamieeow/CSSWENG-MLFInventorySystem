@@ -1,6 +1,3 @@
-body {
-    
-}
 /*login.html*/
 #loginPage {
     background-color: black;
@@ -99,7 +96,7 @@ body {
     margin: 0;
 }
 
-#buyItemSection{
+#buySection{
     margin-right: 20px;
 }
 
