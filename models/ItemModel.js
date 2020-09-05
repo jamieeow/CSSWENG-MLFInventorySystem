@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 
 /*
 _id - ID of bundle
-artistID - ID of artist (foreign key)
+artistID - ID number of artist
 eventID - ID of event (foreign key)
 itemName - Name of item
 itemPrice - Price of item

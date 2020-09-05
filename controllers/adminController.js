@@ -13,18 +13,44 @@ const adminController = {
         db.findMany(Artists, {}, '', result=>{
         
             let artistArray = [];
+            let artistItemsArray = [];
+            let itemArray = [];
 
+            //push all artistID and artistName to an array to be used in details below
             for (let i=0;i<result.length;i++){
-                artistObj = {
-                        artistID: result[i].artistID,
-                        artistName: result[i].artistName,
-                    }
+                artistObj = { //artist object containing artist ID and artist name
+                    artistID: result[i].artistID,
+                    artistName: result[i].artistName,
+                }
                 artistArray.push(artistObj);
+            }
+
+            for (let i=0;i<result.length;i++){ //artist
+                db.findMany(Items,{artistID: result[i].artistID},'', itemResult=>{ //returns item of artist
+                    itemArray = [];
+                    for (let j=0;j<itemResult.length;j++){ //item
+                        itemObj = { //item object containing item info
+                            itemID: itemResult[j]._id,
+                            itemPicture: itemResult[j].itemPicture,
+                            itemName: itemResult[j].itemName,
+                            itemPrice: itemResult[j].itemPrice,
+                            stocksQuantity: itemResult[j].stockQuantity,
+                        }
+                        itemArray.push(itemObj); //array of item info
+                    }
+                    artistItemsObj = { //artist item object containing item info and artist ID
+                        artistID: result[i].artistID,
+                        item: itemArray,
+                    }
+                    artistItemsArray.push(artistItemsObj); //array of artist item (this is for artistItems in details)
+                })
             }
 
             //details of admin page
             var details = {
                 artist: artistArray,
+                artistItems: artistItemsArray,
+                /*
                 artistItems: [{
                     artistID: 1,
                     item: [{
@@ -59,6 +85,7 @@ const adminController = {
                         stocksQuantity: 20
                     }]
                 }]
+                */
             }
 
             if (result){
@@ -109,7 +136,7 @@ const adminController = {
             if (!err){
                 data = {
                     _id: new mongoose.Types.ObjectId(),
-                    artistID: req.body.selectedArtist,
+                    artistID: req.body.itemSelectedArtist,
                     eventID: new mongoose.Types.ObjectId(), //temp
                     itemName: req.body.newItemName,
                     itemPrice: req.body.newPriceStock,
@@ -117,6 +144,7 @@ const adminController = {
                     itemsSold: 0,
                     itemPicture: '/photo/'+ req.file.originalname,
                 }
+                
                 db.insertOne(Items, data, result=>{
                     if (result) {
                         console.log("Successfully added item to the items collection");
@@ -124,7 +152,8 @@ const adminController = {
                     else {
                         console.log("Error adding item to the items collection");
                     }
-                });  
+                });
+                
                 res.redirect('/admin');
             }
         })
