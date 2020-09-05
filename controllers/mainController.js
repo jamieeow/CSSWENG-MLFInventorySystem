@@ -64,15 +64,15 @@ const mainController = {
         res.redirect('/');
     },
 
-    postAddArtist: function(req, res, next){
+    postRestock: function(req, res, next){
         res.redirect('/');
     },
 
-    postAddItem: function(req, res, next){
+    postReserve: function(req, res, next){
         res.redirect('/');
     },
 
-    postAddPromo: function(req, res, next){
+    postPromo: function(req, res, next){
         res.redirect('/');
     },
     
