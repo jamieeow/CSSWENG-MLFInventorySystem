@@ -1,4 +1,4 @@
-var bundleItemSelected = []
+var bundleItemSelected = [] // array of selected item ID for bundle
 
 /*  highlights selected item in artistItemsSection modals */
 function bundleItem(itemID, itemName, itemPrice) {
@@ -13,7 +13,6 @@ function bundleItem(itemID, itemName, itemPrice) {
         $("#" + itemID + "-bundleItem-item").addClass('bg-secondary');
         bundleItemSelected.push(itemID)
     }
-    console.log(bundleItemSelected);
 }
 
 $(document).ready(function () {
@@ -43,7 +42,7 @@ $(document).ready(function () {
         $('#newArtistIDNo').val("");
     });
 
-    //Starting here is codes for bundle
+    //Starting here are codes for bundle
 
     $(".itemGrid").hide()
     $("[id$=bundleItem]").addClass("mx-0")
@@ -60,7 +59,7 @@ $(document).ready(function () {
         $(".defaultVal").prop("selected", true)
         $(".itemGrid").hide()
         $("[id$=bundleItem-item]").removeClass('bg-secondary')
-        $("#checkoutItemsList").html('')
+        $('.clearInput').val('');
     })    
 
 });
