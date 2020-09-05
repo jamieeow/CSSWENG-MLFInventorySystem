@@ -21,6 +21,7 @@ const BundleSchema = new mongoose.Schema({
     bundlePrice: {type: Number, required: true},
     bundleSold: {type: Number, required: true},
     bundleStock: {type: Number, required: true},
+    bundlePicture: {type: String, required: true},
 });
 
 module.exports = mongoose.model("Bundles", BundleSchema);

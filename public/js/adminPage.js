@@ -11,8 +11,9 @@ function bundleItem(itemID, itemName, itemPrice) {
     }
     else { //add item to bundle
         $("#" + itemID + "-bundleItem-item").addClass('bg-secondary');
-        bundleItemSelected.push(itemID)
+        bundleItemSelected.push(itemName)
     }
+    $("#selectedItems").val(bundleItemSelected);
 }
 
 $(document).ready(function () {
