@@ -67,8 +67,8 @@ const adminController = {
     postAddArtist: function(req, res, next){
         data = {
             _id: new mongoose.Types.ObjectId(),
-            artistID: req.body.artistID,
-            artistName: req.body.artistName
+            artistID: req.body.newArtistIDNo,
+            artistName: req.body.newArtistName
         }
         db.insertOne(Artists, data, result=>{
             if (result) {

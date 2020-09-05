@@ -17,34 +17,7 @@ function bundleItem(itemID, itemName, itemPrice) {
 }
 
 $(document).ready(function () {
-    //Add artist button POST method to /admin/addArtist
-    $('#addArtistButton').click(function () {
-        $.ajax({
-            url: '/admin/addArtist',
-            method: 'POST',
-            data: {
-                artistID: $('#newArtistIDNo').val(),
-                artistName: $('#newArtistName').val(),
-            }
-        })
-
-        //if added successfully do these 
-        //TODO: error checking e.g. empty
-        $('#artistsListDropdownItem').append($('<option>', { 
-            text: $('#newArtistName').val(),
-            value: $('#newArtistIDNo').val(),
-        }));
-        $('#artistsListDropdownBundle').append($('<option>', { 
-            text: $('#newArtistName').val(),
-            value: $('#newArtistIDNo').val(),
-        }));
-        $('#addArtistWindow').modal('toggle');
-        $('#newArtistName').val("");
-        $('#newArtistIDNo').val("");
-    });
-
-    //Starting here are codes for bundle
-
+    //Codes for bundle
     $(".itemGrid").hide()
     $("[id$=bundleItem]").addClass("mx-0")
     
@@ -61,6 +34,14 @@ $(document).ready(function () {
         $(".itemGrid").hide()
         $("[id$=bundleItem-item]").removeClass('bg-secondary')
         $('.clearInput').val('');
-    })    
+    })
+
+    $("#artistSelectBundle").submit(function(e) {
+        if (bundleItemSelected.length == 0) {
+            alert("Please select an item!");
+            e.preventDefault();
+        }
+        console.log("submitted");
+    })
 
 });
