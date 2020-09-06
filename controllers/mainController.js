@@ -1,78 +1,127 @@
 const path = require('path');
+const db = require('../models/database.js');
+const Items = require('../models/ItemModel.js')
+const Artists = require('../models/ArtistModel.js')
 
 const mainController = {
     //Render main page
     getMain: function(req, res, next){
-        var details = {
-            totalSold: 400,
-            daysLeft: 2,
-            hoursLeft: 11,
-            foliosGiven: 400,
-            artist: [{
-                artistID: 1,
-                artistName: "Artist 1"
-            },
-            {
-                artistID: 2,
-                artistName: "Artist 2"
-            },
-            {
-                artistID: 3,
-                artistName: "Artist 3"
-            }],
-            artistItems: [{
-                artistID: 1,
-                item: [{
-                    itemID: 001,
-                    itemPicture: "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSWxMyKjtheIlC1HLrWeJMU4t4aynpeaJ-VlA&usqp=CAU",
-                    itemName: "Item 1",
-                    itemPrice: 5.00,
-                    stocksQuantity: 20
-                },{
-                    itemID: 002,
-                    itemPicture: "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSWxMyKjtheIlC1HLrWeJMU4t4aynpeaJ-VlA&usqp=CAU",
-                    itemName: "Item 2",
-                    itemPrice: 5.00,
-                    stocksQuantity: 20
-                },{
-                    itemID: 003,
-                    itemPicture: "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSWxMyKjtheIlC1HLrWeJMU4t4aynpeaJ-VlA&usqp=CAU",
-                    itemName: "Item 3",
-                    itemPrice: 5.00,
-                    stocksQuantity: 20
-                },{
-                    itemID: 004,
-                    itemPicture: "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSWxMyKjtheIlC1HLrWeJMU4t4aynpeaJ-VlA&usqp=CAU",
-                    itemName: "Item 2",
-                    itemPrice: 5.00,
-                    stocksQuantity: 20
-                },{
-                    itemID: 005,
-                    itemPicture: "https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcSWxMyKjtheIlC1HLrWeJMU4t4aynpeaJ-VlA&usqp=CAU",
-                    itemName: "Item 3",
-                    itemPrice: 5.00,
-                    stocksQuantity: 20
-                }]
-            }]
-        }
+        //find artist then render with details
+        db.findMany(Artists, {}, '', result=>{
+        
+            let artistArray = [];
+            let artistItemsArray = [];
+            let itemArray = [];
 
-        res.render('main', details);
-        // res.sendFile(path.join(__dirname + '/../views/main.html'));
+            //push all artistID and artistName to an array to be used in details below
+            for (let i=0;i<result.length;i++){
+                artistObj = { //artist object containing artist ID and artist name
+                    artistID: result[i].artistID,
+                    artistName: result[i].artistName,
+                }
+                artistArray.push(artistObj);
+            }
+
+            //push all items to an array to be used in details below
+            for (let i=0;i<result.length;i++){ //artist
+                db.findMany(Items,{artistID: result[i].artistID},'', itemResult=>{ //returns item of artist
+                    itemArray = []; //empties the item array for the next set of items for artist
+                    for (let j=0;j<itemResult.length;j++){ //item
+                        itemObj = { //item object containing item info
+                            itemID: itemResult[j]._id,
+                            itemPicture: itemResult[j].itemPicture,
+                            itemName: itemResult[j].itemName,
+                            itemPrice: itemResult[j].itemPrice,
+                            stocksQuantity: itemResult[j].stockQuantity,
+                        }
+                        itemArray.push(itemObj); //array of item info
+                    }
+                    artistItemsObj = { //artist item object containing item info and artist ID
+                        artistID: result[i].artistID,
+                        item: itemArray,
+                    }
+                    artistItemsArray.push(artistItemsObj); //array of artist item (this is for artistItems in details)
+                })
+            }
+
+            //details of main page
+            var details = {
+                artist: artistArray,
+                artistItems: artistItemsArray,
+            }
+
+            if (result){
+                res.render('main',details)
+            }
+            else {
+                res.render('main')
+            }            
+        })
     },
 
+    /*  new order decrements stockQuantity and increments itemSold */
     postOrderCheckOut: function(req, res, next){
+        var cart = req.body.cart
+        
+        for (let i = 0; i < cart.length; i++) {
+            
+            db.findOne(Items, {_id: cart[i].itemID}, 'stockQuantity itemsSold', function(result) {
+                
+                if (result) {
+                    var update = {
+                        stockQuantity: result.stockQuantity - cart.quantity,
+                        itemsSold: result.itemsSold + cart.quantity
+                    }
+                    // db.updateOne(Items, {_id: cart[i].itemID}, update, function(result) {})
+                }
+                else {
+                    console.log('Item ' + cart[i].itemID + ' not found in the collection.')
+                }
+            })
+        }
+        
         res.redirect('/');
     },
 
+    /*  add stocks increments stockQuantity */
     postRestock: function(req, res, next){
+        db.findOne(Items, {_id: req.body.item}, 'stockQuantity', function(result) {
+                
+            if (result) {
+                var update = {
+                    stockQuantity: result.stockQuantity + req.body.value,
+                }
+                // db.updateOne(Items, {_id: req.body.item}, update, function(result) {})
+            }
+            else {
+                console.log('Item ' + item + ' not found in the collection.')
+            }
+        })
+
         res.redirect('/');
     },
 
+    /*  reserve stocks */
     postReserve: function(req, res, next){
+
         res.redirect('/');
     },
 
+    /*  create discount */
     postPromo: function(req, res, next){
+        db.findOne(Items, {_id: req.body.item}, 'itemPrice', function(result) {
+                
+            if (result) {
+                var update = {
+                    itemPrice: result.itemPrice,
+                }
+                // db.updateOne(Items, {_id: req.body.item}, update, function(result) {})
+            }
+            else {
+                console.log('Item ' + item + ' not found in the collection.')
+            }
+        })
+
         res.redirect('/');
     },
     
