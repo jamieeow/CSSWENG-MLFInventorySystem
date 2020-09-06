@@ -4,9 +4,9 @@ var bundleItemSelected = [] // array of selected item ID for bundle
 function bundleItem(itemID, itemName, itemPrice) {
     if ($("#" + itemID + "-bundleItem-item").hasClass('bg-secondary')) { //remove item from bundle
         $("#" + itemID + "-bundleItem-item").removeClass('bg-secondary');
-        const index = bundleItemSelected.indexOf(itemID)
+        const index = bundleItemSelected.indexOf(itemName)
         if (index > -1) { 
-            bundleItemSelected.splice(index, 1) 
+            bundleItemSelected.splice(index, 1)
         }
     }
     else { //add item to bundle
