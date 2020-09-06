@@ -124,7 +124,7 @@
                                         <img name="newItemPhoto" id="newItemPhoto" src="photo/item-photo.png" />
                                     </div>
                                     <div class="custom-file mt-2">
-                                        <input name="itemPhotoPickerInput" id="itemPhotoPickerInput" type="file" class="custom-file-input clearInput" required/>
+                                        <input name="itemPhotoPickerInput" id="itemPhotoPickerInput" type="file" class="custom-file-input clearInput" onchange="document.getElementById('newItemPhoto').src = window.URL.createObjectURL(this.files[0])" required/>
                                         <label class="custom-file-label " for="itemPhotoPickerInput">Choose photo</label>
                                     </div>
                                 </div>
@@ -177,10 +177,10 @@
                                     </div>
                                     <div id="BundlePhotoPicker" class="m-4">
                                         <div class="d-flex justify-content-center">
-                                            <img id="newItemPhoto" src="photo/item-photo.png" />
+                                            <img name="newBundlePhoto" id="newBundlePhoto" src="photo/item-photo.png" />
                                         </div>
                                         <div class="custom-file mt-2">
-                                            <input name="BundlePhotoPicker" id="BundlePhotoPicker" type="file" class="custom-file-input clearInput" required/>
+                                            <input name="BundlePhotoPicker" id="BundlePhotoPicker" type="file" class="custom-file-input clearInput" onchange="document.getElementById('newBundlePhoto').src = window.URL.createObjectURL(this.files[0])" required/>
                                             <label class="custom-file-label " for="BundlePhotoPicker">Choose photo</label>
                                         </div>
                                     </div>
