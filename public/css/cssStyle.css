@@ -103,11 +103,11 @@
 /*
 * admin.html
 */
-/*modal new artist*/
+/*modal manage artist*/
 
-/*modal new item*/
+/*modal manage item*/
 #newItemPhoto {
-    width: 70%;
+    width: 69%;
     height: auto;
 }
 

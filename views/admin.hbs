@@ -35,15 +35,21 @@
             </div>
             <div id="leftMenu" class="card p-3" data-spy="scroll" data-offset="0" style="width: 20rem;">
                 <div id="addMenu" class="nav-item">
-                    <h6 class="text-center">add</h6>
-                    <a id="addArtist" href="#" class="nav-link" data-toggle="modal" data-target="#addArtistWindow">Add artist</a>
-                    <a id="addItem" href="#" class="nav-link" data-toggle="modal" data-target="#addItemWindow">Add item</a>
-                    <a id="addBundle" href="#" class="nav-link" data-toggle="modal" data-target="#addBundleWindow">Add bundle</a>
+                    <h6 class="text-center">manage</h6>
+                    <a id="addArtist" href="#" class="nav-link" data-toggle="modal" data-target="#manageArtistsWindow">Manage artists</a>
+                    <a id="addItem" href="#" class="nav-link" data-toggle="modal" data-target="#manageItemsWindow">Manage items</a>
+                    <a id="addBundle" href="#" class="nav-link" data-toggle="modal" data-target="#manageBundlesWindow">Manage bundles</a>
+                    <a id="addEvent" href="#" class="nav-link" data-toggle="modal" data-target="#manageEventsWindow">Manage events</a>
                 </div>
                 <hr />
                 <div id="salesReportSection" class="nav-item">
                     <h6 class="text-center">sales report</h6>
                     <a id="currentSalesReport" href="#" class="nav-link" data-toggle="modal" data-target="#salesReportWindow">Current sales report</a>
+                </div>
+                <hr />
+                <div id="eventCheckSection" class="nav-item">
+                    <h6 class="text-center">events</h6>
+                    <a id="currentSalesReport" href="#" class="nav-link" data-toggle="modal" data-target="#">Events</a>
                 </div>
                 <hr />
                 <div id="exportData" class="nav-item">
@@ -58,6 +64,178 @@
         </div>
     </div>
 
+    <!--Manage modals-->
+    <div id="manageArtistsWindow" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-md" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Manage artists</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                
+                    <div class="modal-body">
+                        <ul class="nav nav-tabs mb-3 mt-2" id="manageArtistsNav" role="tablist">
+                            <li class="nav-item">
+                                <a class="nav-link active" id="editArtistsOption" data-toggle="tab" href="#editArtistsSection" role="tab" aria-controls="editArtistsSection" aria-selected="true">Edit</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="addArtistsOption" data-toggle="tab" href="#addArtistsSection" role="tab" aria-controls="addArtistsSection" aria-selected="false">Add</a>
+                            </li>
+                        </ul>
+
+                        <div class="tab-content p-2" id="manageArtistList">
+                            <div id="editArtistsSection" class="tab-pane fade show active pb-4" role="tabpanel" aria-labelledby="editArtistsOption">
+                                <h5 class="modal-title">Edit artist</h5>
+                                <p id="manageReminder">Select the artist you want to edit or delete.</p>
+                                <div id="manageArtistSection" class="card overflow-auto" style="height: 13rem;" data-spy="scroll" data-offset="0">
+
+                                </div>
+                            </div>
+                            <div id="addArtistsSection" class="tab-pane fade" role="tabpanel" aria-labelledby="addArtistsOption">
+                                <form id="artistSelect" class="form" method="POST" action="/admin/addArtist">
+                                    <h5 class="modal-title">Add artist</h5>
+                                    <p id="manageReminder">Fill in the form below before adding a new artist.</p>
+                                    <div class="mt-2">
+                                        <div class="form-group mb-2">
+                                            <label for="newArtistName" class="font-weight-normal">artist name</label>
+                                            <input id="newArtistName" class="form-control clearInput" name="newArtistName" type="text" required />
+                                        </div>
+                                        <div class="form-group mb-2">
+                                            <label for="newArtistIDNo" class="font-weight-normal">artist ID number</label>
+                                            <input id="newArtistIDNo" class="form-control clearInput" name="newArtistIDNo" type="number" min="0" max="99999999" required />
+                                        </div>
+                                    </div>
+                                    <button name="addArtistButton" id="addArtistButton" class="btn btn-secondary btn-md col-4 mt-4 mb-2 float-right" type="submit">save</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="manageItemsWindow" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Manage items</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <ul class="nav nav-tabs mb-3 mt-2" id="manageArtistsNav" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active" id="editItemOption" data-toggle="tab" href="#editItemSection" role="tab" aria-controls="editItemSection" aria-selected="true">Edit</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" id="addItemOption" data-toggle="tab" href="#addItemSection" role="tab" aria-controls="addItemSection" aria-selected="false">Add</a>
+                        </li>
+                    </ul>
+
+                    <div class="tab-content p-2" id="manageArtistList">
+                        <div id="editItemSection" class="tab-pane fade show active pb-4" role="tabpanel" aria-labelledby="editItemOption">
+                            <h5 class="modal-title">Edit item</h5>
+                            <p id="manageReminder">Select the item you want to edit or delete.</p>
+                            <div id="manageItemSection" class="card overflow-auto" style="height: 13rem;" data-spy="scroll" data-offset="0">
+
+                            </div>
+                        </div>
+                        <div id="addItemSection" class="tab-pane fade" role="tabpanel" aria-labelledby="addItemOption">
+                            <form id="artistSelect" class="form" method="POST" action="/admin/addItem" enctype="multipart/form-data">
+                                <h5 class="modal-title">Add item</h5>
+                                <p id="manageReminder">Fill in the form below before adding a new item.</p>
+                                <div id="otherInputSection" class="mt-3">
+                                    <div class="row">
+                                        <div id="textFields" class="col mt-2" style="width: 500px;">
+                                            <div class="form-group mb-2">
+                                                <label for="artistsListDropdownItem" class="font-weight-normal mr-2">item name</label>
+                                                <select id="artistsListDropdownItem" class="form-control col-10" name="itemSelectedArtist">
+                                                    <option class="defaultVal" value="" disabled selected>select artist</option>
+                                                    {{#each artist}}
+                                                    <option value="{{artistID}}">{{artistName}}</option>
+                                                    {{/each}}
+                                                </select>
+                                            </div>
+                                            <div class="form-group mb-2">
+                                                <label for="newItemName" class="font-weight-normal mr-2">item name</label>
+                                                <input name="newItemName" id="newItemName" class="form-control col-10 clearInput" type="text" required />
+                                            </div>
+                                            <div class="form-group mb-2">
+                                                <label for="newPriceStock" class="font-weight-normal mr-2">price</label>
+                                                <input name="newPriceStock" id="newPriceStock" class="form-control col-10 clearInput" type="number" min="0" max="99999999" required />
+                                            </div>
+                                            <div class="form-group mb-2">
+                                                <label for="newStockQuantity" class="font-weight-normal mr-2">quantity</label>
+                                                <input name="newStockQuantity" id="newStockQuantity" class="form-control col-10 clearInput" type="number" min="0" max="99999999" required />
+                                            </div>
+                                        </div>
+                                        <div id="itemPhotoPicker" class="col m-4">
+                                            <div class="d-flex justify-content-center">
+                                                <img name="newItemPhoto" id="newItemPhoto" src="photo/item-photo.png" />
+                                            </div>
+                                            <div class="custom-file mt-2">
+                                                <input name="itemPhotoPickerInput" id="itemPhotoPickerInput" type="file" class="custom-file-input clearInput" onchange="document.getElementById('newItemPhoto').src = window.URL.createObjectURL(this.files[0])" required />
+                                                <label class="custom-file-label " for="itemPhotoPickerInput">Choose photo</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col">
+                                            <button name="addItemButton" id="addItemButton" class="btn btn-secondary btn-md col-6 mt-4 mb-2 float-right" type="submit">save</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="manageBundlesWindow" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-md" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Manage bundles</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+
+                </div>
+                <div class="modal-footer">
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="manageEventsWindow" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-md" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Manage events</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+
+                </div>
+                <div class="modal-footer">
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!--Add modals-->
     <div id="addArtistWindow" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog modal-md" role="document">
             <form id="artistSelect" class="form" method="POST" action="/admin/addArtist">
@@ -94,7 +272,7 @@
                             <select id="artistsListDropdownItem" class="form-control" name="itemSelectedArtist">
                                 <option class="defaultVal" value="" disabled selected>select artist</option>
                                 {{#each artist}}
-                                    <option value="{{artistID}}">{{artistName}}</option>
+                                <option value="{{artistID}}">{{artistName}}</option>
                                 {{/each}}
                             </select>
                         </div>
@@ -108,15 +286,15 @@
                                 <div id="textFields" style="width: 500px;">
                                     <div class="form-group mb-2">
                                         <label for="newItemName" class="font-weight-normal mr-2">item name</label>
-                                        <input name="newItemName" id="newItemName" class="form-control col-10 clearInput" type="text" required/>
+                                        <input name="newItemName" id="newItemName" class="form-control col-10 clearInput" type="text" required />
                                     </div>
                                     <div class="form-group mb-2">
                                         <label for="newPriceStock" class="font-weight-normal mr-2">price</label>
-                                        <input name="newPriceStock" id="newPriceStock" class="form-control col-10 clearInput" type="number" min="0" max="99999999" required/>
+                                        <input name="newPriceStock" id="newPriceStock" class="form-control col-10 clearInput" type="number" min="0" max="99999999" required />
                                     </div>
                                     <div class="form-group mb-2">
                                         <label for="newStockQuantity" class="font-weight-normal mr-2">quantity</label>
-                                        <input name="newStockQuantity" id="newStockQuantity" class="form-control col-10 clearInput" type="number" min="0" max="99999999" required/>
+                                        <input name="newStockQuantity" id="newStockQuantity" class="form-control col-10 clearInput" type="number" min="0" max="99999999" required />
                                     </div>
                                 </div>
                                 <div id="itemPhotoPicker" class="m-4">
@@ -124,7 +302,7 @@
                                         <img name="newItemPhoto" id="newItemPhoto" src="photo/item-photo.png" />
                                     </div>
                                     <div class="custom-file mt-2">
-                                        <input name="itemPhotoPickerInput" id="itemPhotoPickerInput" type="file" class="custom-file-input clearInput" onchange="document.getElementById('newItemPhoto').src = window.URL.createObjectURL(this.files[0])" required/>
+                                        <input name="itemPhotoPickerInput" id="itemPhotoPickerInput" type="file" class="custom-file-input clearInput" onchange="document.getElementById('newItemPhoto').src = window.URL.createObjectURL(this.files[0])" required />
                                         <label class="custom-file-label " for="itemPhotoPickerInput">Choose photo</label>
                                     </div>
                                 </div>
@@ -149,7 +327,7 @@
                             <select id="artistsListDropdownBundle" class="form-control" name="bundleSelectedArtist">
                                 <option class="defaultVal" value="" disabled selected>select artist</option>
                                 {{#each artist}}
-                                    <option value="{{artistID}}">{{artistName}}</option>
+                                <option value="{{artistID}}">{{artistName}}</option>
                                 {{/each}}
                             </select>
                         </div>
@@ -164,15 +342,15 @@
                                     <div id="textFields" style="width: 500px;">
                                         <div class="form-group mb-2">
                                             <label for="newBundleName" class="font-weight-normal mr-2">bundle name</label>
-                                            <input name="newBundleName" id="newBundleName" class="form-control col-10 clearInput" type="text" required/>
+                                            <input name="newBundleName" id="newBundleName" class="form-control col-10 clearInput" type="text" required />
                                         </div>
                                         <div class="form-group mb-2">
                                             <label for="newPriceStock" class="font-weight-normal mr-2">price</label>
-                                            <input name="newPriceStock" id="newPriceStock" class="form-control col-10 clearInput" type="number" min="0" max="99999999" required/>
+                                            <input name="newPriceStock" id="newPriceStock" class="form-control col-10 clearInput" type="number" min="0" max="99999999" required />
                                         </div>
                                         <div class="form-group mb-2">
                                             <label for="newStockQuantity" class="font-weight-normal mr-2">quantity</label>
-                                            <input name="newStockQuantity" id="newStockQuantity" class="form-control col-10 clearInput" type="number" min="0" max="99999999" required/>
+                                            <input name="newStockQuantity" id="newStockQuantity" class="form-control col-10 clearInput" type="number" min="0" max="99999999" required />
                                         </div>
                                     </div>
                                     <div id="BundlePhotoPicker" class="m-4">
@@ -180,7 +358,7 @@
                                             <img name="newBundlePhoto" id="newBundlePhoto" src="photo/item-photo.png" />
                                         </div>
                                         <div class="custom-file mt-2">
-                                            <input name="BundlePhotoPicker" id="BundlePhotoPicker" type="file" class="custom-file-input clearInput" onchange="document.getElementById('newBundlePhoto').src = window.URL.createObjectURL(this.files[0])" required/>
+                                            <input name="BundlePhotoPicker" id="BundlePhotoPicker" type="file" class="custom-file-input clearInput" onchange="document.getElementById('newBundlePhoto').src = window.URL.createObjectURL(this.files[0])" required />
                                             <label class="custom-file-label " for="BundlePhotoPicker">Choose photo</label>
                                         </div>
                                     </div>
@@ -199,7 +377,7 @@
                         </div>
                     </div>
                     <div class="modal-footer bg-light">
-                        <button name="addBundleButton" id="addItemButton" class="btn btn-secondary btn-sm col-2" type="submit" >save</button>
+                        <button name="addBundleButton" id="addItemButton" class="btn btn-secondary btn-sm col-2" type="submit">save</button>
                     </div>
                 </div>
             </form>
