@@ -8,5 +8,6 @@ const loginController = require("../controllers/loginController");
 router.get('/login', loginController.getLogin);
 //post is used when logging in
 router.post('/login', loginController.postLogin);
+router.get('/li', loginController.getLoginPage);
 
 module.exports = router;
