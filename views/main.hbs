@@ -83,7 +83,8 @@
                                 </select>
                             </div>
                             <div id="buyItemSection" class="card-body overflow-auto">
-                                {{> itemGridCards section="buyItem" lgsize="3"}}
+                                <div class="row row-cols-1 row-cols-sm-1 row-cols-md-2 row-cols-lg-3 itemGrid" id="buyItem">
+                                </div>
                             </div>
                         </div>
                         <div id="checkoutSection align-items-end" class="card p-4" style="width: 30rem; height:30rem">
@@ -133,7 +134,8 @@
                                     <div class="form-group">
                                         <label for="financialItemList" class="font-weight-normal">select one item</label>
                                         <div id="financialItemList" class="card overflow-auto" style="height: 20rem;" data-spy="scroll" data-offset="0">
-                                            {{> itemGridCards section="financialItem" lgsize="4"}}
+                                            <div class="row row-cols-1 row-cols-sm-1 row-cols-md-3 row-cols-lg-4 itemGrid" id="financialItem">
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

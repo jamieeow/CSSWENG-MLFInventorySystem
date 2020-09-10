@@ -49,41 +49,75 @@ function removeCartItem(itemID, itemPrice) {
 
 /*  highlights selected item in financialItemList modals */
 function financialItem(itemID, itemName, itemPrice) {
-    $("[id$=financialItem-item]").removeClass('bg-secondary')
-    $("#" + itemID + "-financialItem-item").addClass('bg-secondary')
+    $("[id$=financialItem]").removeClass('bg-secondary')
+    $("#" + itemID + "-financialItem").addClass('bg-secondary')
     financialSelected = itemID
 }
 
 
 $(document).ready(function () {
-    $(".itemGrid").hide()
     $("[id$=financialItem]").addClass("mx-0")
     
     /*  changes the item cards in buyItemSection according to selected artist */
     $("select[name='selectedArtist']").change(function() {
+        $("#buyItem").html('')
         var selected = $(this).children("option:selected").val();
-        $(".itemGrid").hide()
-        $("#" + selected + "-buyItem").show()
+
+        $.get('/getItems', {artistID: selected, projection: "_id itemName itemPrice stockQuantity itemPrice itemPicture"}, function(result){
+            console.log(result)
+            for (i = 0; i < result.length; i++) {
+                
+                $("#buyItem").append('<div class="col mb-3" id="' + result[i]._id + '-buyItem" style="padding: 5px">' +
+                                                        '<div class="card">' +
+                                                            '<img src="' + result[i].itemPicture + '" class="card-img-top" alt="...">' +
+                                                            '<div class="card-body">' +
+                                                                '<h5 class="card-title">' + result[i].itemName + '</h5>' +
+                                                                '<p class="card-text">PHP ' + result[i].itemPrice + ' | ' + result[i].stockQuantity + ' left</p>' +
+                                                                '<a href="#" class="stretched-link" onclick="buyItem(\'' + result[i]._id + '\', \'' + result[i].itemName + '\', \'' + result[i].itemPrice + '\')" style="size: 0px;"></a>' +
+                                                            '</div>' +
+                                                        '</div>' +
+                                                    '</div>')
+            }
+        })
     })
     
     /*  changes the item cards in financialItemList according to selected artist */
     $("select[name='financeSelectedArtist']").change(function() {
         var selected = $(this).children("option:selected").val();
-        $(".itemGrid").hide()
-        $("#" + selected + "-financialItem").show()
+        $("#financialItem").html('')
+        var selected = $(this).children("option:selected").val();
+
+        $.get('/getItems', {artistID: selected, projection: "_id itemName itemPrice stockQuantity itemPrice itemPicture"}, function(result){
+            console.log(result)
+            for (i = 0; i < result.length; i++) {
+                
+                $("#financialItem").append('<div class="col mb-3" id="' + result[i]._id + '-financialItem" style="padding: 5px">' +
+                                                        '<div class="card">' +
+                                                            '<img src="' + result[i].itemPicture + '" class="card-img-top" alt="...">' +
+                                                            '<div class="card-body">' +
+                                                                '<h5 class="card-title">' + result[i].itemName + '</h5>' +
+                                                                '<p class="card-text">PHP ' + result[i].itemPrice + ' | ' + result[i].stockQuantity + ' left</p>' +
+                                                                '<a href="#" class="stretched-link" onclick="financialItem(\'' + result[i]._id + '\', \'' + result[i].itemName + '\', \'' + result[i].itemPrice + '\')" style="size: 0px;"></a>' +
+                                                            '</div>' +
+                                                        '</div>' +
+                                                    '</div>')
+            }
+        })
     })
     
-    /*  changes the item cards in buyItemSection according to selected artist */
+    /*  shows the sales report according to selected artist */
     $("select[name='selectedArtistSales']").change(function() {
         $("#salesList").html('')
         var selected = $(this).children("option:selected").val();
 
-        $.get('/getSales', {artistID: selected}, function(result){
+        $.get('/getItems', {artistID: selected, projection: "itemName itemPrice itemsSold"}, function(result){
             var total = 0;
 
             for (i = 0; i < result.length; i++) {
                 total += (result[i].itemPrice * result[i].itemsSold)
-                $("#salesList").append("<tr><td>" + result[i].itemName + "</td><td>" + result[i].itemPrice + "</td><td>" + result[i].itemsSold + "</td></tr>")
+                $("#salesList").append("<tr><td>" + result[i].itemName + 
+                                    "</td><td>" + result[i].itemPrice + 
+                                    "</td><td>" + result[i].itemsSold + "</td></tr>")
             }
 
             $("#totalSoldSales").html(total)
@@ -93,8 +127,7 @@ $(document).ready(function () {
     /*  resets all values upon closing of any modal */
     $(".modal").on('hidden.bs.modal', function() {
         $(".defaultVal").prop("selected", true)
-        $(".itemGrid").hide()
-        $("[id$=financialItem-item]").removeClass('bg-secondary')
+        $(".itemGrid").html('')
         $("#checkoutItemsList").html('')
         $("#totalPrice").html(parseFloat(0))
         $("#checkoutBtn").prop("disabled", true)

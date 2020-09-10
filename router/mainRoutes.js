@@ -7,6 +7,6 @@ const mainController = require("../controllers/mainController");
 router.get('/', mainController.getMain);
 router.post('/orderCheckOut', mainController.postOrderCheckOut);
 router.post('/restockItem', mainController.postRestock);
-router.get('/getSales', mainController.getItems);
+router.get('/getItems', mainController.getItems);
 
 module.exports = router;

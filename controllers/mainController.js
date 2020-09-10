@@ -107,7 +107,7 @@ const mainController = {
 
     /*  add stocks increments stockQuantity */
     getItems: function(req, res, next){
-        db.findMany(Items, {artistID: req.query.artistID}, 'itemName itemPrice itemsSold', function(result) {
+        db.findMany(Items, {artistID: req.query.artistID}, req.query.projection, function(result) {
                 
             if (result.length > 0) {
                 res.send(result)
