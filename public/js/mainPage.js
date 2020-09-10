@@ -72,6 +72,23 @@ $(document).ready(function () {
         $(".itemGrid").hide()
         $("#" + selected + "-financialItem").show()
     })
+    
+    /*  changes the item cards in buyItemSection according to selected artist */
+    $("select[name='selectedArtistSales']").change(function() {
+        $("#salesList").html('')
+        var selected = $(this).children("option:selected").val();
+
+        $.get('/getSales', {artistID: selected}, function(result){
+            var total = 0;
+
+            for (i = 0; i < result.length; i++) {
+                total += (result[i].itemPrice * result[i].itemsSold)
+                $("#salesList").append("<tr><td>" + result[i].itemName + "</td><td>" + result[i].itemPrice + "</td><td>" + result[i].itemsSold + "</td></tr>")
+            }
+
+            $("#totalSoldSales").html(total)
+        })
+    })
 
     /*  resets all values upon closing of any modal */
     $(".modal").on('hidden.bs.modal', function() {
@@ -82,6 +99,8 @@ $(document).ready(function () {
         $("#totalPrice").html(parseFloat(0))
         $("#checkoutBtn").prop("disabled", true)
         $("#newPriceStock").val('')
+        $("#salesList").html('')
+        $("#totalSoldSales").html(parseFloat(0))
 
         buyCart = []
         inCart = []
@@ -92,7 +111,9 @@ $(document).ready(function () {
     /*  new order submit button */
     $("#checkoutBtn").click(function() {
         if (inCart.length > 0) {
-            $.post('/orderCheckOut', {cart: buyCart}, function(){})
+            $.post('/orderCheckOut', {cart: buyCart}, function(){
+                $("#newOrderWindow").modal('toggle')
+            })
         }
     })
 
@@ -107,7 +128,9 @@ $(document).ready(function () {
                 value: input
             }
 
-            $.post('/restockItem', details, function(){})
+            $.post('/restockItem', details, function(){
+                $("#financialWindow").modal('toggle')
+            })
         }
     })
 })

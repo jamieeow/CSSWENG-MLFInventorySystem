@@ -27,7 +27,7 @@ const mainController = {
                 db.findMany(Items,{artistID: result[i].artistID},'', itemResult=>{ //returns item of artist
                     itemArray = []; //empties the item array for the next set of items for artist
                     for (let j=0;j<itemResult.length;j++){ //item
-                        itemObj = { //item object containing item info
+                        itemObj = { //item object containing item 
                             itemID: itemResult[j]._id,
                             itemPicture: itemResult[j].itemPicture,
                             itemName: itemResult[j].itemName,
@@ -69,10 +69,14 @@ const mainController = {
                 
                 if (result) {
                     var update = {
-                        stockQuantity: result.stockQuantity - cart.quantity,
-                        itemsSold: result.itemsSold + cart.quantity
+                        stockQuantity: result.stockQuantity - parseInt(cart[i].quantity),
+                        itemsSold: result.itemsSold + parseInt(cart[i].quantity)
                     }
-                    // db.updateOne(Items, {_id: cart[i].itemID}, update, function(result) {})
+
+                    db.updateOne(Items, {_id: cart[i].itemID}, update, function(result1) {
+                        console.log(result1)
+                    })
+                    
                 }
                 else {
                     console.log('Item ' + cart[i].itemID + ' not found in the collection.')
@@ -89,16 +93,30 @@ const mainController = {
                 
             if (result) {
                 var update = {
-                    stockQuantity: result.stockQuantity + req.body.value,
+                    stockQuantity: result.stockQuantity + parseInt(req.body.value),
                 }
-                // db.updateOne(Items, {_id: req.body.item}, update, function(result) {})
+                db.updateOne(Items, {_id: req.body.item}, update, function(result) {})
             }
             else {
-                console.log('Item ' + item + ' not found in the collection.')
+                console.log('Item ' + req.body.item + ' not found in the collection.')
             }
         })
 
         res.redirect('/');
+    },
+
+    /*  add stocks increments stockQuantity */
+    getItems: function(req, res, next){
+        db.findMany(Items, {artistID: req.query.artistID}, 'itemName itemPrice itemsSold', function(result) {
+                
+            if (result.length > 0) {
+                res.send(result)
+            }
+            else {
+                console.log('Artist ' + req.query.artistID + ' not found in the collection.')
+                res.send(false)
+            }
+        })
     },
     
 }
