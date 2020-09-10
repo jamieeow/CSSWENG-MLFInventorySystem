@@ -4,29 +4,31 @@ var totalPrice = 0
 var financialSelected
 
 /* updates the checkout List and local variables when an item card is clicked */
-function buyItem(itemID, itemName, itemPrice) {
+function buyItem(itemID, itemName, itemPrice, stockQuantity) {
     var i = inCart.indexOf(itemID)
 
-    if (i == -1) {
+    if (i == -1 && stockQuantity > 0) {
         inCart.push(itemID)
         buyCart.push({itemID: itemID, quantity: 1})
+        totalPrice += parseFloat(itemPrice)
 
         $("#checkoutItemsList").append("<tr id='" + itemID + "Cart'>" + 
                                         "<td style='width: 10%'><button type='button' class='close' onclick='removeCartItem(" + itemID + ", " + itemPrice + ")' aria-label='Close'>" + 
                                             "<span aria-hidden='true'>&times;</span></button></td>" + 
                                         "<td id='" + itemID + "Quantity'>(1) " + itemName + "</td>" + 
                                         "<td id='" + itemID + "Total' class='text-right'>" + parseFloat(itemPrice) + "</td></tr>")
-    } else {    
-
+    } else if (i > -1 && buyCart[i].quantity < stockQuantity) {
         buyCart[i].quantity += 1
         var q = buyCart[i].quantity
         var p = q * parseFloat(itemPrice)
+        totalPrice += parseFloat(itemPrice)
 
         $("#" + itemID + "Quantity").html("(" + q + ") " + itemName);
         $("#" + itemID + "Total").html(parseFloat(p));
+    } else {
+        alert("No more stocks left!");
     }
     
-    totalPrice += parseFloat(itemPrice)
     $("#totalPrice").html(parseFloat(totalPrice))
     $("#checkoutBtn").prop("disabled", false)
 }
@@ -48,7 +50,7 @@ function removeCartItem(itemID, itemPrice) {
 }
 
 /*  highlights selected item in financialItemList modals */
-function financialItem(itemID, itemName, itemPrice) {
+function financialItem(itemID) {
     $("[id$=financialItem]").removeClass('bg-secondary')
     $("#" + itemID + "-financialItem").addClass('bg-secondary')
     financialSelected = itemID
@@ -63,7 +65,7 @@ $(document).ready(function () {
         $("#buyItem").html('')
         var selected = $(this).children("option:selected").val();
 
-        $.get('/getItems', {artistID: selected, projection: "_id itemName itemPrice stockQuantity itemPrice itemPicture"}, function(result){
+        $.get('/getItems', {artistID: selected, projection: "_id itemName itemPrice stockQuantity itemPicture"}, function(result){
             console.log(result)
             for (i = 0; i < result.length; i++) {
                 
@@ -73,7 +75,7 @@ $(document).ready(function () {
                                                             '<div class="card-body">' +
                                                                 '<h5 class="card-title">' + result[i].itemName + '</h5>' +
                                                                 '<p class="card-text">PHP ' + result[i].itemPrice + ' | ' + result[i].stockQuantity + ' left</p>' +
-                                                                '<a href="#" class="stretched-link" onclick="buyItem(\'' + result[i]._id + '\', \'' + result[i].itemName + '\', \'' + result[i].itemPrice + '\')" style="size: 0px;"></a>' +
+                                                                '<a href="#" class="stretched-link" onclick="buyItem(\'' + result[i]._id + '\', \'' + result[i].itemName + '\', \'' + result[i].itemPrice + '\', \'' + result[i].stockQuantity + '\')" style="size: 0px;"></a>' +
                                                             '</div>' +
                                                         '</div>' +
                                                     '</div>')
@@ -87,7 +89,7 @@ $(document).ready(function () {
         $("#financialItem").html('')
         var selected = $(this).children("option:selected").val();
 
-        $.get('/getItems', {artistID: selected, projection: "_id itemName itemPrice stockQuantity itemPrice itemPicture"}, function(result){
+        $.get('/getItems', {artistID: selected, projection: "_id itemName itemPrice stockQuantity itemPicture"}, function(result){
             console.log(result)
             for (i = 0; i < result.length; i++) {
                 
@@ -97,7 +99,7 @@ $(document).ready(function () {
                                                             '<div class="card-body">' +
                                                                 '<h5 class="card-title">' + result[i].itemName + '</h5>' +
                                                                 '<p class="card-text">PHP ' + result[i].itemPrice + ' | ' + result[i].stockQuantity + ' left</p>' +
-                                                                '<a href="#" class="stretched-link" onclick="financialItem(\'' + result[i]._id + '\', \'' + result[i].itemName + '\', \'' + result[i].itemPrice + '\')" style="size: 0px;"></a>' +
+                                                                '<a href="#" class="stretched-link" onclick="financialItem(\'' + result[i]._id + '\')" style="size: 0px;"></a>' +
                                                             '</div>' +
                                                         '</div>' +
                                                     '</div>')
