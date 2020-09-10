@@ -89,12 +89,14 @@ $(document).ready(function () {
         financialSelected = ''
     })
 
+    /*  new order submit button */
     $("#checkoutBtn").click(function() {
         if (inCart.length > 0) {
             $.post('/orderCheckOut', {cart: buyCart}, function(){})
         }
     })
 
+    /*  promo, restock and reserve stocks submit button */
     $("#saveOrder").click(function() {
         var label = $("label[for='newPriceStock']").text()
         var input = $("#newPriceStock").val()
@@ -105,15 +107,7 @@ $(document).ready(function () {
                 value: input
             }
 
-            if (label.indexOf("discount") >= 0) {
-                $.post('/addPromo', details, function(){})
-            }
-            else if (label.indexOf("add") >= 0) {
-                $.post('/restockItem', details, function(){})
-            }
-            else if (label.indexOf("reserve") >= 0) {
-                $.post('/reserveStocks', details, function(){})
-            }
+            $.post('/restockItem', details, function(){})
         }
     })
 })

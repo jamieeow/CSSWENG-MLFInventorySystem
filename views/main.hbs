@@ -41,15 +41,9 @@
                     <button id="newOrderButton" class="btn btn-secondary btn-md col-11" data-toggle="modal" data-target="#newOrderWindow">new order</button>
                 </div>
                 <hr />
-                <div id="promoSection" class="nav-item">
-                    <h6 class="text-center">promos</h6>
-                    <a id="createDiscount" href="#" class="nav-link" data-toggle="modal" data-target="#financialWindow">Create discount</a>
-                </div>
-                <hr />
                 <div id="stocksSection" class="nav-item">
                     <h6 class="text-center">stocks</h6>
                     <a id="restockItem" href="#" class="nav-link" data-toggle="modal" data-target="#financialWindow">Restock item</a>
-                    <a id="reserveStocks" href="#" class="nav-link" data-toggle="modal" data-target="#financialWindow">Reserve stocks</a>
                 </div>
                 <hr />
                 <div id="salesReportSection" class="nav-item">
@@ -145,8 +139,8 @@
                                 </div>
                                 <div id="textFields">
                                     <div class="form-group">
-                                        <label for="newPriceStock" class="font-weight-normal">price</label>
-                                        <input id="newPriceStock" class="form-control" type="number" min=1 required/>
+                                        <label for="newPriceStock" class="font-weight-normal">quantity to add</label>
+                                        <input id="newPriceStock" class="form-control" type="number" min=1 step="1" required/>
                                     </div>
                                 </div>
 

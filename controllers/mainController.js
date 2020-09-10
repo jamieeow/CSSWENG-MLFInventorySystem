@@ -100,30 +100,6 @@ const mainController = {
 
         res.redirect('/');
     },
-
-    /*  reserve stocks */
-    postReserve: function(req, res, next){
-
-        res.redirect('/');
-    },
-
-    /*  create discount */
-    postPromo: function(req, res, next){
-        db.findOne(Items, {_id: req.body.item}, 'itemPrice', function(result) {
-                
-            if (result) {
-                var update = {
-                    itemPrice: result.itemPrice,
-                }
-                // db.updateOne(Items, {_id: req.body.item}, update, function(result) {})
-            }
-            else {
-                console.log('Item ' + item + ' not found in the collection.')
-            }
-        })
-
-        res.redirect('/');
-    },
     
 }
 
