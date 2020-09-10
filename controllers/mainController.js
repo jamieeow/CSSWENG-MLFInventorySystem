@@ -22,32 +22,9 @@ const mainController = {
                 artistArray.push(artistObj);
             }
 
-            //push all items to an array to be used in details below
-            for (let i=0;i<result.length;i++){ //artist
-                db.findMany(Items,{artistID: result[i].artistID},'', itemResult=>{ //returns item of artist
-                    itemArray = []; //empties the item array for the next set of items for artist
-                    for (let j=0;j<itemResult.length;j++){ //item
-                        itemObj = { //item object containing item 
-                            itemID: itemResult[j]._id,
-                            itemPicture: itemResult[j].itemPicture,
-                            itemName: itemResult[j].itemName,
-                            itemPrice: itemResult[j].itemPrice,
-                            stocksQuantity: itemResult[j].stockQuantity,
-                        }
-                        itemArray.push(itemObj); //array of item info
-                    }
-                    artistItemsObj = { //artist item object containing item info and artist ID
-                        artistID: result[i].artistID,
-                        item: itemArray,
-                    }
-                    artistItemsArray.push(artistItemsObj); //array of artist item (this is for artistItems in details)
-                })
-            }
-
             //details of main page
             var details = {
-                artist: artistArray,
-                artistItems: artistItemsArray,
+                artist: artistArray
             }
 
             if (result){
