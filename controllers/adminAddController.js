@@ -6,7 +6,7 @@ const Artists = require('../models/ArtistModel.js');
 const Items = require('../models/ItemModel.js');
 const Bundles = require('../models/BundleModel.js');
 
-const adminController = {
+const adminAddController = {
     //Render admin
     getLoginAdmin: function(req, res, next){
         //find artist then render with details
@@ -168,4 +168,4 @@ const adminController = {
     
 }
 
-module.exports = adminController;
+module.exports = adminAddController;
