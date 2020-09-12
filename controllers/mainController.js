@@ -8,34 +8,33 @@ const { send } = require('process');
 const mainController = {
     //Render main page
     getMain: function(req, res, next){
-        //find artist then render with details
-        db.findMany(Artists, {}, '', result=>{
-        
-            let artistArray = [];
-            let artistItemsArray = [];
-            let itemArray = [];
 
-            //push all artistID and artistName to an array to be used in details below
-            for (let i=0;i<result.length;i++){
-                artistObj = { //artist object containing artist ID and artist name
-                    artistID: result[i].artistID,
-                    artistName: result[i].artistName,
+        //  if the logged in user is not an admin, therefore a cashier
+        if (req.session.isAdmin == false) {        
+
+            //find artist then render with details
+            db.findMany(Artists, {}, 'artistID artistName', result=>{
+            
+                let artistArray = result;
+                let totalItems = 0;
+                 
+                //details of main page
+                var details = {
+                    artist: artistArray,
+                    totalSold: totalItems
                 }
-                artistArray.push(artistObj);
-            }
 
-            //details of main page
-            var details = {
-                artist: artistArray
-            }
-
-            if (result){
-                res.render('main',details)
-            }
-            else {
-                res.render('main')
-            }            
-        })
+                res.render('main', details)
+            })
+        } 
+        
+        // if the logged in user is an admin
+        else if (req.session.isAdmin) {
+            res.redirect('/admin')
+        } 
+        
+        // if the user is not logged in
+        else res.redirect('/')
     },
 
     /*  new order decrements stockQuantity and increments itemSold */
