@@ -46,9 +46,6 @@ function buyItem(itemID, itemName, itemPrice, stockQuantity, itemType) {
         }
         
     }
-
-    console.log("items ", itemCart)
-    console.log("bundles ", bundleCart)
     
     $("#totalPrice").html(parseFloat(totalPrice))
     $("#checkoutBtn").prop("disabled", false)
@@ -89,10 +86,23 @@ function financialItem(itemID, itemType) {
         itemID: itemID,
         itemType: itemType
     }
-
-    console.log(financialSelected)
 }
 
+/*  shows toast */
+function showToast(func, state) {
+    $(".toast").toast("hide")
+    if (state) {
+        $(".toast-title").addClass('text-success')
+        $(".toast-title").html('Success')
+        $(".toast-body").html(func + ' processed successfully')
+        $(".toast").toast("show")
+    } else {
+        $(".toast-title").addClass('text-danger')
+        $(".toast-title").html('Failed')
+        $(".toast-body").html(func + ' failed to process')
+        $(".toast").toast("show")
+    }
+}
 
 $(document).ready(function () {
     $("[id$=financialItem]").addClass("mx-0")
@@ -103,7 +113,6 @@ $(document).ready(function () {
         var selected = $(this).children("option:selected").val();
 
         $.get('/getItems', {artistID: selected, projection: "_id itemName itemPrice stockQuantity itemPicture"}, function(result){
-            console.log(result)
             for (i = 0; i < result.length; i++) {
                 
                 if (result[i].stockQuantity > 0) {
@@ -122,7 +131,6 @@ $(document).ready(function () {
         })
 
         $.get('/getBundles', {artistID: selected, projection: "_id bundleName bundlePrice bundleStock bundlePicture"}, function(result){
-            console.log(result)
             for (i = 0; i < result.length; i++) {
                 
                 if ( result[i].bundleStock > 0 ) {
@@ -148,7 +156,6 @@ $(document).ready(function () {
         var selected = $(this).children("option:selected").val();
 
         $.get('/getItems', {artistID: selected, projection: "_id itemName itemPrice stockQuantity itemPicture"}, function(result){
-            console.log(result)
             for (i = 0; i < result.length; i++) {
                 
                 $("#financialItem").append('<div class="col mb-3" id="' + result[i]._id + '-financialItem" style="padding: 5px">' +
@@ -165,10 +172,9 @@ $(document).ready(function () {
         })
 
         $.get('/getBundles', {artistID: selected, projection: "_id bundleName bundlePrice bundleStock bundlePicture"}, function(result){
-            console.log(result)
             for (i = 0; i < result.length; i++) {
                 
-                $("#financialItem").append('<div class="col mb-3" id="' + result[i]._id + '-buyItem" style="padding: 5px">' +
+                $("#financialItem").append('<div class="col mb-3" id="' + result[i]._id + '-financialItem" style="padding: 5px">' +
                                                         '<div class="card">' +
                                                             '<img src="' + result[i].bundlePicture + '" class="card-img-top" alt="...">' +
                                                             '<div class="card-body">' +
@@ -203,7 +209,7 @@ $(document).ready(function () {
                                         "</td><td>" + result[i].bundlePrice + 
                                         "</td><td>" + result[i].bundleSold + "</td></tr>")
                 }
-                
+
                 $("#totalSoldSales").html(total)
             })
         })
@@ -235,8 +241,9 @@ $(document).ready(function () {
             bundles: bundleCart
         }
         if (itemCart.length + bundleCart.length > 0) {
-            $.post('/orderCheckOut', cart, function(){
+            $.post('/orderCheckOut', cart, function(result){
                 $("#newOrderWindow").modal('toggle')
+                showToast("Checkout", result)
             })
         }
     })
@@ -253,8 +260,9 @@ $(document).ready(function () {
                 value: input
             }
 
-            $.post('/restockItem', details, function(){
+            $.post('/restockItem', details, function(result){
                 $("#financialWindow").modal('toggle')
+                showToast("Restock", result)
             })
         }
     })
