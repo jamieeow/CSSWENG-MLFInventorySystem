@@ -2,7 +2,8 @@ const path = require('path');
 const db = require('../models/database.js');
 const Items = require('../models/ItemModel.js')
 const Bundles = require('../models/BundleModel.js')
-const Artists = require('../models/ArtistModel.js')
+const Artists = require('../models/ArtistModel.js');
+const { send } = require('process');
 
 const mainController = {
     //Render main page
@@ -39,9 +40,9 @@ const mainController = {
 
     /*  new order decrements stockQuantity and increments itemSold */
     postOrderCheckOut: function(req, res, next){
-        console.log(req.body)
         var items = req.body.items
         var bundles = req.body.bundles
+        var success = true;
         
         for (let i = 0; items && i < items.length; i++) {
             
@@ -54,7 +55,7 @@ const mainController = {
                     }
 
                     db.updateOne(Items, {_id: items[i].itemID}, update, function(result1) {
-                        console.log(result1)
+                        success = result
                     })
                     
                 }
@@ -75,7 +76,7 @@ const mainController = {
                     }
 
                     db.updateOne(Bundles, {_id: bundles[i].itemID}, update, function(result1) {
-                        console.log(result1)
+                        success = success && result1
                     })
                     
                 }
@@ -84,12 +85,13 @@ const mainController = {
                 }
             })
         }
-        
-        res.redirect('/');
+        res.send(success)
+
     },
 
     /*  add stocks increments stockQuantity */
     postRestock: function(req, res, next){
+
         if (req.body.itemType == 'item') {
             db.findOne(Items, {_id: req.body.item}, 'stockQuantity', function(result) {
                     
@@ -97,7 +99,9 @@ const mainController = {
                     var update = {
                         stockQuantity: result.stockQuantity + parseInt(req.body.value),
                     }
-                    db.updateOne(Items, {_id: req.body.item}, update, function(result) {})
+                    db.updateOne(Items, {_id: req.body.item}, update, function(result1) {
+                        res.send(result1)
+                    })
                 }
                 else {
                     console.log('Item ' + req.body.item + ' not found in the collection.')
@@ -110,15 +114,15 @@ const mainController = {
                     var update = {
                         bundleStock: result.bundleStock + parseInt(req.body.value),
                     }
-                    db.updateOne(Bundles, {_id: req.body.item}, update, function(result) {})
+                    db.updateOne(Bundles, {_id: req.body.item}, update, function(result1) {
+                        res.send(result1)
+                    })
                 }
                 else {
                     console.log('Bundle ' + req.body.item + ' not found in the collection.')
                 }
             })
         }
-
-        res.redirect('/');
     },
 
     /*  returns all items of a specific artist */
