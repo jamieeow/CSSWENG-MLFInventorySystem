@@ -7,27 +7,24 @@ const bcryptjs = require('bcryptjs');
 
 const loginController = {
     //Render login page
+    getLoginPage: function(req, res, next){
+        res.render("login")
+    },
+
+    //Render login page and sends username and password
     getLogin: function(req, res, next){
         var username = req.query.username;
         var pw = req.query.pw;
-
-        db.findOne(Admins, {userName: username}, 'pw', function(result) {
+        
+        db.findOne(Admins, {userName: username}, 'password', function(result) {
             if (result) {
-                bcryptjs.compare(pw, result.pw, function(err, equal) {
-                    if (equal) {
-                        req.session.user = username
-                        req.session.isAdmin = true
-                    }
+                bcryptjs.compare(pw, result.password, function(err, equal) {
                     res.send(equal)
                 })
             } else {
-                db.findOne(Cashiers, {artistID: username}, '', function(result2) {
+                db.findOne(Cashiers, {artistID: username}, 'password', function(result2) {
                     if (result) {
-                        bcryptjs.compare(pw, result2.pw, function(err, equal) {
-                            if (equal) {
-                                req.session.user = username
-                                req.session.isAdmin = false
-                            }
+                        bcryptjs.compare(pw, result2.password, function(err, equal) {
                             res.send(equal)
                         })
                     } else {
@@ -36,30 +33,35 @@ const loginController = {
                 })
             }
         })
-        res.sendFile(path.join(__dirname + '/../public/login.html'));
     },
 
-    //Render login page and sends username and password
-    postLogin: function(req, res, next){
+    postLogin: function(req, res, next) {
         var username = req.body.username;
         var pw = req.body.pw;
-
-        db.findOne(Admins, {userName: username}, '', function(result) {
+        
+        db.findOne(Admins, {userName: username}, 'password', function(result) {
             if (result) {
-                res.redirect('/admin')
+                bcryptjs.compare(pw, result.password, function(err, equal) {
+                    if (equal) {
+                        req.session.user = username
+                        req.session.isAdmin = true
+                        res.send('/admin')
+                    } else res.send('/')
+                })
             } else {
-                db.findOne(Cashiers, {artistID: username}, '', function(result2) {
-                    if (result2) {
-                        res.redirect('/')
-                    }
-                    else res.send(false)
+                db.findOne(Cashiers, {artistID: username}, 'password', function(result2) {
+                    if (result) {
+                        bcryptjs.compare(pw, result2.password, function(err, equal) {
+                            if (equal) {
+                                req.session.user = username
+                                req.session.isAdmin = false
+                                res.send('/main')
+                            } else res.send('/')
+                        })
+                    } else res.send('/')
                 })
             }
         })
-    },
-    
-    getLoginPage: function(req, res, next) {
-        res.render('login')
     }
 }
 
