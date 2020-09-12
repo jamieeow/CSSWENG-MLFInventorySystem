@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>Login</title>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js" type="text/javascript">
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous">
+
+    </script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous">
+    </script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <link rel="stylesheet" type="text/css" href="css/cssStyle.css" />
+    <script src="js/loginPage.js"></script>
+
+</head>
+<body id="loginPage">
+    <div id="loginBox" class="container">
+        <form id="loginForm" method="POST" action="/login">
+            <div class="text-center">
+                <img id="logoImage" src="photo/logo.png" />
+            </div>
+            
+            <div class="form-group">
+                <label for="userName" class="font-weight-normal">username</label>
+                <input id="userName" name="userName" type="text" class="form-control" pattern="[A-Za-z0-9]+"/>
+            </div>
+            <div class="form-group">
+                <label for="password" class="font-weight-normal" >password</label>
+                <input id="password" name="password" type="password" class="form-control"/>
+            </div>
+            <div id="error" class="text-danger"></div>
+            <div class="text-right">
+                <input id="loginButton" value="LOGIN" type="button" class="btn btn-secondary btn-lg col-5" />
+            </div>
+        </form>
+    </div>
+</body>
+</html>
