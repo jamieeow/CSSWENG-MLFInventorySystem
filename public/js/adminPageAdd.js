@@ -20,7 +20,6 @@ function bundleItem(itemID, itemName, itemPrice) {
 
 $(document).ready(function () {
     //Codes for bundle
-    $(".itemGrid").hide()
     $("[id$=bundleItem]").addClass("mx-0")
     
     /*  changes the item cards in artistItemsSection according to selected artist */
@@ -33,8 +32,8 @@ $(document).ready(function () {
     /*  resets all values upon closing of any modal */
     $(".modal").on('hidden.bs.modal', function() {
         $(".defaultVal").prop("selected", true)
-        $(".itemGrid").hide()
         $("[id$=bundleItem-item]").removeClass('bg-secondary')
+        $("#manageItem").html('')
         $('.clearInput').val('');
     })
 

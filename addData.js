@@ -15,7 +15,8 @@ const saltRounds = 10;
 
 var user = {
     userName: "admin",
-    password: "pw123"
+    password: "pw123",
+    _id: new mongoose.Types.ObjectId(),
 };
 
 bcryptjs.hash(user.password, saltRounds, function(err, hash) {

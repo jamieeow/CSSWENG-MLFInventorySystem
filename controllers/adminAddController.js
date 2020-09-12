@@ -5,61 +5,88 @@ const db = require('../models/database.js');
 const Artists = require('../models/ArtistModel.js');
 const Items = require('../models/ItemModel.js');
 const Bundles = require('../models/BundleModel.js');
+const Events = require('../models/EventModel.js');
 
 const adminAddController = {
     //Render admin
     getLoginAdmin: function(req, res, next){
-        //find artist then render with details
-        db.findMany(Artists, {}, '', result=>{
-        
-            let artistArray = [];
-            let artistItemsArray = [];
-            let itemArray = [];
+        //if logged in user is admin
+        if (req.session.isAdmin) {
+            //find artist then render with details
+            db.findMany(Artists, {}, '', result=>{
+            
+                let artistArray = [];
+                let artistItemsArray = [];
+                let itemArray = [];
 
-            //push all artistID and artistName to an array to be used in details below
-            for (let i=0;i<result.length;i++){
-                artistObj = { //artist object containing artist ID and artist name
-                    artistID: result[i].artistID,
-                    artistName: result[i].artistName,
-                }
-                artistArray.push(artistObj);
-            }
-
-            //push all items to an array to be used in details below
-            for (let i=0;i<result.length;i++){ //artist
-                db.findMany(Items,{artistID: result[i].artistID},'', itemResult=>{ //returns item of artist
-                    itemArray = []; //empties the item array for the next set of items for artist
-                    for (let j=0;j<itemResult.length;j++){ //item
-                        itemObj = { //item object containing item info
-                            itemID: itemResult[j]._id,
-                            itemPicture: itemResult[j].itemPicture,
-                            itemName: itemResult[j].itemName,
-                            itemPrice: itemResult[j].itemPrice,
-                            stocksQuantity: itemResult[j].stockQuantity,
-                        }
-                        itemArray.push(itemObj); //array of item info
-                    }
-                    artistItemsObj = { //artist item object containing item info and artist ID
+                //push all artistID and artistName to an array to be used in details below
+                for (let i=0;i<result.length;i++){
+                    artistObj = { //artist object containing artist ID and artist name
                         artistID: result[i].artistID,
-                        item: itemArray,
+                        artistName: result[i].artistName,
                     }
-                    artistItemsArray.push(artistItemsObj); //array of artist item (this is for artistItems in details)
-                })
-            }
+                    artistArray.push(artistObj);
+                }
 
-            //details of admin page
-            var details = {
-                artist: artistArray,
-                artistItems: artistItemsArray,
-            }
+                //push all items to an array to be used in details below
+                for (let i=0;i<result.length;i++){ //artist
+                    db.findMany(Items,{artistID: result[i].artistID},'', itemResult=>{ //returns item of artist
+                        itemArray = []; //empties the item array for the next set of items for artist
+                        for (let j=0;j<itemResult.length;j++){ //item
+                            itemObj = { //item object containing item info
+                                itemID: itemResult[j]._id,
+                                itemPicture: itemResult[j].itemPicture,
+                                itemName: itemResult[j].itemName,
+                                itemPrice: itemResult[j].itemPrice,
+                                stocksQuantity: itemResult[j].stockQuantity,
+                            }
+                            itemArray.push(itemObj); //array of item info
+                        }
+                        artistItemsObj = { //artist item object containing item info and artist ID
+                            artistID: result[i].artistID,
+                            item: itemArray,
+                        }
+                        artistItemsArray.push(artistItemsObj); //array of artist item (this is for artistItems in details)
+                    })
+                }
+                //Set event count down
+                db.findOne(Events, {isCurrentEvent: true},'', eventResult=>{
+                    var diffDate = parseInt((new Date("09/15/2020") - Date.now())); //change new date to eventresult
+                    var minutes = Math.ceil(diffDate / (1000 * 60));
+                    var hours = Math.floor(minutes / 60);
+                    var days = Math.floor(hours/24);
+                    hours = hours%24;
 
-            if (result){
-                res.render('admin',details)
-            }
-            else {
-                res.render('admin')
-            }            
-        })
+                    db.findMany(Items, {}, 'itemSold', itemResult=>{
+                        var sold=0;
+                        for (let i; i<itemResult.length;i++) {
+                            sold += itemResult[i].itemSold;
+                        }
+                        //details of admin page
+                        var details = {
+                            artist: artistArray,
+                            artistItems: artistItemsArray,
+                            daysLeft: days,
+                            hoursLeft: hours,
+                            totalSold: sold,
+                        }
+                        if (result){
+                            res.render('admin',details)
+                        }
+                        else {
+                            res.render('admin')
+                        }
+                    })
+                })     
+            })
+        }
+        // if the logged in user is not an admin, therefore a cashier
+        else if (req.session.isAdmin == false) {
+            res.redirect('/main')
+        } 
+        
+        // if the user is not logged in
+        else res.redirect('/')
         
     },
 
