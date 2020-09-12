@@ -8,5 +8,6 @@ router.get('/', mainController.getMain);
 router.post('/orderCheckOut', mainController.postOrderCheckOut);
 router.post('/restockItem', mainController.postRestock);
 router.get('/getItems', mainController.getItems);
+router.get('/getBundles', mainController.getBundles);
 
 module.exports = router;
