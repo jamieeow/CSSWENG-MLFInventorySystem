@@ -358,9 +358,50 @@
                     </ul>
                     <div class="tab-content p-2" id="manageBundleList">
                         <div div id="editEventsSection" class="tab-pane fade show active pb-4" role="tabpanel" aria-labelledby="editEventsOption">
-
+                            <h5 class="modal-title">Edit event</h5>
+                            <p id="manageReminder">Select the event you want to set as current. You can also edit and delete an event.</p>
+                            <form class="form">
+                                <div class="form-row mb-2">
+                                    <div class="col mb-2">
+                                        <label for="selectedEvent" class="font-weight-normal mr-2">select event</label>
+                                        <select id="selectedEvent" class="form-control col-8" name="selectedEvent">
+                                            <option class="defaultVal" value="" disabled selected>select event</option>
+                                        </select>
+                                        <button name="deleteEventButton" id="deleteEventButton" class="btn btn-secondary col-5" type="submit">delete</button>
+                                    </div>
+                                </div>
+                                <div class="form-row mb-2">
+                                    <div class="col mb-2">
+                                        <label for="editEventName" class="font-weight-normal mr-2">event name</label>
+                                        <input name="editEventName" id="newEventName" class="form-control col-14 clearInput" type="text" required />
+                                    </div>
+                                </div>
+                                <div class="form-row mb-2">
+                                    <div class="col mb-2">
+                                        <label for="startEventDate" class="font-weight-normal mr-2">date</label>
+                                        <input name="startEventDate" id="startEventDate" class="form-control clearInput" type="date" required />
+                                    </div>
+                                    <div class="col mb-2">
+                                        <label for="startEventDate" class="font-weight-normal mr-2">time</label>
+                                        <input name="startEventTime" id="startEventTime" class="form-control clearInput" type="time" required />
+                                    </div>
+                                </div>
+                                <div class="form-row mb-2">
+                                    <div class="col mb-2">
+                                        <label for="endEventDate" class="font-weight-normal mr-2">date</label>
+                                        <input name="endEventDate" id="endEventDate" class="form-control clearInput" type="date" required />
+                                    </div>
+                                    <div class="col mb-2">
+                                        <label for="endEventTime" class="font-weight-normal mr-2">time</label>
+                                        <input name="endEventTime" id="endEventTime" class="form-control clearInput" type="time" required />
+                                    </div>
+                                </div>
+                                <button name="editEventButton" id="editEventButton" class="btn btn-secondary btn-md col-4 mt-4 mb-2 float-right" type="submit">save</button>
+                            </form>
                         </div>
                         <div div id="addEventsSection" class="tab-pane fade" role="tabpanel" aria-labelledby="addEventsOption">
+                            <h5 class="modal-title">Add event</h5>
+                            <p id="manageReminder">Fill in the form below before adding a new event.</p>
                             <form class="form">
                                 <div class="form-row mb-2">
                                     <div class="col mb-2">
