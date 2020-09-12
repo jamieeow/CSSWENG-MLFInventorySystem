@@ -51,8 +51,11 @@ const adminAddController = {
                 }
                 //Set event count down
                 db.findOne(Events, {isCurrentEvent: true},'', eventResult=>{
-                    var diffDate = parseInt((new Date("09/15/2020") - Date.now())); //change new date to eventresult
-                    var minutes = Math.ceil(diffDate / (1000 * 60));
+                    var diffDate = parseInt((new Date("09/13/2020") - Date.now())); //change new date to eventresult
+                    var minutes = 0;
+                    if (diffDate >= 0) { //if there is time remaining
+                        minutes = Math.ceil(diffDate / (1000 * 60));
+                    }
                     var hours = Math.floor(minutes / 60);
                     var days = Math.floor(hours/24);
                     hours = hours%24;
@@ -68,6 +71,7 @@ const adminAddController = {
                             artistItems: artistItemsArray,
                             daysLeft: days,
                             hoursLeft: hours,
+                            minutesLeft: minutes,
                             totalSold: sold,
                         }
                         if (result){
