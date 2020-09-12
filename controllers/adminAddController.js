@@ -2,10 +2,13 @@ const path = require('path');
 const mongoose = require('mongoose');
 const multer = require('multer');
 const db = require('../models/database.js');
+const bcryptjs = require('bcryptjs');
+const saltRounds = 10;
 const Artists = require('../models/ArtistModel.js');
 const Items = require('../models/ItemModel.js');
 const Bundles = require('../models/BundleModel.js');
 const Events = require('../models/EventModel.js');
+const Cashiers = require('../models/CashierModel.js');
 
 const adminAddController = {
     //Render admin
@@ -49,9 +52,9 @@ const adminAddController = {
                         artistItemsArray.push(artistItemsObj); //array of artist item (this is for artistItems in details)
                     })
                 }
-                //Set event count down
+                //Set event count down for days, hours, and minutes
                 db.findOne(Events, {isCurrentEvent: true},'', eventResult=>{
-                    var diffDate = parseInt((new Date("09/13/2020") - Date.now())); //change new date to eventresult
+                    var diffDate = parseInt((new Date("09/14/2020") - Date.now())); //change new date to eventresult
                     var minutes = 0;
                     if (diffDate >= 0) { //if there is time remaining
                         minutes = Math.ceil(diffDate / (1000 * 60));
@@ -59,11 +62,12 @@ const adminAddController = {
                     var hours = Math.floor(minutes / 60);
                     var days = Math.floor(hours/24);
                     hours = hours%24;
-
-                    db.findMany(Items, {}, 'itemSold', itemResult=>{
+                    minutes = minutes%60;
+                    //find how many items were sold
+                    db.findMany(Items, {}, '', itemResult=>{
                         var sold=0;
-                        for (let i; i<itemResult.length;i++) {
-                            sold += itemResult[i].itemSold;
+                        for (let i=0; i<itemResult.length;i++) {
+                            sold += itemResult[i].itemsSold;
                         }
                         //details of admin page
                         var details = {
@@ -96,12 +100,17 @@ const adminAddController = {
 
     //Add artist to database
     postAddArtist: function(req, res, next){
-        data = {
+        artistData = {
             _id: new mongoose.Types.ObjectId(),
             artistID: req.body.newArtistIDNo,
             artistName: req.body.newArtistName
         }
-        db.insertOne(Artists, data, result=>{
+        cashierData = {
+            _id: new mongoose.Types.ObjectId(),
+            artistID: req.body.newArtistIDNo,
+            password: 'pw123',
+        }
+        db.insertOne(Artists, artistData, result=>{
             if (result) {
                 console.log("Successfully added artist to the artists collection");
             }
@@ -109,6 +118,18 @@ const adminAddController = {
                 console.log("Error adding artist to the artists collection");
             }
         });
+
+        bcryptjs.hash(cashierData.password, saltRounds, function(err, hash) {
+            cashierData.password = hash
+            db.insertOne(Cashiers, cashierData, result=>{
+                if (result) {
+                    console.log("Successfully added cashier to the cashiers collection");
+                }
+                else {
+                    console.log("Error adding cashier to the cashiers collection");
+                }
+            });
+        })
         
         res.redirect('/admin');
     },
