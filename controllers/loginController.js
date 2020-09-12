@@ -22,8 +22,8 @@ const loginController = {
                     res.send(equal)
                 })
             } else {
-                db.findOne(Cashiers, {artistID: username}, 'password', function(result2) {
-                    if (result) {
+                db.findOne(Cashiers, {artistID: parseInt(username)}, 'password', function(result2) {
+                    if (result2) {
                         bcryptjs.compare(pw, result2.password, function(err, equal) {
                             res.send(equal)
                         })
@@ -49,8 +49,8 @@ const loginController = {
                     } else res.send('/')
                 })
             } else {
-                db.findOne(Cashiers, {artistID: username}, 'password', function(result2) {
-                    if (result) {
+                db.findOne(Cashiers, {artistID: parseInt(username)}, 'password', function(result2) {
+                    if (result2) {
                         bcryptjs.compare(pw, result2.password, function(err, equal) {
                             if (equal) {
                                 req.session.user = username
