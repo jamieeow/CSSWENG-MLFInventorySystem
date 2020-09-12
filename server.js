@@ -22,15 +22,24 @@ try {
 
 app.use(express.static(__dirname + '/public'));
 
+// session
+const session = require('express-session');
+
+app.use(session({
+  'secret': 'a',
+  'resave': false,
+  'saveUninitialized': false
+}));
+
 //Middlewares
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 
 //Main menu
-const MainController = require('./controllers/mainController');
+const LogInController = require('./controllers/loginController.js');
 
 //Start the app with login page
-app.get("/" , MainController.getMain);
+app.get("/" , LogInController.getLoginPage);
 
 //Routes
 const loginRoutes = require('./router/loginRoutes');
