@@ -28,7 +28,7 @@ function buyItem(itemID, itemName, itemPrice, stockQuantity, itemType) {
                                         "<td style='width: 10%'><button type='button' class='close' onclick='removeCartItem(" + itemID + ", " + itemPrice + ", " + itemType + ")' aria-label='Close'>" + 
                                             "<span aria-hidden='true'>&times;</span></button></td>" + 
                                         "<td id='" + itemID + "Quantity'>(1) " + itemName + "</td>" + 
-                                        "<td id='" + itemID + "Total' class='text-right'>" + parseFloat(itemPrice) + "</td></tr>")
+                                        "<td id='" + itemID + "Total' class='text-right'>" + parseFloat(itemPrice).toFixed() + "</td></tr>")
     } else {
         var q;
 
@@ -42,12 +42,12 @@ function buyItem(itemID, itemName, itemPrice, stockQuantity, itemType) {
             totalPrice += parseFloat(itemPrice)
     
             $("#" + itemID + "Quantity").html("(" + q + ") " + itemName);
-            $("#" + itemID + "Total").html(parseFloat(p));
+            $("#" + itemID + "Total").html(parseFloat(p).toFixed(2));
         }
         
     }
     
-    $("#totalPrice").html(parseFloat(totalPrice))
+    $("#totalPrice").html(parseFloat(totalPrice).toFixed(2))
     $("#checkoutBtn").prop("disabled", false)
 }
 
@@ -71,7 +71,7 @@ function removeCartItem(itemID, itemPrice, itemType) {
 
     cart.splice(i, 1)
     inCart.splice(i, 1)
-    $("#totalPrice").html(parseFloat(totalPrice))
+    $("#totalPrice").html(parseFloat(totalPrice).toFixed(2))
 
     if (inItemCart.length + inBundleCart.length == 0) {
         $("#checkoutBtn").prop("disabled", true)
@@ -104,6 +104,40 @@ function showToast(func, state) {
     }
 }
 
+/*  shows the table for artist modals */
+function showArtistModal (artistID) {
+    $("#salesList").html('')
+    var selected = $(this).children("option:selected").val();
+    var total = 0;
+
+    $.get('/getItems', {artistID: artistID, projection: "itemName itemPrice itemsSold stockQuantity"}, function(itemRes){
+        for (i = 0; i < itemRes.length; i++) {
+            $("#" + artistID + "-table").append("<tr><td>" + itemRes[i].itemName + 
+                                    "</td><td>" + itemRes[i].stockQuantity + 
+                                    "</td><td>" + itemRes[i].itemPrice.toFixed(2) + 
+                                    "</td><td>" + itemRes[i].itemsSold + "</td></tr>")
+        }
+
+        $.get('/getBundles', {artistID: artistID, projection: "bundleName bundlePrice bundleSold bundleStock"}, function(bundleRes){
+            for (i = 0; i < bundleRes.length; i++) {
+                $("#" + artistID + "-table").append("<tr><td>" + bundleRes[i].bundleName + 
+                                        "</td><td>" + bundleRes[i].bundleStock + 
+                                        "</td><td>" + bundleRes[i].bundlePrice.toFixed(2) + 
+                                        "</td><td>" + bundleRes[i].bundleSold + "</td></tr>")
+            }
+
+            if (!itemRes && !bundleRes) {
+                $("#" + artistID + "-table").append("<tr><td> No items for sale</td> <td>0</td>" + 
+                                                    "<td>0</td> <td>0</td></tr>")
+
+            }
+
+        })
+    })
+
+    $("#" + artistID + "-modal").modal('toggle');
+}
+
 $(document).ready(function () {
     $("[id$=financialItem]").addClass("mx-0")
     
@@ -121,7 +155,7 @@ $(document).ready(function () {
                                                                 '<img src="' + result[i].itemPicture + '" class="card-img-top" alt="...">' +
                                                                 '<div class="card-body">' +
                                                                     '<h5 class="card-title">' + result[i].itemName + '</h5>' +
-                                                                    '<p class="card-text">PHP ' + result[i].itemPrice + ' | ' + result[i].stockQuantity + ' left</p>' +
+                                                                    '<p class="card-text">PHP ' + result[i].itemPrice.toFixed(2) + ' | ' + result[i].stockQuantity + ' left</p>' +
                                                                     '<a href="#" class="stretched-link" onclick="buyItem(\'' + result[i]._id + '\', \'' + result[i].itemName + '\', \'' + result[i].itemPrice + '\', \'' + result[i].stockQuantity + '\', \'item\')" style="size: 0px;"></a>' +
                                                                 '</div>' +
                                                             '</div>' +
@@ -139,7 +173,7 @@ $(document).ready(function () {
                                                                 '<img src="' + result[i].bundlePicture + '" class="card-img-top" alt="...">' +
                                                                 '<div class="card-body">' +
                                                                     '<h5 class="card-title">' + result[i].bundleName + '</h5>' +
-                                                                    '<p class="card-text">PHP ' + result[i].bundlePrice + ' | ' + result[i].bundleStock + ' left</p>' +
+                                                                    '<p class="card-text">PHP ' + result[i].bundlePrice.toFixed(2) + ' | ' + result[i].bundleStock + ' left</p>' +
                                                                     '<a href="#" class="stretched-link" onclick="buyItem(\'' + result[i]._id + '\', \'' + result[i].bundleName + '\', \'' + result[i].bundlePrice + '\', \'' + result[i].bundleStock + '\', \'bundle\')" style="size: 0px;"></a>' +
                                                                 '</div>' +
                                                             '</div>' +
@@ -163,7 +197,7 @@ $(document).ready(function () {
                                                             '<img src="' + result[i].itemPicture + '" class="card-img-top" alt="...">' +
                                                             '<div class="card-body">' +
                                                                 '<h5 class="card-title">' + result[i].itemName + '</h5>' +
-                                                                '<p class="card-text">PHP ' + result[i].itemPrice + ' | ' + result[i].stockQuantity + ' left</p>' +
+                                                                '<p class="card-text">PHP ' + result[i].itemPrice.toFixed(2) + ' | ' + result[i].stockQuantity + ' left</p>' +
                                                                 '<a href="#" class="stretched-link" onclick="financialItem(\'' + result[i]._id + '\', \'item\')" style="size: 0px;"></a>' +
                                                             '</div>' +
                                                         '</div>' +
@@ -179,7 +213,7 @@ $(document).ready(function () {
                                                             '<img src="' + result[i].bundlePicture + '" class="card-img-top" alt="...">' +
                                                             '<div class="card-body">' +
                                                                 '<h5 class="card-title">' + result[i].bundleName + '</h5>' +
-                                                                '<p class="card-text">PHP ' + result[i].bundlePrice + ' | ' + result[i].bundleStock + ' left</p>' +
+                                                                '<p class="card-text">PHP ' + result[i].bundlePrice.toFixed(2) + ' | ' + result[i].bundleStock + ' left</p>' +
                                                                 '<a href="#" class="stretched-link" onclick="financialItem(\'' + result[i]._id + '\', \'bundle\')" style="size: 0px;"></a>' +
                                                             '</div>' +
                                                         '</div>' +
@@ -190,27 +224,39 @@ $(document).ready(function () {
     
     /*  shows the sales report according to selected artist */
     $("select[name='selectedArtistSales']").change(function() {
-        $("#salesList").html('')
         var selected = $(this).children("option:selected").val();
         var total = 0;
 
-        $.get('/getItems', {artistID: selected, projection: "itemName itemPrice itemsSold"}, function(result){
-            for (i = 0; i < result.length; i++) {
-                total += (result[i].itemPrice * result[i].itemsSold)
-                $("#salesList").append("<tr><td>" + result[i].itemName + 
-                                    "</td><td>" + result[i].itemPrice + 
-                                    "</td><td>" + result[i].itemsSold + "</td></tr>")
+        $.get('/getItems', {artistID: selected, projection: "itemName itemPrice itemsSold"}, function(itemRes){
+            
+            if (itemRes) {
+                $("#salesList").html("<tr class='row m-0'><td class='col-6'>" + itemRes[0].itemName + 
+                                        "</td><td class='col-3'>" + itemRes[0].itemPrice.toFixed(2) + 
+                                        "</td><td class='col-3'>" + itemRes[0].itemsSold + "</td></tr>")
             }
 
-            $.get('/getBundles', {artistID: selected, projection: "bundleName bundlePrice bundleSold"}, function(result){
-                for (i = 0; i < result.length; i++) {
-                    total += (result[i].bundlePrice * result[i].bundleSold)
-                    $("#salesList").append("<tr><td>" + result[i].bundleName + 
-                                        "</td><td>" + result[i].bundlePrice + 
-                                        "</td><td>" + result[i].bundleSold + "</td></tr>")
+            for (i = 1; i < itemRes.length; i++) {
+                total += (itemRes[i].itemPrice * itemRes[i].itemsSold)
+                $("#salesList").append("<tr class='row m-0'><td class='col-6'>" + itemRes[i].itemName + 
+                                    "</td><td class='col-3'>" + itemRes[i].itemPrice.toFixed(2) + 
+                                    "</td><td class='col-3'>" + itemRes[i].itemsSold + "</td></tr>")
+            }
+
+            $.get('/getBundles', {artistID: selected, projection: "bundleName bundlePrice bundleSold"}, function(bundleRes){
+                
+                for (i = 0; i < bundleRes.length; i++) {
+                    total += (bundleRes[i].bundlePrice * bundleRes[i].bundleSold)
+                    $("#salesList").append("<tr class='row m-0'><td class='col-6'>" + bundleRes[i].bundleName + 
+                                        "</td><td class='col-3'>" + bundleRes[i].bundlePrice.toFixed(2) + 
+                                        "</td><td class='col-3'>" + bundleRes[i].bundleSold + "</td></tr>")
+                }
+                
+                if (!itemRes && !bundleRes) {
+                    $("#salesList").html("<tr class='row m-0'><td class='col-6'> No items for sale</td>" + 
+                                            "<td class='col-3'>0</td> <td class='col-3'>0</td></tr>")
                 }
 
-                $("#totalSoldSales").html(total)
+                $("#totalSoldSales").html("PHP " + parseFloat(total).toFixed(2))
             })
         })
     })
