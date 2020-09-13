@@ -54,7 +54,12 @@ const adminAddController = {
                 }
                 //Set event count down for days, hours, and minutes
                 db.findOne(Events, {isCurrentEvent: true},'', eventResult=>{
-                    var diffDate = parseInt((new Date("09/14/2020") - Date.now())); //change new date to eventresult
+                    if (eventResult) {
+                        var diffDate = parseInt((eventResult.endDate - Date.now())); //change new date to eventresult
+                    }
+                    else {
+                        var diffDate = 0;
+                    }
                     var minutes = 0;
                     if (diffDate >= 0) { //if there is time remaining
                         minutes = Math.ceil(diffDate / (1000 * 60));
@@ -151,27 +156,33 @@ const adminAddController = {
 
           upload(req, res, (err) => {
             if (!err){
-                data = {
-                    _id: new mongoose.Types.ObjectId(),
-                    artistID: req.body.itemSelectedArtist,
-                    eventID: new mongoose.Types.ObjectId(), //temp
-                    itemName: req.body.newItemName,
-                    itemPrice: req.body.newPriceStock,
-                    stockQuantity: req.body.newStockQuantity,
-                    itemsSold: 0,
-                    itemPicture: '/photo/'+ req.file.originalname,
-                }
-                
-                db.insertOne(Items, data, result=>{
-                    if (result) {
-                        console.log("Successfully added item to the items collection");
+                db.findOne(Events,{isCurrentEvent:true}, '', eventResult=>{
+                    var eventResultID = new mongoose.Types.ObjectId();
+                    if (eventResult) {
+                        eventResultID = eventResult._id;
                     }
-                    else {
-                        console.log("Error adding item to the items collection");
+                    data = {
+                        _id: new mongoose.Types.ObjectId(),
+                        artistID: req.body.artistsListDropdownItemAdd,
+                        eventID: eventResultID,
+                        itemName: req.body.newItemName,
+                        itemPrice: req.body.newItemPriceStock,
+                        stockQuantity: req.body.newItemStockQuantity,
+                        itemsSold: 0,
+                        itemPicture: '/photo/'+ req.file.originalname,
                     }
-                });
-                
-                res.redirect('/admin');
+                    
+                    db.insertOne(Items, data, result=>{
+                        if (result) {
+                            console.log("Successfully added item to the items collection");
+                        }
+                        else {
+                            console.log("Error adding item to the items collection");
+                        }
+                    });
+                    
+                    res.redirect('/admin');
+                })
             }
         })
     },
@@ -192,28 +203,34 @@ const adminAddController = {
 
         upload(req, res, (err) => {
             if (!err){
-                data = {
-                    _id: new mongoose.Types.ObjectId(),
-                    artistID: req.body.bundleSelectedArtist,
-                    eventID: new mongoose.Types.ObjectId(), //temp
-                    includedItems: req.body.selectedItems,
-                    bundleName: req.body.newBundleName,
-                    bundlePrice: req.body.newPriceStock,
-                    bundleSold: 0,
-                    bundleStock: req.body.newStockQuantity,
-                    bundlePicture: '/photo/'+ req.file.originalname,
-                }
-                
-                db.insertOne(Bundles, data, result=>{
-                    if (result) {
-                        console.log("Successfully added bundle to the bundles collection");
+                db.findOne(Events, {isCurrentEvent:true},'', eventResults=>{
+                    var eventResultsID = new mongoose.Types.ObjectId();
+                    if (eventResults) {
+                        eventResultsID = eventResults._id;
                     }
-                    else {
-                        console.log("Error adding bundle to the bundles collection");
+                    data = {
+                        _id: new mongoose.Types.ObjectId(),
+                        artistID: req.body.artistsListDropdownBundleAdd,
+                        eventID: eventResultsID,
+                        includedItems: req.body.selectedItems,
+                        bundleName: req.body.newBundleName,
+                        bundlePrice: req.body.newBundlePriceStock,
+                        bundleSold: 0,
+                        bundleStock: req.body.newBundleStockQuantity,
+                        bundlePicture: '/photo/'+ req.file.originalname,
                     }
-                });
-                
-                res.redirect('/admin');
+                    
+                    db.insertOne(Bundles, data, result=>{
+                        if (result) {
+                            console.log("Successfully added bundle to the bundles collection");
+                        }
+                        else {
+                            console.log("Error adding bundle to the bundles collection");
+                        }
+                    });
+                    
+                    res.redirect('/admin');
+                })
             }
         })
     },
@@ -223,8 +240,8 @@ const adminAddController = {
         eventData = {
             _id: new mongoose.Types.ObjectId(),
             eventName: req.body.newEventName,
-            startDate: req.body.startEventDate,
-            endDate: req.body.endEventDate,
+            startDate: req.body.addStartEventDate,
+            endDate: req.body.addEndEventDate,
             isCurrentEvent: false,
         }
         db.insertOne(Events, eventData, result=>{
