@@ -96,7 +96,7 @@
                                             <option value="{{artistID}}">{{artistName}}</option>
                                             {{/each}}
                                         </select>
-                                        <button name="deleteArtistButton" id="deleteArtistButton" class="btn btn-secondary " type="button" onclick="clicked(event);">delete</button>
+                                        <button name="deleteArtistButton" id="deleteArtistButton" class="btn btn-secondary " type="button" onclick="deleteArtist(event);">delete</button>
                                     </div>
                                             
                                     <div class="form-group mb-2">
@@ -452,26 +452,29 @@
                             <h5 class="modal-title">Edit event</h5>
                             <p id="manageReminder">Select the event you want to set as current. You can also edit and delete an event.</p>
                             <span class="font-weight-bold">Current event name and time span: </span><span>name at HH:MM - HH:MM</span>
-                            <form class="form mt-3">
+                            <form class="form mt-3" method="post" action="/admin/editEvent">
                                 <div class="form-row mb-2">
                                     <div class="col mb-3">
                                         <label for="selectedEvent" class="font-weight-normal mr-2">event</label>
                                         <select id="selectedEvent" class="form-control col-8" name="selectedEvent">
                                             <option class="defaultVal" value="" disabled selected>select event</option>
+                                            {{#each event}}
+                                                    <option value="{{eventID}}">{{eventName}}</option>
+                                            {{/each}}
                                         </select>
-                                        <button name="deleteEventButton" id="deleteEventButton" class="btn btn-secondary col-5" type="submit">delete</button>
+                                        <button name="deleteEventButton" id="deleteEventButton" class="btn btn-secondary col-5" type="button" onclick="deleteEvent(event);">delete</button>
                                     </div>
                                 </div>
                                 <div class="form-group ml-1 mb-2">
                                     <div class="col mb-2">
-                                        <input name="editSetCurrentEvent" id="editSetCurrentEvent" class="form-check-input clearInput" type="checkbox" required />
+                                        <input name="editSetCurrentEvent" id="editSetCurrentEvent" class="form-check-input clearInput" type="checkbox" />
                                         <label for="editSetCurrentEvent" class="form-check-label">Set as current event</label>
                                     </div>
                                 </div>
                                 <div class="form-row mb-2">
                                     <div class="col mb-2">
                                         <label for="editEventName" class="font-weight-normal mr-2">event name</label>
-                                        <input name="editEventName" id="newEventName" class="form-control col-14 clearInput" type="text" required />
+                                        <input name="editEventName" id="editEventName" class="form-control col-14 clearInput" type="text" required />
                                     </div>
                                 </div>
                                 <div class="form-row mb-2">

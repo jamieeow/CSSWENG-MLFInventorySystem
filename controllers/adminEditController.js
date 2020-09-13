@@ -115,23 +115,37 @@ const adminEditController = {
 
     //Edit event information (eventName, startDate, endDate)
     postEditEvent: function(req, res, next){
+        var isCurrEvent = false;
+        if (req.body.editSetCurrentEvent == 'on') {
+            isCurrEvent = true;
+        }
+        else {
+            isCurrEvent = false;
+        }
         let retrievedData = {
             _id: req.body.selectedEvent,
             eventName: req.body.editEventName,
             startDate: req.body.editStartEventDate,
             endDate: req.body.editEndEventDate,
+            isCurrentEvent: isCurrEvent,
         }
-
-        db.updateOne(Events, {_id: req.body.selectedEvent}, retrievedData, result=>{
+        db.updateOne(Events, {isCurrentEvent: true}, {isCurrentEvent: false}, result=>{
             if (result) {
-                console.log("Successfully updated event details.");
+                console.log("Successfully updated isCurrentEvent from true to false");
             }
             else {
-                console.log("Error updating event details");
+                console.log("Error updating isCurrentEvent or no current event is selected yet.");
             }
+            db.updateOne(Events, {_id: req.body.selectedEvent}, retrievedData, result=>{
+                if (result) {
+                    console.log("Successfully updated event details.");
+                }
+                else {
+                    console.log("Error updating event details");
+                }
+                res.redirect('/admin');
+            })
         })
-        
-        res.redirect('/admin');
     },
 
     //returns artist

@@ -1,5 +1,5 @@
 //Javascript codes for delete functions of /admin
-function clicked(e) {
+function deleteArtist(e) {
     var selected = $("select[name='artistsListDropdownEdit']").children("option:selected").val();
     if (selected != '') {
         if(!confirm('Are you sure you want to delete?')) {

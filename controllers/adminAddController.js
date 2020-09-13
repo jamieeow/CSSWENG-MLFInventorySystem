@@ -251,7 +251,6 @@ const adminAddController = {
 
     //Add event to database
     postAddEvent: function(req, res, next){
-        console.log(req.body);
         var isCurrEvent = false;
         if (req.body.addSetCurrentEvent == 'on') {
             isCurrEvent = true;
@@ -266,16 +265,24 @@ const adminAddController = {
             endDate: req.body.addEndEventDate,
             isCurrentEvent: isCurrEvent,
         }
-        db.insertOne(Events, eventData, result=>{
+
+        db.updateOne(Events, {isCurrentEvent: true}, {isCurrentEvent: false}, result=>{
             if (result) {
-                console.log("Successfully added artist to the artists collection");
+                console.log("Successfully updated isCurrentEvent from true to false");
             }
             else {
-                console.log("Error adding artist to the artists collection");
+                console.log("Error updating isCurrentEvent or no current event is selected yet.");
             }
-        });
-        
-        res.redirect('/admin');
+            db.insertOne(Events, eventData, result=>{
+                if (result) {
+                    console.log("Successfully added artist to the artists collection");
+                }
+                else {
+                    console.log("Error adding artist to the artists collection");
+                }
+                res.redirect('/admin');
+            });
+        })
     },
     
 }
