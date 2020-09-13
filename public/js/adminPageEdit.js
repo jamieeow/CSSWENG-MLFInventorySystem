@@ -67,10 +67,26 @@ $(document).ready(function () {
         var selected = $(this).children("option:selected").val();
         console.log(selected);
 
-        $.get('/admin/getItems', {artistID: selected, projection: "_id itemID itemName"}, function(result){
+        $.get('/admin/getItems', {artistID: selected, projection: "_id itemName"}, function(result){
             if (result) {
                 for (var i=0; i < result.length; i++) {
-                    $(".manageItemsList").append('<option value="' + result[i].itemID + '">' + result[i].itemName + '</option>')
+                    $(".manageItemsList").append('<option value="' + result[i]._id + '">' + result[i].itemName + '</option>')
+                }
+            }
+        })
+    })
+    
+    //  edit bundle selector changes values according to selected artist
+    $("#artistsListDropdownBundleEdit").change(function() {
+        $("#artistsListDropdownBundle").html('<option class="defaultVal" value="" disabled selected>select bundle</option>')
+        var selected = $(this).children("option:selected").val();
+        console.log(selected);
+
+        $.get('/admin/getBundles', {artistID: selected, projection: "_id bundleName"}, function(result){
+            console.log(result)
+            if (result) {
+                for (var i=0; i < result.length; i++) {
+                    $("#artistsListDropdownBundle").append('<option value="' + result[i]._id + '">' + result[i].bundleName + '</option>')
                 }
             }
         })
@@ -78,6 +94,10 @@ $(document).ready(function () {
 
     $("#manageItemsWindow").on('hidden.bs.modal', function(){
         $(".manageItemsList").html('<option class="defaultVal" value="" disabled selected>select item</option>')
+    })
+
+    $("#manageBundlesWindow").on('hidden.bs.modal', function(){
+        $("#artistsListDropdownBundle").html('<option class="defaultVal" value="" disabled selected>select bundle</option>')
     })
 
 });

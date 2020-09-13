@@ -161,14 +161,27 @@ const adminEditController = {
         })
     },
 
-    /*  add stocks increments stockQuantity */
+    /*  returns items */
     getItems: function(req, res, next){
         db.findMany(Items, {artistID: req.query.artistID}, req.query.projection, function(result) {
             if (result.length > 0) {
                 res.send(result)
             }
             else {
-                console.log('Artist ' + req.query.artistID + ' not found in the collection.')
+                console.log('Item ' + req.query.artistID + ' not found in the collection.')
+                res.send(false)
+            }
+        })
+    },
+
+    /*  return bundles */
+    getBundles: function(req, res, next){
+        db.findMany(Bundles, {artistID: req.query.artistID}, req.query.projection, function(result) {
+            if (result.length > 0) {
+                res.send(result)
+            }
+            else {
+                console.log('Bundle ' + req.query.artistID + ' not found in the collection.')
                 res.send(false)
             }
         })
