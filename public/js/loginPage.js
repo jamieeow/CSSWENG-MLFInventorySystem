@@ -23,17 +23,14 @@ $(document).ready(function () {
 
         if (error.html() == "") {
             var details = {username: username.val(), pw: pw.val()}
-            $.get("/getLogin", details, function(result) {
-                if (result) {
-                    $.post("/postLogin", details, function(res){
-                        if (res != '/')
-                            window.location.replace(res)
-                    })
+            $.post("/postLogin", details, function(res){
+                if (res != '/') {
+                    window.location.replace(res)
                 } else {
                     $("input").css("border-color", "red")
                     error.html("Incorrect username/password")
                 }
-            })
+            })    
         }
     });
 });
