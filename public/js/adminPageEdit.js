@@ -81,13 +81,9 @@ $(document).ready(function () {
 
         $.get('/admin/getItemsProp', {itemID: selected, projection: "_id itemName stockQuantity itemPicture"}, function(result){
             if (result) {
-                console.log(result);
-                console.log(result.itemName);
-                console.log(result.stockQuantity);
-                console.log(result.itemPicture);
                 $("#editItemName").val(result.itemName);
                 $("#editStockQuantity").val(result.stockQuantity);
-                $("#editItemPhotoPickerInput").val(result.itemPicture);
+                //$("#editItemPhotoPickerInput").val('./public/photo/'+result.itemPicture);
             }
         })
     })

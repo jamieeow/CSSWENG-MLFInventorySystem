@@ -39,35 +39,33 @@ const adminEditController = {
   
           const upload = multer({
               storage: storage
-          }).single('editItemPhoto');
+          }).single('editItemPhotoPickerInput');
 
           upload(req, res, (err) => {
             if (!err){
+                console.log(req.body);
                 data = {
-                    _id: new mongoose.Types.ObjectId(),
-                    artistID: req.body.itemSelectedArtist,
+                    _id: req.body.artistsListDropdownItem,
+                    artistID: req.body.artistsListDropdownItemEdit,
                     //eventID: new mongoose.Types.ObjectId(), //temp
-                    itemName: req.body.newItemName,
+                    itemName: req.body.editItemName,
                     //itemPrice: req.body.newPriceStock,
-                    stockQuantity: req.body.newStockQuantity,
+                    stockQuantity: req.body.editStockQuantity,
                     //itemsSold: 0,
                     itemPicture: '/photo/'+ req.file.originalname,
                 }
                 
-                db.updateOne(Items, data, result=>{
+                db.updateOne(Items,{_id: req.body.artistsListDropdownItem} ,data, result=>{
                     if (result) {
                         console.log("Successfully updated item details");
                     }
                     else {
                         console.log("Error updating item details");
                     }
+                    res.redirect('/admin');
                 });
-                
-                res.redirect('/admin');
             }
         })
-        
-        res.redirect('/admin');
     },
 
     //Edit bundle information (artistID, eventID, itemName, stockQuantity, itemPicture)
@@ -97,7 +95,7 @@ const adminEditController = {
                     itemPicture: '/photo/'+ req.file.originalname,
                 }
                 
-                db.updateOne(Bundles, data, result=>{
+                db.updateOne(Bundles, {},data, result=>{
                     if (result) {
                         console.log("Successfully updated bundle details");
                     }
@@ -176,8 +174,8 @@ const adminEditController = {
 
     /*  returns items */
     getItemsProp: function(req, res, next){
-        db.findOne(Items, {_id: mongoose.Types.ObjectId(req.query.itemID)}, req.query.projection, function(result) {
-            if (result.length > 0) {
+        db.findOne(Items, {_id: mongoose.Types.ObjectId(req.query.itemID)}, '', function(result) {
+            if (result) {
                 res.send(result)
             }
             else {
