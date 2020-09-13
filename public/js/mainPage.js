@@ -105,14 +105,15 @@ function showToast(func, state) {
 }
 
 /*  shows the table for artist modals */
-function showArtistModal (artistID) {
+function showArtistModal (artistID, artistName) {
     $("#salesList").html('')
+    $("#artistModalTitle").html(artistName)
     var selected = $(this).children("option:selected").val();
     var total = 0;
 
     $.get('/getItems', {artistID: artistID, projection: "itemName itemPrice itemsSold stockQuantity"}, function(itemRes){
         for (i = 0; i < itemRes.length; i++) {
-            $("#" + artistID + "-table").append("<tr><td>" + itemRes[i].itemName + 
+            $("#artistSales").append("<tr><td>" + itemRes[i].itemName + 
                                     "</td><td>" + itemRes[i].stockQuantity + 
                                     "</td><td>" + itemRes[i].itemPrice.toFixed(2) + 
                                     "</td><td>" + itemRes[i].itemsSold + "</td></tr>")
@@ -127,15 +128,15 @@ function showArtistModal (artistID) {
             }
 
             if (!itemRes && !bundleRes) {
-                $("#" + artistID + "-table").append("<tr><td> No items for sale</td> <td>0</td>" + 
-                                                    "<td>0</td> <td>0</td></tr>")
+                $("#artistSales").append("<tr><td> No items for sale</td> <td>0</td>" + 
+                                                    "<td>0.00</td> <td>0</td></tr>")
 
             }
 
         })
     })
 
-    $("#" + artistID + "-modal").modal('toggle');
+    $("#artistModal").modal('toggle');
 }
 
 $(document).ready(function () {
@@ -253,7 +254,7 @@ $(document).ready(function () {
                 
                 if (!itemRes && !bundleRes) {
                     $("#salesList").html("<tr class='row m-0'><td class='col-6'> No items for sale</td>" + 
-                                            "<td class='col-3'>0</td> <td class='col-3'>0</td></tr>")
+                                            "<td class='col-3'>0.00</td> <td class='col-3'>0</td></tr>")
                 }
 
                 $("#totalSoldSales").html("PHP " + parseFloat(total).toFixed(2))
@@ -271,6 +272,7 @@ $(document).ready(function () {
         $("#newPriceStock").val('')
         $("#salesList").html('')
         $("#totalSoldSales").html(parseFloat(0))
+        $("#artistSales").html('')
 
         itemCart = []
         bundleCart = []
