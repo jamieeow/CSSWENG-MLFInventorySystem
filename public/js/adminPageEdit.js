@@ -70,7 +70,7 @@ $(document).ready(function () {
         $.get('/admin/getItems', {artistID: selected, projection: "_id itemID itemName"}, function(result){
             if (result) {
                 for (var i=0; i < result.length; i++) {
-                    $(".manageItemsList").append('<option value="' + result[i].itemID + '">' + result[i].itemName + '</option>')
+                    $(".manageItemsList").append('<option value="' + result[i]._id + '">' + result[i].itemName + '</option>')
                 }
             }
         })
