@@ -165,7 +165,7 @@
                                         <div class="col mt-2">
                                             <div class="form-group mb-2">
                                                 <label for="artistsListDropdownItem" class="font-weight-normal mr-2">artist</label>
-                                                <select id="artistsListDropdownItem" class="form-control" name="itemSelectedArtist">
+                                                <select id="artistsListDropdownItem" class="form-control manageItemsArtist" name="itemSelectedArtist">
                                                     <option class="defaultVal" value="" disabled selected>select artist</option>
                                                     {{#each artist}}
                                                     <option value="{{artistID}}">{{artistName}}</option>
@@ -178,7 +178,7 @@
                                         <div id="textFields" class="col mt-2" style="width: 500px;">
                                             <div class="form-group mb-2">
                                                 <label for="artistsListDropdownItem" class="font-weight-normal mr-2">item</label>
-                                                <select id="artistsListDropdownItem" class="form-control col-10" name="itemSelectedArtist">
+                                                <select id="artistsListDropdownItem" class="form-control col-10 manageItemsList" name="itemSelectedArtist">
                                                     <option class="defaultVal" value="" disabled selected>select item</option>
                                                 </select>
                                                 <button name="deleteItemButton" id="deleteItemButton" class="btn btn-secondary " type="button"  onclick="deleteItem(event);" >delete</button>

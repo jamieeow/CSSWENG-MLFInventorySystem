@@ -61,5 +61,23 @@ $(document).ready(function () {
         })
     })
     
+    //  edit item selector changes values according to selected artist
+    $(".manageItemsArtist").change(function() {
+        $(".manageItemsList").html('<option class="defaultVal" value="" disabled selected>select item</option>')
+        var selected = $(this).children("option:selected").val();
+        console.log(selected);
+
+        $.get('/admin/getItems', {artistID: selected, projection: "_id itemID itemName"}, function(result){
+            if (result) {
+                for (var i=0; i < result.length; i++) {
+                    $(".manageItemsList").append('<option value="' + result[i].itemID + '">' + result[i].itemName + '</option>')
+                }
+            }
+        })
+    })
+
+    $("#manageItemsWindow").on('hidden.bs.modal', function(){
+        $(".manageItemsList").html('<option class="defaultVal" value="" disabled selected>select item</option>')
+    })
 
 });
