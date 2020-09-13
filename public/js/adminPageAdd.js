@@ -35,6 +35,8 @@ $(document).ready(function () {
         $("[id$=addSelectBundleItems]").removeClass('bg-secondary')
         $("[id$=editSelectBundleItems]").removeClass('bg-secondary')
         $(".itemGrid").html('')
+        $("#editItemPhoto").attr('src','photo/item-photo.png');
+        $("#editBundlePhoto").attr('src','photo/item-photo.png');
         //$("#addSelectBundleItems").html('');
         //$("#addBundleItemsSection").html('');
         //$("#editBundleItemsSection").html('');

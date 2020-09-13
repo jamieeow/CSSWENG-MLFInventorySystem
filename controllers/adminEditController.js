@@ -43,15 +43,25 @@ const adminEditController = {
 
           upload(req, res, (err) => {
             if (!err){
-                data = {
-                    _id: req.body.artistsListDropdownItem,
-                    artistID: req.body.artistsListDropdownItemEdit,
-                    //eventID: new mongoose.Types.ObjectId(), //temp
-                    itemName: req.body.editItemName,
-                    //itemPrice: req.body.newPriceStock,
-                    stockQuantity: req.body.editItemStockQuantity,
-                    //itemsSold: 0,
-                    itemPicture: '/photo/'+ req.file.originalname,
+                if (req.file) {
+                    data = {
+                        _id: req.body.artistsListDropdownItem,
+                        artistID: req.body.artistsListDropdownItemEdit,
+                        //eventID: new mongoose.Types.ObjectId(), //temp
+                        itemName: req.body.editItemName,
+                        stockQuantity: req.body.editItemStockQuantity,
+                        itemPicture: '/photo/'+ req.file.originalname,
+                    }
+                }
+                else {
+                    data = {
+                        _id: req.body.artistsListDropdownItem,
+                        artistID: req.body.artistsListDropdownItemEdit,
+                        //eventID: new mongoose.Types.ObjectId(), //temp
+                        itemName: req.body.editItemName,
+                        stockQuantity: req.body.editItemStockQuantity,
+                        //itemPicture: '/photo/'+ req.file.originalname,
+                    }
                 }
                 
                 db.updateOne(Items,{_id: req.body.artistsListDropdownItem} ,data, result=>{
@@ -83,17 +93,27 @@ const adminEditController = {
 
           upload(req, res, (err) => {
             if (!err){
-                console.log(req.body);
-                data = {
-                    _id: req.body.artistsListDropdownBundle,
-                    artistID: req.body.artistsListDropdownBundleEdit,
-                    //eventID: new mongoose.Types.ObjectId(), //temp
-                    bundleName: req.body.editBundleName,
-                    //itemPrice: req.body.newPriceStock,
-                    bundleStock: req.body.editBundleStockQuantity,
-                    //itemsSold: 0,
-                    itemPicture: '/photo/'+ req.file.originalname,
-                    includedItems: req.body.editSelectedItems,
+                if (req.file) {
+                    data = {
+                        _id: req.body.artistsListDropdownBundle,
+                        artistID: req.body.artistsListDropdownBundleEdit,
+                        //eventID: new mongoose.Types.ObjectId(), //temp
+                        bundleName: req.body.editBundleName,
+                        bundleStock: req.body.editBundleStockQuantity,
+                        bundlePicture: '/photo/'+ req.file.originalname,
+                        includedItems: req.body.editSelectedItems,
+                    }
+                }
+                else {
+                    data = {
+                        _id: req.body.artistsListDropdownBundle,
+                        artistID: req.body.artistsListDropdownBundleEdit,
+                        //eventID: new mongoose.Types.ObjectId(), //temp
+                        bundleName: req.body.editBundleName,
+                        bundleStock: req.body.editBundleStockQuantity,
+                        //bundlePicture: '/photo/'+ req.file.originalname,
+                        includedItems: req.body.editSelectedItems,
+                    }
                 }
                 
                 db.updateOne(Bundles, {_id:req.body.artistsListDropdownBundle},data, result=>{

@@ -100,7 +100,7 @@ $(document).ready(function () {
             if (result) {
                 $("#editItemName").val(result.itemName);
                 $("#editItemStockQuantity").val(result.stockQuantity);
-                //$("#editItemPhotoPickerInput").val('./public/photo/'+result.itemPicture);
+                $("#editItemPhoto").attr('src', result.itemPicture);
             }
         })
     })
@@ -130,7 +130,7 @@ $(document).ready(function () {
                 console.log(result);
                 $("#editBundleName").val(result.bundleName);
                 $("#editBundleStockQuantity").val(result.bundleStock);
-                //$("#editItemPhotoPickerInput").val('./public/photo/'+result.itemPicture);
+                $("#editBundlePhoto").attr('src',result.bundlePicture);
             }
         })
     })
