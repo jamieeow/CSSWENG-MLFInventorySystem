@@ -117,14 +117,14 @@ const adminEditController = {
 
     //Edit event information (eventName, startDate, endDate)
     postEditEvent: function(req, res, next){
-        let retrievedData = { //change this
-            _id: new mongoose.Types.ObjectId(req.body.eventID),
-            eventName: req.body.eventName,
-            startDate: req.body.startDate,
-            endDate: req.body.endDate,
+        let retrievedData = {
+            _id: req.body.selectedEvent,
+            eventName: req.body.editEventName,
+            startDate: req.body.editStartEventDate,
+            endDate: req.body.editEndEventDate,
         }
 
-        db.updateOne(Events, {_id: req.body.eventID}, retrievedData, result=>{
+        db.updateOne(Events, {_id: req.body.selectedEvent}, retrievedData, result=>{
             if (result) {
                 console.log("Successfully updated event details.");
             }

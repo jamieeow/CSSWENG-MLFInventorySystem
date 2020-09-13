@@ -29,7 +29,7 @@ router.post('/admin/editItem', adminEditController.postEditItem);
 //edit bundle
 router.post('/admin/editBundle', adminEditController.postEditBundle);
 //edit event
-router.put('/admin/editEvent', adminEditController.postEditEvent);
+router.post('/admin/editEvent', adminEditController.postEditEvent);
 
 /*Delete functions*/
 //remove artist (this also removes all items and bundles associated with the artist)

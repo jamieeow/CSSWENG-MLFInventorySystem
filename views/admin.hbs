@@ -24,6 +24,7 @@
     <script src="js/adminPageAdd.js"></script>
     <script src="js/adminPageDelete.js"></script>
     <script src="js/adminPageEdit.js"></script>
+    <script src="js/artistSales.js"></script>
 
 </head>
 <body>
@@ -31,9 +32,7 @@
         {{> header}}
         <div id="lowerSection" class="container d-flex flex-row mt-4">
             <div id="artistsList" class="card p-2" style="width: 60rem;">
-                {{#each artist}}
-
-                {{/each}}
+                {{> artistCards}}
             </div>
             <div id="leftMenu" class="card p-3" data-spy="scroll" data-offset="0" style="width: 20rem;">
                 <div id="manageMenu" class="nav-item">
@@ -360,7 +359,7 @@
                         <div div id="editEventsSection" class="tab-pane fade show active pb-4" role="tabpanel" aria-labelledby="editEventsOption">
                             <h5 class="modal-title">Edit event</h5>
                             <p id="manageReminder">Select the event you want to set as current. You can also edit and delete an event.</p>
-                            <form class="form">
+                            <form class="form" method="POST" action="/admin/editEvent">
                                 <div class="form-row mb-2">
                                     <div class="col mb-2">
                                         <label for="selectedEvent" class="font-weight-normal mr-2">select event</label>

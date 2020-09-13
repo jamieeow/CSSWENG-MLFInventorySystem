@@ -25,19 +25,24 @@ $(document).ready(function () {
             console.log(result)
             d1 = new Date(result.startDate);
             d2 = new Date(result.endDate);
-            console.log(d1.getFullYear());
+
             startMonth = d1.getMonth();
+            startMonth += 1;
             if (startMonth < 10) {
                 startMonth = '0'+startMonth;
             }
+
             startDate = d1.getDate();
             if (startDate < 10) {
                 startDate = '0'+startDate;
             }
+
             endMonth = d2.getMonth();
+            endMonth += 1;
             if (endMonth < 10) {
                 endMonth = '0'+endMonth;
             }
+
             endDate = d2.getDate();
             if (endDate < 10) {
                 endDate = '0'+endDate;
