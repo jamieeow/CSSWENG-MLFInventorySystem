@@ -9,6 +9,7 @@ const adminDeleteController = require('../controllers/adminDeleteController');
 router.get('/admin', adminAddController.getLoginAdmin);
 router.get('/admin/getArtist', adminEditController.getArtist);
 router.get('/admin/getItems', adminEditController.getItems);
+router.get('/admin/getEvent', adminEditController.getEvent);
 
 /*Add functions*/
 //adds artist to database

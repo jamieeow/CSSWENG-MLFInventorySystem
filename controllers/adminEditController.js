@@ -138,8 +138,7 @@ const adminEditController = {
 
     //returns artist
     getArtist: function(req, res, next){
-        db.findOne(Artists, {artistID: req.query.artistID}, '', function(result) {
-                
+        db.findOne(Artists, {artistID: req.query.artistID}, '', function(result) {     
             if (result) {
                 res.send(result)
             }
@@ -153,12 +152,24 @@ const adminEditController = {
     /*  add stocks increments stockQuantity */
     getItems: function(req, res, next){
         db.findMany(Items, {artistID: req.query.artistID}, req.query.projection, function(result) {
-                
             if (result.length > 0) {
                 res.send(result)
             }
             else {
                 console.log('Artist ' + req.query.artistID + ' not found in the collection.')
+                res.send(false)
+            }
+        })
+    },
+
+    /*  return event */
+    getEvent: function(req, res, next){
+        db.findOne(Events, {_id: req.query.eventID}, req.query.projection, function(result) {
+            if (result) {
+                res.send(result)
+            }
+            else {
+                console.log('Event ' + req.query.eventID + ' not found in the collection.')
                 res.send(false)
             }
         })
