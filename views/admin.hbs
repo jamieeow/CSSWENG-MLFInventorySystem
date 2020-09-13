@@ -402,7 +402,7 @@
                         <div div id="addEventsSection" class="tab-pane fade" role="tabpanel" aria-labelledby="addEventsOption">
                             <h5 class="modal-title">Add event</h5>
                             <p id="manageReminder">Fill in the form below before adding a new event.</p>
-                            <form class="form">
+                            <form class="form" method="POST" action="/admin/addEvent">
                                 <div class="form-row mb-2">
                                     <div class="col mb-2">
                                         <label for="newEventName" class="font-weight-normal mr-2">event name</label>
@@ -411,23 +411,27 @@
                                 </div>
                                 <div class="form-row mb-2">
                                     <div class="col mb-2">
-                                        <label for="startEventDate" class="font-weight-normal mr-2">date</label>
+                                        <label for="startEventDate" class="font-weight-normal mr-2">start date</label>
                                         <input name="startEventDate" id="startEventDate" class="form-control clearInput" type="date" required />
                                     </div>
+                                    <!--
                                     <div class="col mb-2">
                                         <label for="startEventDate" class="font-weight-normal mr-2">time</label>
                                         <input name="startEventTime" id="startEventTime" class="form-control clearInput" type="time" required />
                                     </div>
+                                    -->
                                 </div>
                                 <div class="form-row mb-2">
                                     <div class="col mb-2">
-                                        <label for="endEventDate" class="font-weight-normal mr-2">date</label>
+                                        <label for="endEventDate" class="font-weight-normal mr-2">end date</label>
                                         <input name="endEventDate" id="endEventDate" class="form-control clearInput" type="date" required />
                                     </div>
+                                    <!--
                                     <div class="col mb-2">
                                         <label for="endEventTime" class="font-weight-normal mr-2">time</label>
                                         <input name="endEventTime" id="endEventTime" class="form-control clearInput" type="time" required />
                                     </div>
+                                    -->
                                 </div>
                                 <button name="addEventButton" id="addEventButton" class="btn btn-secondary btn-md col-4 mt-4 mb-2 float-right" type="submit">save</button>
                             </form>

@@ -17,7 +17,7 @@ router.post('/admin/addItem', adminAddController.postAddItem);
 //adds bundle to database
 router.post('/admin/addBundle', adminAddController.postAddBundle);
 //add event to database
-//router.post('/admin/addEvent', adminAddController.postAddEvent);
+router.post('/admin/addEvent', adminAddController.postAddEvent);
 
 /*Edit functions*/
 //edit artist

@@ -217,6 +217,27 @@ const adminAddController = {
             }
         })
     },
+
+    //Add event to database
+    postAddEvent: function(req, res, next){
+        eventData = {
+            _id: new mongoose.Types.ObjectId(),
+            eventName: req.body.newEventName,
+            startDate: req.body.startEventDate,
+            endDate: req.body.endEventDate,
+            isCurrentEvent: false,
+        }
+        db.insertOne(Events, eventData, result=>{
+            if (result) {
+                console.log("Successfully added artist to the artists collection");
+            }
+            else {
+                console.log("Error adding artist to the artists collection");
+            }
+        });
+        
+        res.redirect('/admin');
+    },
     
 }
 
