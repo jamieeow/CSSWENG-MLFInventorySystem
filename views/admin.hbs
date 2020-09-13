@@ -181,7 +181,7 @@
                                                 <select id="artistsListDropdownItem" class="form-control col-10" name="itemSelectedArtist">
                                                     <option class="defaultVal" value="" disabled selected>select item</option>
                                                 </select>
-                                                <button name="deleteItemButton" id="deleteItemButton" class="btn btn-secondary " type="submit">delete</button>
+                                                <button name="deleteItemButton" id="deleteItemButton" class="btn btn-secondary " type="button"  onclick="deleteItem(event);" >delete</button>
                                             </div>
                                             <div class="form-group mb-2">
                                                 <label for="newItemName" class="font-weight-normal mr-2">item</label>
@@ -314,7 +314,7 @@
                                                 <select id="artistsListDropdownItem" class="form-control col-10" name="itemSelectedArtist">
                                                     <option class="defaultVal" value="" disabled selected>select bundle</option>
                                                 </select>
-                                                <button name="deleteBundleButton" id="deleteBundleButton" class="btn btn-secondary " type="submit">delete</button>
+                                                <button name="deleteBundleButton" id="deleteBundleButton" class="btn btn-secondary " type="button"  onclick="deleteBundle(event);" >delete</button>
                                             </div>
                                             <div class="form-group mb-2">
                                                 <label for="newBundleName" class="font-weight-normal mr-2">bundle name</label>

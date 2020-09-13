@@ -23,5 +23,5 @@ function deleteArtist(e) {
     }
 }
 $(document).ready(function () {
-
+    
 });
