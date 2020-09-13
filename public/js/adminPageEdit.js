@@ -1,5 +1,6 @@
 //Javascript codes for edit functions of /admin
 $(document).ready(function () {
+    /*
     //fill artists in manage artist
     $.get('/admin/getArtist', {}, function(result){
         console.log(result)
@@ -17,8 +18,8 @@ $(document).ready(function () {
                
         }
     })
-
-    
+    */
+    /*
     $("select[name='artistsListDropdownItem']").change(function() {
         $("#manageItem").html('')
         var selected = $(this).children("option:selected").val();
@@ -42,5 +43,6 @@ $(document).ready(function () {
             }
         })
     })
+    */
     
 });
