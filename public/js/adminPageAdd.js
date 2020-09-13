@@ -36,6 +36,7 @@ $(document).ready(function () {
         //$("#addSelectBundleItems").html('');
         //$("#addBundleItemsSection").html('');
         //$("#editBundleItemsSection").html('');
+        $("#editSetCurrentEvent").prop("checked", false);
         $('.clearInput').val('');
     })
     //if bundle not selected then alert
