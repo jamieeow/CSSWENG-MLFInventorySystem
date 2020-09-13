@@ -9,14 +9,15 @@ const Events = require('../models/EventModel.js');
 
 const adminEditController = {
     //Edit artist information (artistID and artistName)
-    putEditArtist: function(req, res, next){
+    postEditArtist: function(req, res, next){
         let retrievedData = { //change this
-            _id: new mongoose.Types.ObjectId(req.body.editArtistID),
-            artistID: req.body.editArtistIDNumber,
+            artistID: req.body.editArtistIDNo,
             artistName: req.body.editArtistName,
         }
 
-        db.updateOne(Artists, {_id: req.body.editArtistID}, retrievedData, result=>{
+        console.log("DATA IS" + req.body.editArtistIDNo);
+
+        db.updateOne(Artists, {artistID: req.body.editArtistIDNo}, retrievedData, result=>{
             if (result) {
                 console.log("Successfully updated artist details.");
             }
@@ -115,15 +116,15 @@ const adminEditController = {
     },
 
     //Edit event information (eventName, startDate, endDate)
-    putEditEvent: function(req, res, next){
-        let retrievedData = { //change this
-            _id: new mongoose.Types.ObjectId(req.body.eventID),
-            eventName: req.body.eventName,
-            startDate: req.body.startDate,
-            endDate: req.body.endDate,
+    postEditEvent: function(req, res, next){
+        let retrievedData = {
+            _id: req.body.selectedEvent,
+            eventName: req.body.editEventName,
+            startDate: req.body.editStartEventDate,
+            endDate: req.body.editEndEventDate,
         }
 
-        db.updateOne(Events, {_id: req.body.eventID}, retrievedData, result=>{
+        db.updateOne(Events, {_id: req.body.selectedEvent}, retrievedData, result=>{
             if (result) {
                 console.log("Successfully updated event details.");
             }
@@ -135,15 +136,14 @@ const adminEditController = {
         res.redirect('/admin');
     },
 
-    //returns artists
+    //returns artist
     getArtist: function(req, res, next){
-        db.findMany(Artists, {}, '', function(result) {
-                
-            if (result.length > 0) {
+        db.findOne(Artists, {artistID: req.query.artistID}, '', function(result) {     
+            if (result) {
                 res.send(result)
             }
             else {
-                console.log('Artists not found in the collection.');
+                console.log('Artist not found in the collection.');
                 res.send(false)
             }
         })
@@ -152,12 +152,24 @@ const adminEditController = {
     /*  add stocks increments stockQuantity */
     getItems: function(req, res, next){
         db.findMany(Items, {artistID: req.query.artistID}, req.query.projection, function(result) {
-                
             if (result.length > 0) {
                 res.send(result)
             }
             else {
                 console.log('Artist ' + req.query.artistID + ' not found in the collection.')
+                res.send(false)
+            }
+        })
+    },
+
+    /*  return event */
+    getEvent: function(req, res, next){
+        db.findOne(Events, {_id: req.query.eventID}, req.query.projection, function(result) {
+            if (result) {
+                res.send(result)
+            }
+            else {
+                console.log('Event ' + req.query.eventID + ' not found in the collection.')
                 res.send(false)
             }
         })

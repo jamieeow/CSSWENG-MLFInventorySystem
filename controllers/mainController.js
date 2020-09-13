@@ -3,6 +3,7 @@ const db = require('../models/database.js');
 const Items = require('../models/ItemModel.js')
 const Bundles = require('../models/BundleModel.js')
 const Artists = require('../models/ArtistModel.js');
+const Events = require('../models/EventModel.js');
 const { send } = require('process');
 
 const mainController = {
@@ -10,21 +11,88 @@ const mainController = {
     getMain: function(req, res, next){
 
         //  if the logged in user is not an admin, therefore a cashier
-        if (req.session.isAdmin == false) {        
+        if (req.session.isAdmin == false) {      
 
-            //find artist then render with details
-            db.findMany(Artists, {}, 'artistID artistName', result=>{
-            
-                let artistArray = result;
-                let totalItems = 0;
-                 
-                //details of main page
-                var details = {
-                    artist: artistArray,
-                    totalSold: totalItems
+            /* gets income of each artist */
+            const getIncome = async function(artistID) {
+                return new Promise(function (resolve, reject) {
+                    db.findMany(Items, {artistID: artistID}, 'itemsSold itemPrice', function (itemRes) {
+                        var income = 0;
+
+                        for (let j = 0; j < itemRes.length; j++) {
+                            income += (itemRes[j].itemsSold * itemRes[j].itemPrice)
+                        }
+
+                        db.findMany(Bundles, {artistID: artistID}, 'bundleSold bundlePrice', function (bundleRes) {
+                            for (let k = 0; k < bundleRes.length; k++) {
+                                income += (bundleRes[k].bundleSold * bundleRes[k].bundlePrice)
+                            }
+
+                            resolve(income)
+                        })
+                    })
+                })
+            }   
+
+            /*  gets number of total sold items and bundles */
+            const getTotalSold = async function() {
+                return new Promise(function (resolve, reject) {
+                    db.findMany(Items, {}, '-_id itemsSold', function (itemRes) {
+                        var items = itemRes.map(function(i) { return i.itemsSold})
+                                            .reduce(function(t, n) { return t + n})
+
+                        db.findMany(Bundles, {}, '-_id bundleSold', function (bundleRes) {
+                            var bundles = bundleRes.map(function(b) { return b.bundleSold})
+                                                    .reduce(function(t, n) { return t + n})
+                            
+                            resolve(items + bundles)
+                        })
+                    })
+                })
+            }
+
+            /* renders main page with details */
+            const getDetails = async (artists, details) => {
+                let totalItems = await getTotalSold()
+                
+                for (let i = 0; i < artists.length; i++) {
+                    let income = 0;
+                    artists[i].income = await getIncome(artists[i].artistID)
                 }
 
+                details.artist = artists
+                details.totalSold = totalItems
+
                 res.render('main', details)
+            };
+            
+            //find artist then render with details
+            db.findMany(Artists, {}, 'artistID artistName', result=>{
+
+                db.findOne(Events, {isCurrentEvent: true},'', eventResult=>{
+                    if (eventResult) {
+                        var diffDate = parseInt((eventResult.endDate - Date.now())); //change new date to eventresult
+                    }
+                    else {
+                        var diffDate = 0;
+                    }
+                    var minutes = 0;
+                    if (diffDate >= 0) { //if there is time remaining
+                        minutes = Math.ceil(diffDate / (1000 * 60));
+                    }
+                    var hours = Math.floor(minutes / 60);
+                    var days = Math.floor(hours/24);
+                    hours = hours%24;
+                    minutes = minutes%60;
+
+                    var details = { 
+                        daysLeft: days,
+                        hoursLeft: hours,
+                        minutesLeft: minutes
+                    }
+                    
+                    getDetails(result, details)
+                })    
             })
         } 
         

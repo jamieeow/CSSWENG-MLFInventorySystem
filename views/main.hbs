@@ -23,6 +23,7 @@
 
     <script src="js/script.js"></script>
     <script src="js/mainPage.js"></script>
+    <script src="js/artistSales.js"></script>
 
 </head>
 <body>
@@ -31,9 +32,7 @@
         
         <div id="lowerSection" class="container d-flex flex-row mt-4">
             <div id="artistsList" class="card p-2" style="width: 60rem;">
-                {{#each artist}}
-
-                {{/each}}
+                {{> artistCards}}
             </div>
 
             <div id="leftMenu" class="card p-3" style="width: 20rem;">
@@ -178,19 +177,20 @@
                     <div class="modal-body bg-light">
                         <table id="soldItemsTable" class="table table-bordered">
                             <thead class="thead bg-secondary text-light">
-                                <tr>
-                                    <th scope="col">Item/Bundle</th>
-                                    <th scope="col">Price</th>
-                                    <th scope="col">Quantity sold</th>
+                                <tr class="row m-0">
+                                    <th class="col-6">Item/Bundle</th>
+                                    <th class="col-3">Price</th>
+                                    <th class="col-3">Quantity sold</th>
                                 </tr>
                             </thead>
                             <tbody id="salesList">
+                                <tr class='row m-0'><td class='col'>Select an artist</td></tr>
                             </tbody>
                         </table>
                         <table id="totalSalesTable" class="table">
-                            <tr>
-                                <td class="font-weight-bold" scope="col">Total</td>
-                                <td scope="col" id="totalSoldSales">0.00</td>
+                            <tr class="row m-0">
+                                <td class="font-weight-bold col-9">Total</td>
+                                <td class="col-3" id="totalSoldSales">PHP 0.00</td>
                             </tr>
                             <tbody>
                             </tbody>

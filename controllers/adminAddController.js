@@ -54,36 +54,54 @@ const adminAddController = {
                 }
                 //Set event count down for days, hours, and minutes
                 db.findOne(Events, {isCurrentEvent: true},'', eventResult=>{
-                    var diffDate = parseInt((new Date("09/14/2020") - Date.now())); //change new date to eventresult
+                    if (eventResult) {
+                        eventResult.endDate.setHours(0);
+                        var diffDate = parseInt((eventResult.endDate - new Date));
+                    }
+                    else {
+                        var diffDate = 0;
+                    }
                     var minutes = 0;
                     if (diffDate >= 0) { //if there is time remaining
-                        minutes = Math.ceil(diffDate / (1000 * 60));
+                        minutes = Math.floor(diffDate / (1000 * 60));
                     }
                     var hours = Math.floor(minutes / 60);
                     var days = Math.floor(hours/24);
                     hours = hours%24;
                     minutes = minutes%60;
+
                     //find how many items were sold
                     db.findMany(Items, {}, '', itemResult=>{
                         var sold=0;
                         for (let i=0; i<itemResult.length;i++) {
                             sold += itemResult[i].itemsSold;
                         }
-                        //details of admin page
-                        var details = {
-                            artist: artistArray,
-                            artistItems: artistItemsArray,
-                            daysLeft: days,
-                            hoursLeft: hours,
-                            minutesLeft: minutes,
-                            totalSold: sold,
-                        }
-                        if (result){
-                            res.render('admin',details)
-                        }
-                        else {
-                            res.render('admin')
-                        }
+                        db.findMany(Events, {}, '', manyEventsResult=>{
+                            eventArray = [];
+                            for (let i=0;i<manyEventsResult.length;i++){
+                                eventObj = { //event object containing event info
+                                    eventID: manyEventsResult[i]._id,
+                                    eventName: manyEventsResult[i].eventName,
+                                }
+                                eventArray.push(eventObj); //array of item info
+                            }
+                            //details of admin page
+                            var details = {
+                                artist: artistArray,
+                                artistItems: artistItemsArray,
+                                daysLeft: days,
+                                hoursLeft: hours,
+                                minutesLeft: minutes,
+                                totalSold: sold,
+                                event: eventArray,
+                            }
+                            if (result){
+                                res.render('admin',details)
+                            }
+                            else {
+                                res.render('admin')
+                            }
+                        })
                     })
                 })     
             })
@@ -151,27 +169,33 @@ const adminAddController = {
 
           upload(req, res, (err) => {
             if (!err){
-                data = {
-                    _id: new mongoose.Types.ObjectId(),
-                    artistID: req.body.itemSelectedArtist,
-                    eventID: new mongoose.Types.ObjectId(), //temp
-                    itemName: req.body.newItemName,
-                    itemPrice: req.body.newPriceStock,
-                    stockQuantity: req.body.newStockQuantity,
-                    itemsSold: 0,
-                    itemPicture: '/photo/'+ req.file.originalname,
-                }
-                
-                db.insertOne(Items, data, result=>{
-                    if (result) {
-                        console.log("Successfully added item to the items collection");
+                db.findOne(Events,{isCurrentEvent:true}, '', eventResult=>{
+                    var eventResultID = new mongoose.Types.ObjectId();
+                    if (eventResult) {
+                        eventResultID = eventResult._id;
                     }
-                    else {
-                        console.log("Error adding item to the items collection");
+                    data = {
+                        _id: new mongoose.Types.ObjectId(),
+                        artistID: req.body.artistsListDropdownItemAdd,
+                        eventID: eventResultID,
+                        itemName: req.body.newItemName,
+                        itemPrice: req.body.newItemPriceStock,
+                        stockQuantity: req.body.newItemStockQuantity,
+                        itemsSold: 0,
+                        itemPicture: '/photo/'+ req.file.originalname,
                     }
-                });
-                
-                res.redirect('/admin');
+                    
+                    db.insertOne(Items, data, result=>{
+                        if (result) {
+                            console.log("Successfully added item to the items collection");
+                        }
+                        else {
+                            console.log("Error adding item to the items collection");
+                        }
+                    });
+                    
+                    res.redirect('/admin');
+                })
             }
         })
     },
@@ -192,30 +216,57 @@ const adminAddController = {
 
         upload(req, res, (err) => {
             if (!err){
-                data = {
-                    _id: new mongoose.Types.ObjectId(),
-                    artistID: req.body.bundleSelectedArtist,
-                    eventID: new mongoose.Types.ObjectId(), //temp
-                    includedItems: req.body.selectedItems,
-                    bundleName: req.body.newBundleName,
-                    bundlePrice: req.body.newPriceStock,
-                    bundleSold: 0,
-                    bundleStock: req.body.newStockQuantity,
-                    bundlePicture: '/photo/'+ req.file.originalname,
-                }
-                
-                db.insertOne(Bundles, data, result=>{
-                    if (result) {
-                        console.log("Successfully added bundle to the bundles collection");
+                db.findOne(Events, {isCurrentEvent:true},'', eventResults=>{
+                    var eventResultsID = new mongoose.Types.ObjectId();
+                    if (eventResults) {
+                        eventResultsID = eventResults._id;
                     }
-                    else {
-                        console.log("Error adding bundle to the bundles collection");
+                    data = {
+                        _id: new mongoose.Types.ObjectId(),
+                        artistID: req.body.artistsListDropdownBundleAdd,
+                        eventID: eventResultsID,
+                        includedItems: req.body.selectedItems,
+                        bundleName: req.body.newBundleName,
+                        bundlePrice: req.body.newBundlePriceStock,
+                        bundleSold: 0,
+                        bundleStock: req.body.newBundleStockQuantity,
+                        bundlePicture: '/photo/'+ req.file.originalname,
                     }
-                });
-                
-                res.redirect('/admin');
+                    
+                    db.insertOne(Bundles, data, result=>{
+                        if (result) {
+                            console.log("Successfully added bundle to the bundles collection");
+                        }
+                        else {
+                            console.log("Error adding bundle to the bundles collection");
+                        }
+                    });
+                    
+                    res.redirect('/admin');
+                })
             }
         })
+    },
+
+    //Add event to database
+    postAddEvent: function(req, res, next){
+        eventData = {
+            _id: new mongoose.Types.ObjectId(),
+            eventName: req.body.newEventName,
+            startDate: req.body.addStartEventDate,
+            endDate: req.body.addEndEventDate,
+            isCurrentEvent: false,
+        }
+        db.insertOne(Events, eventData, result=>{
+            if (result) {
+                console.log("Successfully added artist to the artists collection");
+            }
+            else {
+                console.log("Error adding artist to the artists collection");
+            }
+        });
+        
+        res.redirect('/admin');
     },
     
 }
