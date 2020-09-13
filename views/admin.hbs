@@ -464,8 +464,8 @@
                                 </div>
                                 <div class="form-group ml-1 mb-2">
                                     <div class="col mb-2">
-                                        <input name="setCurrentEvent" id="setCurrentEvent" class="form-check-input clearInput" type="checkbox" required />
-                                        <label for="setCurrentEvent" class="form-check-label">Set as current event</label>
+                                        <input name="editSetCurrentEvent" id="editSetCurrentEvent" class="form-check-input clearInput" type="checkbox" required />
+                                        <label for="editSetCurrentEvent" class="form-check-label">Set as current event</label>
                                     </div>
                                 </div>
                                 <div class="form-row mb-2">
@@ -476,22 +476,14 @@
                                 </div>
                                 <div class="form-row mb-2">
                                     <div class="col mb-2">
-                                        <label for="startEventDate" class="font-weight-normal mr-2">date</label>
-                                        <input name="startEventDate" id="startEventDate" class="form-control clearInput" type="date" required />
-                                    </div>
-                                    <div class="col mb-2">
-                                        <label for="startEventDate" class="font-weight-normal mr-2">time</label>
-                                        <input name="startEventTime" id="startEventTime" class="form-control clearInput" type="time" required />
+                                        <label for="editStartEventDate" class="font-weight-normal mr-2">start date</label>
+                                        <input name="editStartEventDate" id="editStartEventDate" class="form-control clearInput" type="date" required />
                                     </div>
                                 </div>
                                 <div class="form-row mb-2">
                                     <div class="col mb-2">
-                                        <label for="endEventDate" class="font-weight-normal mr-2">date</label>
-                                        <input name="endEventDate" id="endEventDate" class="form-control clearInput" type="date" required />
-                                    </div>
-                                    <div class="col mb-2">
-                                        <label for="endEventTime" class="font-weight-normal mr-2">time</label>
-                                        <input name="endEventTime" id="endEventTime" class="form-control clearInput" type="time" required />
+                                        <label for="editEndEventDate" class="font-weight-normal mr-2">end date</label>
+                                        <input name="editEndEventDate" id="editEndEventDate" class="form-control clearInput" type="date" required />
                                     </div>
                                 </div>
                                 <button name="editEventButton" id="editEventButton" class="btn btn-secondary btn-md col-4 mt-4 mb-2 float-right" type="submit">save</button>
@@ -500,7 +492,7 @@
                         <div div id="addEventsSection" class="tab-pane fade" role="tabpanel" aria-labelledby="addEventsOption">
                             <h5 class="modal-title">Add event</h5>
                             <p id="manageReminder">Fill in the form below before adding a new event.</p>
-                            <form class="form">
+                            <form class="form" method="POST" action="/admin/addEvent">
                                 <div class="form-row mb-2">
                                     <div class="col mb-2">
                                         <label for="newEventName" class="font-weight-normal mr-2">event name</label>
@@ -509,28 +501,20 @@
                                 </div>
                                 <div class="form-group ml-1 mb-2">
                                     <div class="col mb-2">
-                                        <input name="setCurrentEvent" id="setCurrentEvent" class="form-check-input clearInput" type="checkbox" required />
-                                        <label for="setCurrentEvent" class="form-check-label">Set as current event</label>
+                                        <input name="addSetCurrentEvent" id="addSetCurrentEvent" class="form-check-input clearInput" type="checkbox" />
+                                        <label for="addSetCurrentEvent" class="form-check-label">Set as current event</label>
                                     </div>
                                 </div>
                                 <div class="form-row mb-2">
                                     <div class="col mb-2">
-                                        <label for="startEventDate" class="font-weight-normal mr-2">date</label>
-                                        <input name="startEventDate" id="startEventDate" class="form-control clearInput" type="date" required />
-                                    </div>
-                                    <div class="col mb-2">
-                                        <label for="startEventDate" class="font-weight-normal mr-2">time</label>
-                                        <input name="startEventTime" id="startEventTime" class="form-control clearInput" type="time" required />
+                                        <label for="addStartEventDate" class="font-weight-normal mr-2">start date</label>
+                                        <input name="addStartEventDate" id="addStartEventDate" class="form-control clearInput" type="date" required />
                                     </div>
                                 </div>
                                 <div class="form-row mb-2">
                                     <div class="col mb-2">
-                                        <label for="endEventDate" class="font-weight-normal mr-2">date</label>
-                                        <input name="endEventDate" id="endEventDate" class="form-control clearInput" type="date" required />
-                                    </div>
-                                    <div class="col mb-2">
-                                        <label for="endEventTime" class="font-weight-normal mr-2">time</label>
-                                        <input name="endEventTime" id="endEventTime" class="form-control clearInput" type="time" required />
+                                        <label for="addEndEventDate" class="font-weight-normal mr-2">end date</label>
+                                        <input name="addEndEventDate" id="addEndEventDate" class="form-control clearInput" type="date" required />
                                     </div>
                                 </div>
                                 <button name="addEventButton" id="addEventButton" class="btn btn-secondary btn-md col-4 mt-4 mb-2 float-right" type="submit">save</button>

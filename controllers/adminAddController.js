@@ -222,7 +222,6 @@ const adminAddController = {
                     if (eventResults) {
                         eventResultsID = eventResults._id;
                     }
-                    console.log(req.body);
                     data = {
                         _id: new mongoose.Types.ObjectId(),
                         artistID: req.body.artistsListDropdownBundleAdd,
@@ -252,12 +251,20 @@ const adminAddController = {
 
     //Add event to database
     postAddEvent: function(req, res, next){
+        console.log(req.body);
+        var isCurrEvent = false;
+        if (req.body.addSetCurrentEvent == 'on') {
+            isCurrEvent = true;
+        }
+        else {
+            isCurrEvent = false;
+        }
         eventData = {
             _id: new mongoose.Types.ObjectId(),
             eventName: req.body.newEventName,
             startDate: req.body.addStartEventDate,
             endDate: req.body.addEndEventDate,
-            isCurrentEvent: false,
+            isCurrentEvent: isCurrEvent,
         }
         db.insertOne(Events, eventData, result=>{
             if (result) {
