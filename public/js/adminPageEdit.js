@@ -18,7 +18,15 @@ $(document).ready(function () {
         var selected = $(this).children("option:selected").val();
         console.log(selected);
 
-        $.get('/admin/getEvent', {eventID: selected, projection: "_id eventID eventName startDate endDate"}, function(result){
+        $.get('/admin/getEvent', {eventID: selected, projection: "_id eventID eventName startDate endDate isCurrentEvent"}, function(result){
+            //check and uncheck box according to isCurrentEvent
+            if (result.isCurrentEvent) {
+                $("#editSetCurrentEvent").prop("checked", true);
+            }
+            else {
+                $("#editSetCurrentEvent").prop("checked", false);
+            }
+            
             d1 = new Date(result.startDate);
             d2 = new Date(result.endDate);
 

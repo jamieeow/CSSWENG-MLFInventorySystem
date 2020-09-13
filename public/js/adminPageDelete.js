@@ -31,7 +31,7 @@ function deleteItem(e) {
             return false;
         }
         else {
-            $.post('/admin/deleteArtist', {artistID: selected}, function(result){
+            $.post('/admin/deleteItem', {artistID: selected}, function(result){
                 if (result) {
                     console.log("post success");
                     window.location = '/admin';
@@ -55,7 +55,7 @@ function deleteBundle(e) {
             return false;
         }
         else {
-            $.post('/admin/deleteArtist', {artistID: selected}, function(result){
+            $.post('/admin/deleteBundle', {artistID: selected}, function(result){
                 if (result) {
                     console.log("post success");
                     window.location = '/admin';
@@ -72,14 +72,14 @@ function deleteBundle(e) {
 }
 
 function deleteEvent(e) {
-    var selected = $("select[name='artistsListDropdownEdit']").children("option:selected").val();
+    var selected = $("select[name='selectedEvent']").children("option:selected").val();
     if (selected != '') {
         if(!confirm('Are you sure you want to delete?')) {
             e.preventDefault();
             return false;
         }
         else {
-            $.post('/admin/deleteArtist', {artistID: selected}, function(result){
+            $.post('/admin/deleteEvent', {eventID: selected}, function(result){
                 if (result) {
                     console.log("post success");
                     window.location = '/admin';
@@ -89,7 +89,7 @@ function deleteEvent(e) {
         }
     }
     else {
-        alert('Please select an artist!');
+        alert('Please select an event!');
         e.preventDefault();
         return false;
     }
