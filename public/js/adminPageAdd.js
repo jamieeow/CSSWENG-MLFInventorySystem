@@ -33,7 +33,7 @@ $(document).ready(function () {
     $(".modal").on('hidden.bs.modal', function() {
         $(".defaultVal").prop("selected", true)
         $("[id$=selectBundleItems]").removeClass('bg-secondary')
-        $("#artistItemsSection").html('')
+        $("#selectBundleItems").html('')
         $('.clearInput').val('');
     })
     //if bundle not selected then alert
@@ -48,7 +48,7 @@ $(document).ready(function () {
         $("#selectBundleItems").html('')
         var selected = $(this).children("option:selected").val();
 
-        $.get('/getItems', {artistID: selected, projection: "_id itemName itemPrice stockQuantity itemPicture"}, function(result){
+        $.get('/admin/getItems', {artistID: selected, projection: "_id itemName itemPrice stockQuantity itemPicture"}, function(result){
             console.log(result)
             for (i = 0; i < result.length; i++) {
 

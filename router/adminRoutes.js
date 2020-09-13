@@ -8,6 +8,7 @@ const adminDeleteController = require('../controllers/adminDeleteController');
 //get admin page
 router.get('/admin', adminAddController.getLoginAdmin);
 router.get('/admin/getArtist', adminEditController.getArtist);
+router.get('/admin/getItems', adminEditController.getItems);
 
 /*Add functions*/
 //adds artist to database
@@ -21,13 +22,13 @@ router.post('/admin/addEvent', adminAddController.postAddEvent);
 
 /*Edit functions*/
 //edit artist
-router.put('/admin/editArtist', adminEditController.putEditArtist);
+router.post('/admin/editArtist/', adminEditController.postEditArtist);
 //edit item
-router.post('/admin/editItem', adminEditController.postEditItem); //post for image?
+router.post('/admin/editItem', adminEditController.postEditItem);
 //edit bundle
-router.post('/admin/editBundle', adminEditController.postEditBundle); //post for image?
+router.post('/admin/editBundle', adminEditController.postEditBundle);
 //edit event
-router.put('/admin/editEvent', adminEditController.putEditEvent);
+router.put('/admin/editEvent', adminEditController.postEditEvent);
 
 /*Delete functions*/
 //remove artist (this also removes all items and bundles associated with the artist)
