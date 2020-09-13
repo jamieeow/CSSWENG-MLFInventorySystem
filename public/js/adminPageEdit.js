@@ -16,7 +16,41 @@ $(document).ready(function () {
         })
     })
     
-    
+    //edit event change values according to selector
+    $("select[name='selectedEvent']").change(function() {
+        var selected = $(this).children("option:selected").val();
+        console.log(selected);
+
+        $.get('/admin/getEvent', {eventID: selected, projection: "_id eventID eventName startDate endDate"}, function(result){
+            console.log(result)
+            d1 = new Date(result.startDate);
+            d2 = new Date(result.endDate);
+            console.log(d1.getFullYear());
+            startMonth = d1.getMonth();
+            if (startMonth < 10) {
+                startMonth = '0'+startMonth;
+            }
+            startDate = d1.getDate();
+            if (startDate < 10) {
+                startDate = '0'+startDate;
+            }
+            endMonth = d2.getMonth();
+            if (endMonth < 10) {
+                endMonth = '0'+endMonth;
+            }
+            endDate = d2.getDate();
+            if (endDate < 10) {
+                endDate = '0'+endDate;
+            }
+            startDateFormat = d1.getFullYear() + '-' + startMonth + '-' + startDate;
+            endDateFormat = d2.getFullYear() + '-' + endMonth + '-' + endDate;
+            if (result) {
+                $("#editEventName").val(result.eventName);
+                $("#editStartEventDate").val(startDateFormat);
+                $("#editEndEventDate").val(endDateFormat);
+            }
+        })
+    })
     
 
 });
