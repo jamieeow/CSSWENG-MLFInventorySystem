@@ -42,5 +42,11 @@ $(document).ready(function () {
             }
         })
     })
+
+    /*$('a[id^="manage"]').click(function () {
+        $("body, html").animate({
+            scrollTop: $('.tab-content').offset().top
+        }, 600);
+    })*/
     
 });
