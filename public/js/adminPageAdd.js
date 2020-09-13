@@ -33,6 +33,8 @@ $(document).ready(function () {
     $(".modal").on('hidden.bs.modal', function() {
         $(".defaultVal").prop("selected", true)
         $("[id$=addSelectBundleItems]").removeClass('bg-secondary')
+        $("[id$=editSelectBundleItems]").removeClass('bg-secondary')
+        $(".itemGrid").html('')
         //$("#addSelectBundleItems").html('');
         //$("#addBundleItemsSection").html('');
         //$("#editBundleItemsSection").html('');

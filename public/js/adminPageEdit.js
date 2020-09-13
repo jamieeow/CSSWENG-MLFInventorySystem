@@ -1,4 +1,22 @@
 //Javascript codes for edit functions of /admin
+var bundleItemSelectedEdit = [] // array of selected item ID for bundle
+
+/*  highlights selected item in artistItemsSection modals */
+function editSelectBundleItems(itemID, itemName, itemPrice) {
+    if ($("#" + itemID + "-editSelectBundleItems").hasClass('bg-secondary')) { //remove item from bundle
+        $("#" + itemID + "-editSelectBundleItems").removeClass('bg-secondary');
+        const index = bundleItemSelectedEdit.indexOf(itemName)
+        if (index > -1) { 
+            bundleItemSelectedEdit.splice(index, 1)
+        }
+    }
+    else { //add item to bundle
+        $("#" + itemID + "-editSelectBundleItems").addClass('bg-secondary');
+        bundleItemSelectedEdit.push(itemName)
+    }
+    $("#editSelectedItems").val(bundleItemSelectedEdit);
+}
+
 $(document).ready(function () {
 
     //edit artist change values according to selector
@@ -123,6 +141,31 @@ $(document).ready(function () {
 
     $("#manageBundlesWindow").on('hidden.bs.modal', function(){
         $("#artistsListDropdownBundle").html('<option class="defaultVal" value="" disabled selected>select bundle</option>')
+    })
+
+    //show items of bundle in edit bundle
+    $("select[name='artistsListDropdownBundleEdit']").change(function() {
+        $("#editSelectBundleItems").html('')
+        var selected = $(this).children("option:selected").val();
+
+        $.get('/admin/getItems', {artistID: selected, projection: "_id itemName itemPrice stockQuantity itemPicture"}, function(result){
+            console.log(result)
+            for (i = 0; i < result.length; i++) {
+
+                if (result[i].stockQuantity > 0) {
+                    $("#editSelectBundleItems").append('<div class="col mb-3" id="' + result[i]._id + '-editSelectBundleItems" style="padding: 5px">' +
+                                                            '<div class="card">' +
+                                                                '<img src="' + result[i].itemPicture + '" class="card-img-top" alt="...">' +
+                                                                '<div class="card-body">' +
+                                                                    '<h5 class="card-title">' + result[i].itemName + '</h5>' +
+                                                                    '<p class="card-text">PHP ' + result[i].itemPrice + ' | ' + result[i].stockQuantity + ' left</p>' +
+                                                                    '<a href="#" class="stretched-link" onclick="editSelectBundleItems(\'' + result[i]._id + '\', \'' + result[i].itemName + '\', \'' + result[i].itemPrice + '\', \'' + result[i].stockQuantity + '\', \'item\')" style="size: 0px;"></a>' +
+                                                                '</div>' +
+                                                            '</div>' +
+                                                        '</div>')
+                }
+            }
+        })
     })
 
 });

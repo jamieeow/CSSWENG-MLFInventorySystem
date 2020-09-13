@@ -93,6 +93,7 @@ const adminEditController = {
                     bundleStock: req.body.editBundleStockQuantity,
                     //itemsSold: 0,
                     itemPicture: '/photo/'+ req.file.originalname,
+                    includedItems: req.body.editSelectedItems,
                 }
                 
                 db.updateOne(Bundles, {_id:req.body.artistsListDropdownBundle},data, result=>{

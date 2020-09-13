@@ -245,9 +245,8 @@ const adminAddController = {
                         else {
                             console.log("Error adding bundle to the bundles collection");
                         }
+                        res.redirect('/admin');
                     });
-                    
-                    res.redirect('/admin');
                 })
             }
         })
