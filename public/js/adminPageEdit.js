@@ -77,12 +77,11 @@ $(document).ready(function () {
     // edit item details changes according to selected item
     $("#artistsListDropdownItem").change(function() {
         var selected = $(this).children("option:selected").val();
-        console.log(selected);
 
         $.get('/admin/getItemsProp', {itemID: selected, projection: "_id itemName stockQuantity itemPicture"}, function(result){
             if (result) {
                 $("#editItemName").val(result.itemName);
-                $("#editStockQuantity").val(result.stockQuantity);
+                $("#editItemStockQuantity").val(result.stockQuantity);
                 //$("#editItemPhotoPickerInput").val('./public/photo/'+result.itemPicture);
             }
         })
@@ -92,7 +91,6 @@ $(document).ready(function () {
     $("#artistsListDropdownBundleEdit").change(function() {
         $("#artistsListDropdownBundle").html('<option class="defaultVal" value="" disabled selected>select bundle</option>')
         var selected = $(this).children("option:selected").val();
-        console.log(selected);
 
         $.get('/admin/getBundles', {artistID: selected, projection: "_id bundleName"}, function(result){
             console.log(result)
@@ -100,6 +98,21 @@ $(document).ready(function () {
                 for (var i=0; i < result.length; i++) {
                     $("#artistsListDropdownBundle").append('<option value="' + result[i]._id + '">' + result[i].bundleName + '</option>')
                 }
+            }
+        })
+    })
+
+    // edit bundle details changes according to selected bundle
+    $("#artistsListDropdownBundle").change(function() {
+        var selected = $(this).children("option:selected").val();
+        console.log(selected);
+
+        $.get('/admin/getBundlesProp', {bundleID: selected, projection: "_id bundleName bundleStock bundlePicture"}, function(result){
+            if (result) {
+                console.log(result);
+                $("#editBundleName").val(result.bundleName);
+                $("#editBundleStockQuantity").val(result.bundleStock);
+                //$("#editItemPhotoPickerInput").val('./public/photo/'+result.itemPicture);
             }
         })
     })

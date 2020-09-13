@@ -12,6 +12,7 @@ router.get('/admin/getItems', adminEditController.getItems);
 router.get('/admin/getBundles', adminEditController.getBundles);
 router.get('/admin/getEvent', adminEditController.getEvent);
 router.get('/admin/getItemsProp', adminEditController.getItemsProp);
+router.get('/admin/getBundlesProp', adminEditController.getBundlesProp);
 
 /*Add functions*/
 //adds artist to database

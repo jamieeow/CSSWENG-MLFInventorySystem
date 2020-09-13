@@ -43,14 +43,13 @@ const adminEditController = {
 
           upload(req, res, (err) => {
             if (!err){
-                console.log(req.body);
                 data = {
                     _id: req.body.artistsListDropdownItem,
                     artistID: req.body.artistsListDropdownItemEdit,
                     //eventID: new mongoose.Types.ObjectId(), //temp
                     itemName: req.body.editItemName,
                     //itemPrice: req.body.newPriceStock,
-                    stockQuantity: req.body.editStockQuantity,
+                    stockQuantity: req.body.editItemStockQuantity,
                     //itemsSold: 0,
                     itemPicture: '/photo/'+ req.file.originalname,
                 }
@@ -84,31 +83,29 @@ const adminEditController = {
 
           upload(req, res, (err) => {
             if (!err){
+                console.log(req.body);
                 data = {
-                    _id: new mongoose.Types.ObjectId(),
-                    artistID: req.body.itemSelectedArtist,
+                    _id: req.body.artistsListDropdownBundle,
+                    artistID: req.body.artistsListDropdownBundleEdit,
                     //eventID: new mongoose.Types.ObjectId(), //temp
-                    itemName: req.body.newItemName,
+                    bundleName: req.body.editBundleName,
                     //itemPrice: req.body.newPriceStock,
-                    stockQuantity: req.body.newStockQuantity,
+                    bundleStock: req.body.editBundleStockQuantity,
                     //itemsSold: 0,
                     itemPicture: '/photo/'+ req.file.originalname,
                 }
                 
-                db.updateOne(Bundles, {},data, result=>{
+                db.updateOne(Bundles, {_id:req.body.artistsListDropdownBundle},data, result=>{
                     if (result) {
                         console.log("Successfully updated bundle details");
                     }
                     else {
                         console.log("Error updating bundle details");
                     }
+                    res.redirect('/admin');
                 });
-                
-                res.redirect('/admin');
             }
         })
-        
-        res.redirect('/admin');
     },
 
     //Edit event information (eventName, startDate, endDate)
@@ -193,6 +190,19 @@ const adminEditController = {
             }
             else {
                 console.log('Bundle ' + req.query.artistID + ' not found in the collection.')
+                res.send(false)
+            }
+        })
+    },
+
+    /*  returns bundles */
+    getBundlesProp: function(req, res, next){
+        db.findOne(Bundles, {_id: mongoose.Types.ObjectId(req.query.bundleID)}, '', function(result) {
+            if (result) {
+                res.send(result)
+            }
+            else {
+                console.log('Bundles ' + req.query.bundleID + ' not found in the collection.')
                 res.send(false)
             }
         })
