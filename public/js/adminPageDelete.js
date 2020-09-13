@@ -24,14 +24,14 @@ function deleteArtist(e) {
 }
 
 function deleteItem(e) {
-    var selected = $("select[name='artistsListDropdownEdit']").children("option:selected").val();
+    var selected = $("select[name='artistsListDropdownItem']").children("option:selected").val();
     if (selected != '') {
         if(!confirm('Are you sure you want to delete?')) {
             e.preventDefault();
             return false;
         }
         else {
-            $.post('/admin/deleteItem', {artistID: selected}, function(result){
+            $.post('/admin/deleteItem', {itemID: selected}, function(result){
                 if (result) {
                     console.log("post success");
                     window.location = '/admin';

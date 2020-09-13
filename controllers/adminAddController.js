@@ -54,9 +54,14 @@ const adminAddController = {
                 }
                 //Set event count down for days, hours, and minutes
                 db.findOne(Events, {isCurrentEvent: true},'', eventResult=>{
-                    if (eventResult) {
-                        eventResult.endDate.setHours(0);
-                        var diffDate = parseInt((eventResult.endDate - new Date));
+                    if (eventResult) { //if theres an event make time to 00:00
+                        if (eventResult.startDate < new Date) {
+                            eventResult.endDate.setHours(0);
+                            var diffDate = parseInt((eventResult.endDate - new Date));
+                        }
+                        else {
+                            var diffDate = 0;
+                        }
                     }
                     else {
                         var diffDate = 0;

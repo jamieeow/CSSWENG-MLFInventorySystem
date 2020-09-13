@@ -12,12 +12,28 @@ const adminDeleteController = {
     postRemoveArtist: function(req, res, next){
         db.deleteOne(Artists,{"artistID": req.body.artistID},result=>{
             if (result) {
-                console.log("Removed successfully!");
+                console.log("Removed artist successfully!");
             }
             else {
-                console.log("Error removing!");
+                console.log("Error removing artist!");
             }
-            res.redirect('/admin');
+            db.deleteMany(Items,{"artistID": req.body.artistID},result=>{
+                if (result) {
+                    console.log("Removed items successfully!");
+                }
+                else {
+                    console.log("Error removing items!");
+                }
+                db.deleteMany(Bundles,{"artistID": req.body.artistID},result=>{
+                    if (result) {
+                        console.log("Removed bundles successfully!");
+                    }
+                    else {
+                        console.log("Error removing bundles!");
+                    }
+                    res.redirect('/admin');
+                });
+            });
         });
     },
 
