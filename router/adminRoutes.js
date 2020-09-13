@@ -33,11 +33,11 @@ router.post('/admin/editEvent', adminEditController.postEditEvent);
 
 /*Delete functions*/
 //remove artist (this also removes all items and bundles associated with the artist)
-router.delete('/admin/deleteArtist', adminDeleteController.deleteRemoveArtist);
+router.post('/admin/deleteArtist', adminDeleteController.postRemoveArtist);
 //remove item
-router.delete('/admin/deleteItem', adminDeleteController.deleteRemoveItem);
+router.post('/admin/deleteItem', adminDeleteController.postRemoveItem);
 //remove bundle
-router.delete('/admin/deleteBundle', adminDeleteController.deleteRemoveBundle);
+router.post('/admin/deleteBundle', adminDeleteController.postRemoveBundle);
 //remove event
-router.delete('/admin/deleteEvent', adminDeleteController.deleteRemoveEvent);
+router.post('/admin/deleteEvent', adminDeleteController.postRemoveEvent);
 module.exports = router;

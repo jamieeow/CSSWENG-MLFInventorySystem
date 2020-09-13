@@ -106,7 +106,7 @@
 /*modal manage artist*/
 
 /*modal manage item*/
-#newItemPhoto {
+.photos {
     width: 49%;
     height: auto;
 }

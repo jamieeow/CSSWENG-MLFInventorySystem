@@ -24,6 +24,7 @@
     <script src="js/adminPageAdd.js"></script>
     <script src="js/adminPageDelete.js"></script>
     <script src="js/adminPageEdit.js"></script>
+    <script src="js/artistSales.js"></script>
 
 </head>
 <body>
@@ -31,9 +32,7 @@
         {{> header}}
         <div id="lowerSection" class="container d-flex flex-row mt-4">
             <div id="artistsList" class="card p-2" style="width: 60rem;">
-                {{#each artist}}
-
-                {{/each}}
+                {{> artistCards}}
             </div>
             <div id="leftMenu" class="card p-3" data-spy="scroll" data-offset="0" style="width: 20rem;">
                 <div id="manageMenu" class="nav-item">
@@ -88,25 +87,25 @@
                             <p id="manageReminder">Select the artist you want to edit or delete.</p>
 
                             <div class="form-group mb-4">
-                                <form id="editArtist" class="form">
+                                <form id="editArtist" class="form" method="POST" action="/admin/editArtist">
                                     <div class="form-group mb-2">
                                         <label for="artistsListDropdownEdit" class="font-weight-normal mr-2">artist</label>
-                                        <select id="artistsListDropdownEdit" class="form-control col-5" name="selectedArtistEdit">
+                                        <select id="artistsListDropdownEdit" class="form-control col-5" name="artistsListDropdownEdit">
                                             <option class="defaultVal" value="" disabled selected>select artist</option>
                                             {{#each artist}}
                                             <option value="{{artistID}}">{{artistName}}</option>
                                             {{/each}}
                                         </select>
-                                        <button name="deleteArtistButton" id="deleteArtistButton" class="btn btn-secondary " type="submit">delete</button>
+                                        <button name="deleteArtistButton" id="deleteArtistButton" class="btn btn-secondary " type="button" onclick="clicked(event);">delete</button>
                                     </div>
                                             
                                     <div class="form-group mb-2">
-                                        <label for="newArtistName" class="font-weight-normal">artist name</label>
-                                        <input id="newArtistName" class="form-control clearInput" name="newArtistName" type="text" required />
+                                        <label for="editArtistName" class="font-weight-normal">artist name</label>
+                                        <input id="editArtistName" class="form-control clearInput" name="editArtistName" type="text" required />
                                     </div>
                                     <div class="form-group mb-2">
-                                        <label for="newArtistIDNo" class="font-weight-normal">artist ID number</label>
-                                        <input id="newArtistIDNo" class="form-control clearInput" name="newArtistIDNo" type="number" min="0" max="99999999" required />
+                                        <label for="editArtistIDNo" class="font-weight-normal">artist ID number</label>
+                                        <input id="editArtistIDNo" class="form-control clearInput" name="editArtistIDNo" type="number" min="0" max="99999999" required />
                                     </div>
                                     <button name="editArtistButton" id="editArtistButton" class="btn btn-secondary btn-md col-4 mt-4 mb-2 float-right" type="submit">save</button>
                                 </form>
@@ -195,11 +194,11 @@
                                         </div>
                                         <div id="itemPhotoPicker" class="col m-4">
                                             <div class="d-flex justify-content-center">
-                                                <img name="newItemPhoto" id="newItemPhoto" src="photo/item-photo.png" />
+                                                <img name="editItemPhoto" id="editItemPhoto" class = "photos" src="photo/item-photo.png" />
                                             </div>
                                             <div class="custom-file mt-2">
-                                                <input name="itemPhotoPickerInput" id="itemPhotoPickerInput" type="file" class="custom-file-input clearInput" onchange="document.getElementById('newItemPhoto').src = window.URL.createObjectURL(this.files[0])" required />
-                                                <label class="custom-file-label " for="itemPhotoPickerInput">Choose photo</label>
+                                                <input name="editItemPhotoPickerInput" id="editItemPhotoPickerInput" type="file" class="custom-file-input clearInput" onchange="document.getElementById('editItemPhoto').src = window.URL.createObjectURL(this.files[0])" required />
+                                                <label class="custom-file-label " for="editItemPhotoPickerInput">Choose photo</label>
                                             </div>
                                         </div>
                                     </div>
@@ -220,8 +219,8 @@
                                     <div class="row">
                                         <div class="col mt-2">
                                             <div class="form-group mb-2">
-                                                <label for="artistsListDropdownItem" class="font-weight-normal mr-2">artist</label>
-                                                <select id="artistsListDropdownItem" class="form-control" name="itemSelectedArtist">
+                                                <label for="artistsListDropdownItemAdd" class="font-weight-normal mr-2">artist</label>
+                                                <select id="artistsListDropdownItemAdd" class="form-control" name="artistsListDropdownItemAdd">
                                                     <option class="defaultVal" value="" disabled selected>select artist</option>
                                                     {{#each artist}}
                                                     <option value="{{artistID}}">{{artistName}}</option>
@@ -237,21 +236,21 @@
                                                 <input name="newItemName" id="newItemName" class="form-control col-10 clearInput" type="text" required />
                                             </div>
                                             <div class="form-group mb-2">
-                                                <label for="newPriceStock" class="font-weight-normal mr-2">price</label>
-                                                <input name="newPriceStock" id="newPriceStock" class="form-control col-10 clearInput" type="number" min="0" max="99999999" required />
+                                                <label for="newItemPriceStock" class="font-weight-normal mr-2">price</label>
+                                                <input name="newItemPriceStock" id="newItemPriceStock" class="form-control col-10 clearInput" type="number" min="0" max="99999999" required />
                                             </div>
                                             <div class="form-group mb-2">
-                                                <label for="newStockQuantity" class="font-weight-normal mr-2">quantity</label>
-                                                <input name="newStockQuantity" id="newStockQuantity" class="form-control col-10 clearInput" type="number" min="0" max="99999999" required />
+                                                <label for="newItemStockQuantity" class="font-weight-normal mr-2">quantity</label>
+                                                <input name="newItemStockQuantity" id="newItemStockQuantity" class="form-control col-10 clearInput" type="number" min="0" max="99999999" required />
                                             </div>
                                         </div>
                                         <div id="itemPhotoPicker" class="col m-4">
                                             <div class="d-flex justify-content-center">
-                                                <img name="newItemPhoto" id="newItemPhoto" src="photo/item-photo.png" />
+                                                <img name="newItemPhoto" id="newItemPhoto" class = "photos" src="photo/item-photo.png" />
                                             </div>
                                             <div class="custom-file mt-2">
-                                                <input name="itemPhotoPickerInput" id="itemPhotoPickerInput" type="file" class="custom-file-input clearInput" onchange="document.getElementById('newItemPhoto').src = window.URL.createObjectURL(this.files[0])" required />
-                                                <label class="custom-file-label " for="itemPhotoPickerInput">Choose photo</label>
+                                                <input name="addItemPhotoPickerInput" id="addItemPhotoPickerInput" type="file" class="custom-file-input clearInput" onchange="document.getElementById('newItemPhoto').src = window.URL.createObjectURL(this.files[0])" required />
+                                                <label class="custom-file-label " for="addItemPhotoPickerInput">Choose photo</label>
                                             </div>
                                         </div>
                                     </div>
@@ -292,13 +291,13 @@
                             <h5 class="modal-title">Edit bundle</h5>
                             <p id="manageReminder">Select the artist and their bundle you want to edit or delete.</p>
 
-                            <form id="artistSelectBundle" class="form" method='POST' action="/admin/addBundle" enctype="multipart/form-data">
+                            <form id="editArtistSelectBundle" class="form" method='POST' action="/admin/editBundle" enctype="multipart/form-data">
                                 <div id="otherInputSection" class="mt-3">
                                     <div class="row">
                                         <div class="col mt-2">
                                             <div class="form-group mb-2">
-                                                <label for="artistsListDropdownBundle" class="font-weight-normal mr-2">artist</label>
-                                                <select id="artistsListDropdownBundle" class="form-control" name="bundleSelectedArtist">
+                                                <label for="artistsListDropdownBundleEdit" class="font-weight-normal mr-2">artist</label>
+                                                <select id="artistsListDropdownBundleEdit" class="form-control" name="artistsListDropdownBundleEdit">
                                                     <option class="defaultVal" value="" disabled selected>select artist</option>
                                                     {{#each artist}}
                                                     <option value="{{artistID}}">{{artistName}}</option>
@@ -326,24 +325,25 @@
                                                 <input name="newStockQuantity" id="newStockQuantity" class="form-control col-10 clearInput" type="number" min="0" max="99999999" required />
                                             </div>
                                         </div>
-                                        <div id="BundlePhotoPicker" class="col m-4">
+                                        <div id="BundlePhotoPicker1" class="col m-4">
                                             <div class="d-flex justify-content-center">
-                                                <img name="newBundlePhoto" id="newBundlePhoto" src="photo/item-photo.png" />
+                                                <img name="editBundlePhoto" id="editBundlePhoto" class = "photos" src="photo/item-photo.png" />
                                             </div>
                                             <div class="custom-file mt-2">
-                                                <input name="BundlePhotoPicker" id="BundlePhotoPicker" type="file" class="custom-file-input clearInput" onchange="document.getElementById('newBundlePhoto').src = window.URL.createObjectURL(this.files[0])" required />
-                                                <label class="custom-file-label " for="BundlePhotoPicker">Choose photo</label>
+                                                <input name="editBundlePhotoPicker" id="editBundlePhotoPicker" type="file" class="custom-file-input clearInput" onchange="document.getElementById('editBundlePhoto').src = window.URL.createObjectURL(this.files[0])" required />
+                                                <label class="custom-file-label " for="editBundlePhotoPicker">Choose photo</label>
                                             </div>
                                         </div>
                                     </div>
+                                    <input type="hidden" id="editSelectedItems" name="editSelectedItems" value="" />
                                     <div class="row">
                                         <div class="col">
-                                            <input type="hidden" id="selectedItems" name="selectedItems" value="" />
-                                            <div id="bundleItemsSection">
+                                            <div id="editBundleItemsSection">
                                                 <div class="form-group">
-                                                    <label for="artistItemsSection" class="font-weight-normal">select bundle items</label>
-                                                    <div id="artistItemsSection" class="card overflow-auto" style="height: 10rem;" data-spy="scroll" data-offset="0">
-                                                        {{> itemGridCards section="bundleItem" lgsize="4"}}
+                                                    <label for="editBundleItemsList" class="font-weight-normal">select bundle items</label>
+                                                    <div id="editBundleItemsList" class="card overflow-auto" style="height: 10rem;" data-spy="scroll" data-offset="0">
+                                                        <div class="row row-cols-1 row-cols-sm-1 row-cols-md-3 row-cols-lg-4 itemGrid" id="editSelectBundleItems">
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -359,15 +359,15 @@
                             
                         </div>
                         <div id="addBundlesSection" class="tab-pane fade" role="tabpanel" aria-labelledby="addBundleOption">
-                            <form id="artistSelectBundle" class="form" method='POST' action="/admin/addBundle" enctype="multipart/form-data">
+                            <form id="addArtistSelectBundle" class="form" method='POST' action="/admin/addBundle" enctype="multipart/form-data">
                                 <h5 class="modal-title">Add bundle</h5>
                                 <p id="manageReminder">Fill in the form below before adding a new bundle.</p>
                                 <div id="otherInputSection" class="mt-3">
                                     <div class="row">
                                         <div class="col mt-2">
                                             <div class="form-group mb-2">
-                                                <label for="artistsListDropdownBundle" class="font-weight-normal mr-2">artist</label>
-                                                <select id="artistsListDropdownBundle" class="form-control" name="bundleSelectedArtist">
+                                                <label for="artistsListDropdownBundleAdd" class="font-weight-normal mr-2">artist</label>
+                                                <select id="artistsListDropdownBundleAdd" class="form-control" name="artistsListDropdownBundleAdd">
                                                     <option class="defaultVal" value="" disabled selected>select artist</option>
                                                     {{#each artist}}
                                                     <option value="{{artistID}}">{{artistName}}</option>
@@ -383,32 +383,33 @@
                                                 <input name="newBundleName" id="newBundleName" class="form-control col-10 clearInput" type="text" required />
                                             </div>
                                             <div class="form-group mb-2">
-                                                <label for="newPriceStock" class="font-weight-normal mr-2">price</label>
-                                                <input name="newPriceStock" id="newPriceStock" class="form-control col-10 clearInput" type="number" min="0" max="99999999" required />
+                                                <label for="newBundlePriceStock" class="font-weight-normal mr-2">price</label>
+                                                <input name="newBundlePriceStock" id="newBundlePriceStock" class="form-control col-10 clearInput" type="number" min="0" max="99999999" required />
                                             </div>
                                             <div class="form-group mb-2">
-                                                <label for="newStockQuantity" class="font-weight-normal mr-2">quantity</label>
-                                                <input name="newStockQuantity" id="newStockQuantity" class="form-control col-10 clearInput" type="number" min="0" max="99999999" required />
+                                                <label for="newBundleStockQuantity" class="font-weight-normal mr-2">quantity</label>
+                                                <input name="newBundleStockQuantity" id="newBundleStockQuantity" class="form-control col-10 clearInput" type="number" min="0" max="99999999" required />
                                             </div>
                                         </div>
-                                        <div id="BundlePhotoPicker" class="col m-4">
+                                        <div id="BundlePhotoPicker2" class="col m-4">
                                             <div class="d-flex justify-content-center">
-                                                <img name="newBundlePhoto" id="newBundlePhoto" src="photo/item-photo.png" />
+                                                <img name="newBundlePhoto" id="newBundlePhoto" class = "photos" src="photo/item-photo.png" />
                                             </div>
                                             <div class="custom-file mt-2">
-                                                <input name="BundlePhotoPicker" id="BundlePhotoPicker" type="file" class="custom-file-input clearInput" onchange="document.getElementById('newBundlePhoto').src = window.URL.createObjectURL(this.files[0])" required />
-                                                <label class="custom-file-label " for="BundlePhotoPicker">Choose photo</label>
+                                                <input name="addBundlePhotoPicker" id="addBundlePhotoPicker" type="file" class="custom-file-input clearInput" onchange="document.getElementById('newBundlePhoto').src = window.URL.createObjectURL(this.files[0])" required />
+                                                <label class="custom-file-label " for="addBundlePhotoPicker">Choose photo</label>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col">
-                                            <input type="hidden" id="selectedItems" name="selectedItems" value="" />
-                                            <div id="bundleItemsSection">
+                                            <input type="hidden" id="addSelectedItems" name="addSelectedItems" value="" />
+                                            <div id="addBundleItemsSection">
                                                 <div class="form-group">
-                                                    <label for="artistItemsSection" class="font-weight-normal">select bundle items</label>
-                                                    <div id="artistItemsSection" class="card overflow-auto" style="height: 10rem;" data-spy="scroll" data-offset="0">
-                                                        {{> itemGridCards section="bundleItem" lgsize="4"}}
+                                                    <label for="addBundleItemsSection" class="font-weight-normal">select bundle items</label>
+                                                    <div id="addBundleItemsSection" class="card overflow-auto" style="height: 10rem;" data-spy="scroll" data-offset="0">
+                                                        <div class="row row-cols-1 row-cols-sm-1 row-cols-md-3 row-cols-lg-4 itemGrid" id="addSelectBundleItems">
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>

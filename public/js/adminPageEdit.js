@@ -5,10 +5,7 @@ $(document).ready(function () {
     $("select[name='artistsListDropdownEdit']").change(function() {
         $("#selectBundleItems").html('')
         var selected = $(this).children("option:selected").val();
-        console.log(selected);
-
         $.get('/admin/getArtist', {artistID: selected, projection: "_id artistID artistName"}, function(result){
-            console.log(result)
             if (result) {
                 $("#editArtistName").val(result.artistName);
                 $("#editArtistIDNo").val(result.artistID);
@@ -22,7 +19,6 @@ $(document).ready(function () {
         console.log(selected);
 
         $.get('/admin/getEvent', {eventID: selected, projection: "_id eventID eventName startDate endDate"}, function(result){
-            console.log(result)
             d1 = new Date(result.startDate);
             d2 = new Date(result.endDate);
 
@@ -56,12 +52,6 @@ $(document).ready(function () {
             }
         })
     })
-
-    /*$('a[id^="manage"]').click(function () {
-        $("body, html").animate({
-            scrollTop: $('.tab-content').offset().top
-        }, 600);
-    })*/
     
 
 });

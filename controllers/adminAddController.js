@@ -85,6 +85,7 @@ const adminAddController = {
                                 }
                                 eventArray.push(eventObj); //array of item info
                             }
+                            console.log(artistItemsArray);
                             //details of admin page
                             var details = {
                                 artist: artistArray,
@@ -165,7 +166,7 @@ const adminAddController = {
   
           const upload = multer({
               storage: storage
-          }).single('itemPhotoPickerInput');
+          }).single('addItemPhotoPickerInput');
 
           upload(req, res, (err) => {
             if (!err){
@@ -212,7 +213,7 @@ const adminAddController = {
   
         const upload = multer({
             storage: storage
-        }).single('BundlePhotoPicker');
+        }).single('addBundlePhotoPicker');
 
         upload(req, res, (err) => {
             if (!err){
@@ -221,11 +222,12 @@ const adminAddController = {
                     if (eventResults) {
                         eventResultsID = eventResults._id;
                     }
+                    console.log(req.body);
                     data = {
                         _id: new mongoose.Types.ObjectId(),
                         artistID: req.body.artistsListDropdownBundleAdd,
                         eventID: eventResultsID,
-                        includedItems: req.body.selectedItems,
+                        includedItems: req.body.addSelectedItems,
                         bundleName: req.body.newBundleName,
                         bundlePrice: req.body.newBundlePriceStock,
                         bundleSold: 0,

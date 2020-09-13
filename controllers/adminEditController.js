@@ -15,9 +15,7 @@ const adminEditController = {
             artistName: req.body.editArtistName,
         }
 
-        console.log("DATA IS" + req.body.editArtistIDNo);
-
-        db.updateOne(Artists, {artistID: req.body.editArtistIDNo}, retrievedData, result=>{
+        db.updateOne(Artists, {artistID: req.body.artistsListDropdownEdit}, retrievedData, result=>{
             if (result) {
                 console.log("Successfully updated artist details.");
             }
@@ -41,7 +39,7 @@ const adminEditController = {
   
           const upload = multer({
               storage: storage
-          }).single('itemPhotoPickerInput'); //change this
+          }).single('editItemPhoto');
 
           upload(req, res, (err) => {
             if (!err){
@@ -84,7 +82,7 @@ const adminEditController = {
   
           const upload = multer({
               storage: storage
-          }).single('itemPhotoPickerInput'); //change this
+          }).single('editBundlePhotoPicker');
 
           upload(req, res, (err) => {
             if (!err){

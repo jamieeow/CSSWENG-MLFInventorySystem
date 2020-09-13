@@ -9,26 +9,54 @@ const Events = require('../models/EventModel.js');
 
 const adminDeleteController = {
     //delete artist from the database (this also removes item and bundle associated with the artist from the database)
-    deleteRemoveArtist: function(req, res, next){
-        db.deleteOne(Artists,{"_id": req.body.artistID},result=>{});
-        res.redirect('/admin');
+    postRemoveArtist: function(req, res, next){
+        db.deleteOne(Artists,{"artistID": req.body.artistID},result=>{
+            if (result) {
+                console.log("Removed successfully!");
+            }
+            else {
+                console.log("Error removing!");
+            }
+            res.redirect('/admin');
+        });
     },
 
     //delete item from the database
-    deleteRemoveItem: function(req, res, next){
-        db.deleteOne(Items,{"_id": req.body.itemID},result=>{});
+    postRemoveItem: function(req, res, next){
+        db.deleteOne(Items,{"_id": req.body.itemID},result=>{
+            if (result) {
+                console.log("Removed successfully!");
+            }
+            else {
+                console.log("Error removing!");
+            }
+        });
         res.redirect('/admin');
     },
 
     //delete bundle from the database
-    deleteRemoveBundle: function(req, res, next){
-        db.deleteOne(Bundles,{"_id": req.body.bundleID},result=>{});
+    postRemoveBundle: function(req, res, next){
+        db.deleteOne(Bundles,{"_id": req.body.bundleID},result=>{
+            if (result) {
+                console.log("Removed successfully!");
+            }
+            else {
+                console.log("Error removing!");
+            }
+        });
         res.redirect('/admin');
     },
 
     //delete event from the database
-    deleteRemoveEvent: function(req, res, next){
-        db.deleteOne(Events,{"_id": req.body.eventID},result=>{});
+    postRemoveEvent: function(req, res, next){
+        db.deleteOne(Events,{"_id": req.body.eventID},result=>{
+            if (result) {
+                console.log("Removed successfully!");
+            }
+            else {
+                console.log("Error removing!");
+            }
+        });
         res.redirect('/admin');
     },
 
