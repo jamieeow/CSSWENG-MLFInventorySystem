@@ -96,7 +96,7 @@
                                             <option value="{{artistID}}">{{artistName}}</option>
                                             {{/each}}
                                         </select>
-                                        <button name="deleteItemButton" id="deleteItemButton" class="btn btn-secondary " type="submit">delete</button>
+                                        <button name="deleteArtistButton" id="deleteArtistButton" class="btn btn-secondary " type="submit">delete</button>
                                     </div>
                                             
                                     <div class="form-group mb-2">
@@ -171,6 +171,7 @@
                                                     <option value="{{artistID}}">{{artistName}}</option>
                                                     {{/each}}
                                                 </select>
+                                                <button name="deleteItemButton" id="deleteItemButton" class="btn btn-secondary " type="submit">delete</button>
                                             </div>
                                         </div>
                                     </div>
@@ -302,6 +303,7 @@
                                                     <option value="{{artistID}}">{{artistName}}</option>
                                                     {{/each}}
                                                 </select>
+                                                <button name="deleteBundleButton" id="deleteBundleButton" class="btn btn-secondary " type="submit">delete</button>
                                             </div>
                                         </div>
                                     </div>
@@ -316,10 +318,6 @@
                                             <div class="form-group mb-2">
                                                 <label for="newBundleName" class="font-weight-normal mr-2">bundle name</label>
                                                 <input name="newBundleName" id="newBundleName" class="form-control col-10 clearInput" type="text" required />
-                                            </div>
-                                            <div class="form-group mb-2">
-                                                <label for="newPriceStock" class="font-weight-normal mr-2">price</label>
-                                                <input name="newPriceStock" id="newPriceStock" class="form-control col-10 clearInput" type="number" min="0" max="99999999" required />
                                             </div>
                                             <div class="form-group mb-2">
                                                 <label for="newStockQuantity" class="font-weight-normal mr-2">quantity</label>
@@ -450,7 +448,8 @@
                         <div div id="editEventsSection" class="tab-pane fade show active pb-4" role="tabpanel" aria-labelledby="editEventsOption">
                             <h5 class="modal-title">Edit event</h5>
                             <p id="manageReminder">Select the event you want to set as current. You can also edit and delete an event.</p>
-                            <form class="form">
+                            <span class="font-weight-bold">Current event name and time span: </span><span>name at HH:MM - HH:MM</span>
+                            <form class="form mt-3">
                                 <div class="form-row mb-2">
                                     <div class="col mb-3">
                                         <label for="selectedEvent" class="font-weight-normal mr-2">select event</label>
