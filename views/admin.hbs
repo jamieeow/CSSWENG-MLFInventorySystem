@@ -90,7 +90,7 @@
                                 <form id="editArtist" class="form" method="POST" action="/admin/editArtist">
                                     <div class="form-group mb-2">
                                         <label for="artistsListDropdownEdit" class="font-weight-normal mr-2">artist</label>
-                                        <select id="artistsListDropdownEdit" class="form-control col-5" name="artistsListDropdownEdit">
+                                        <select id="artistsListDropdownEdit" class="form-control col-5" name="artistsListDropdownEdit" required>
                                             <option class="defaultVal" value="" disabled selected>select artist</option>
                                             {{#each artist}}
                                             <option value="{{artistID}}">{{artistName}}</option>
@@ -165,7 +165,7 @@
                                         <div class="col mt-2">
                                             <div class="form-group mb-2">
                                                 <label for="artistsListDropdownItemEdit" class="font-weight-normal mr-2">artist</label>
-                                                <select id="artistsListDropdownItemEdit" class="form-control manageItemsArtist" name="artistsListDropdownItemEdit">
+                                                <select id="artistsListDropdownItemEdit" class="form-control manageItemsArtist" name="artistsListDropdownItemEdit" required>
                                                     <option class="defaultVal" value="" disabled selected>select artist</option>
                                                     {{#each artist}}
                                                     <option value="{{artistID}}">{{artistName}}</option>
@@ -178,7 +178,7 @@
                                         <div id="textFields" class="col mt-2" style="width: 500px;">
                                             <div class="form-group mb-2">
                                                 <label for="artistsListDropdownItem" class="font-weight-normal mr-2">item name</label>
-                                                <select id="artistsListDropdownItem" class="form-control col-10 manageItemsList" name="artistsListDropdownItem">
+                                                <select id="artistsListDropdownItem" class="form-control col-10 manageItemsList" name="artistsListDropdownItem" required>
                                                     <option class="defaultVal" value="" disabled selected>select item</option>
                                                 </select>
                                                 <button name="deleteItemButton" id="deleteItemButton" class="btn btn-secondary " type="button"  onclick="deleteItem(event);" >delete</button>
@@ -297,7 +297,7 @@
                                         <div class="col mt-2">
                                             <div class="form-group mb-2">
                                                 <label for="artistsListDropdownBundleEdit" class="font-weight-normal mr-2">artist</label>
-                                                <select id="artistsListDropdownBundleEdit" class="form-control" name="artistsListDropdownBundleEdit">
+                                                <select id="artistsListDropdownBundleEdit" class="form-control" name="artistsListDropdownBundleEdit" required>
                                                     <option class="defaultVal" value="" disabled selected>select artist</option>
                                                     {{#each artist}}
                                                     <option value="{{artistID}}">{{artistName}}</option>
@@ -311,7 +311,7 @@
                                         <div id="textFields" class="col" style="width: 500px;">
                                             <div class="form-group mb-2">
                                                 <label for="artistsListDropdownBundle" class="font-weight-normal mr-2">bundle</label>
-                                                <select id="artistsListDropdownBundle" class="form-control col-10" name="artistsListDropdownBundle">
+                                                <select id="artistsListDropdownBundle" class="form-control col-10" name="artistsListDropdownBundle" required>
                                                     <option class="defaultVal" value="" disabled selected>select bundle</option>
                                                 </select>
                                                 <button name="deleteBundleButton" id="deleteBundleButton" class="btn btn-secondary " type="button"  onclick="deleteBundle(event);" >delete</button>
@@ -456,7 +456,7 @@
                                 <div class="form-row mb-2">
                                     <div class="col mb-3">
                                         <label for="selectedEvent" class="font-weight-normal mr-2">event</label>
-                                        <select id="selectedEvent" class="form-control col-8" name="selectedEvent">
+                                        <select id="selectedEvent" class="form-control col-8" name="selectedEvent" required>
                                             <option class="defaultVal" value="" disabled selected>select event</option>
                                             {{#each event}}
                                                     <option value="{{eventID}}">{{eventName}}</option>
