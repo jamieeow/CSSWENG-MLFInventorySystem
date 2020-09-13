@@ -90,7 +90,6 @@ const adminAddController = {
                                 }
                                 eventArray.push(eventObj); //array of item info
                             }
-                            console.log(artistItemsArray);
                             //details of admin page
                             var details = {
                                 artist: artistArray,

@@ -48,14 +48,14 @@ function deleteItem(e) {
 }
 
 function deleteBundle(e) {
-    var selected = $("select[name='artistsListDropdownEdit']").children("option:selected").val();
+    var selected = $("select[name='artistsListDropdownBundle']").children("option:selected").val();
     if (selected != '') {
         if(!confirm('Are you sure you want to delete?')) {
             e.preventDefault();
             return false;
         }
         else {
-            $.post('/admin/deleteBundle', {artistID: selected}, function(result){
+            $.post('/admin/deleteBundle', {bundleID: selected}, function(result){
                 if (result) {
                     console.log("post success");
                     window.location = '/admin';
@@ -65,7 +65,7 @@ function deleteBundle(e) {
         }
     }
     else {
-        alert('Please select an artist!');
+        alert('Please select a bundle!');
         e.preventDefault();
         return false;
     }

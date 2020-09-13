@@ -16,7 +16,6 @@ $(document).ready(function () {
     //edit event change values according to selector
     $("select[name='selectedEvent']").change(function() {
         var selected = $(this).children("option:selected").val();
-        console.log(selected);
 
         $.get('/admin/getEvent', {eventID: selected, projection: "_id eventID eventName startDate endDate isCurrentEvent"}, function(result){
             //check and uncheck box according to isCurrentEvent
@@ -65,13 +64,30 @@ $(document).ready(function () {
     $(".manageItemsArtist").change(function() {
         $(".manageItemsList").html('<option class="defaultVal" value="" disabled selected>select item</option>')
         var selected = $(this).children("option:selected").val();
-        console.log(selected);
 
         $.get('/admin/getItems', {artistID: selected, projection: "_id itemName"}, function(result){
             if (result) {
                 for (var i=0; i < result.length; i++) {
                     $(".manageItemsList").append('<option value="' + result[i]._id + '">' + result[i].itemName + '</option>')
                 }
+            }
+        })
+    })
+
+    // edit item details changes according to selected item
+    $("#artistsListDropdownItem").change(function() {
+        var selected = $(this).children("option:selected").val();
+        console.log(selected);
+
+        $.get('/admin/getItemsProp', {itemID: selected, projection: "_id itemName stockQuantity itemPicture"}, function(result){
+            if (result) {
+                console.log(result);
+                console.log(result.itemName);
+                console.log(result.stockQuantity);
+                console.log(result.itemPicture);
+                $("#editItemName").val(result.itemName);
+                $("#editStockQuantity").val(result.stockQuantity);
+                $("#editItemPhotoPickerInput").val(result.itemPicture);
             }
         })
     })

@@ -174,6 +174,19 @@ const adminEditController = {
         })
     },
 
+    /*  returns items */
+    getItemsProp: function(req, res, next){
+        db.findOne(Items, {_id: mongoose.Types.ObjectId(req.query.itemID)}, req.query.projection, function(result) {
+            if (result.length > 0) {
+                res.send(result)
+            }
+            else {
+                console.log('Item ' + req.query.itemID + ' not found in the collection.')
+                res.send(false)
+            }
+        })
+    },
+
     /*  return bundles */
     getBundles: function(req, res, next){
         db.findMany(Bundles, {artistID: req.query.artistID}, req.query.projection, function(result) {

@@ -177,19 +177,19 @@
                                     <div class="row">
                                         <div id="textFields" class="col mt-2" style="width: 500px;">
                                             <div class="form-group mb-2">
-                                                <label for="artistsListDropdownItem" class="font-weight-normal mr-2">item</label>
+                                                <label for="artistsListDropdownItem" class="font-weight-normal mr-2">item name</label>
                                                 <select id="artistsListDropdownItem" class="form-control col-10 manageItemsList" name="artistsListDropdownItem">
                                                     <option class="defaultVal" value="" disabled selected>select item</option>
                                                 </select>
                                                 <button name="deleteItemButton" id="deleteItemButton" class="btn btn-secondary " type="button"  onclick="deleteItem(event);" >delete</button>
                                             </div>
                                             <div class="form-group mb-2">
-                                                <label for="newItemName" class="font-weight-normal mr-2">item</label>
-                                                <input name="newItemName" id="newItemName" class="form-control col-10 clearInput" type="text" required />
+                                                <label for="editItemName" class="font-weight-normal mr-2">item name</label>
+                                                <input name="editItemName" id="editItemName" class="form-control col-10 clearInput" type="text" required />
                                             </div>
                                             <div class="form-group mb-2">
-                                                <label for="newStockQuantity" class="font-weight-normal mr-2">quantity</label>
-                                                <input name="newStockQuantity" id="newStockQuantity" class="form-control col-10 clearInput" type="number" min="0" max="99999999" required />
+                                                <label for="editStockQuantity" class="font-weight-normal mr-2">quantity</label>
+                                                <input name="editStockQuantity" id="editStockQuantity" class="form-control col-10 clearInput" type="number" min="0" max="99999999" required />
                                             </div>
                                         </div>
                                         <div id="itemPhotoPicker" class="col m-4">
@@ -204,7 +204,7 @@
                                     </div>
                                     <div class="row">
                                         <div class="col">
-                                            <button name="addItemButton" id="addItemButton" class="btn btn-secondary btn-md col-6 mt-3 float-right" type="submit">save</button>
+                                            <button name="editItemButton" id="editItemButton" class="btn btn-secondary btn-md col-6 mt-3 float-right" type="submit">save</button>
                                         </div>
                                     </div>
                                 </div>
