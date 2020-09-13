@@ -116,7 +116,7 @@ const adminEditController = {
     },
 
     //Edit event information (eventName, startDate, endDate)
-    putEditEvent: function(req, res, next){
+    postEditEvent: function(req, res, next){
         let retrievedData = { //change this
             _id: new mongoose.Types.ObjectId(req.body.eventID),
             eventName: req.body.eventName,

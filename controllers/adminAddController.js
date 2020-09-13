@@ -68,27 +68,39 @@ const adminAddController = {
                     var days = Math.floor(hours/24);
                     hours = hours%24;
                     minutes = minutes%60;
+
                     //find how many items were sold
                     db.findMany(Items, {}, '', itemResult=>{
                         var sold=0;
                         for (let i=0; i<itemResult.length;i++) {
                             sold += itemResult[i].itemsSold;
                         }
-                        //details of admin page
-                        var details = {
-                            artist: artistArray,
-                            artistItems: artistItemsArray,
-                            daysLeft: days,
-                            hoursLeft: hours,
-                            minutesLeft: minutes,
-                            totalSold: sold,
-                        }
-                        if (result){
-                            res.render('admin',details)
-                        }
-                        else {
-                            res.render('admin')
-                        }
+                        db.findMany(Events, {}, '', manyEventsResult=>{
+                            eventArray = [];
+                            for (let i=0;i<manyEventsResult.length;i++){
+                                eventObj = { //event object containing event info
+                                    eventID: manyEventsResult[i]._id,
+                                    eventName: manyEventsResult[i].eventName,
+                                }
+                                eventArray.push(eventObj); //array of item info
+                            }
+                            //details of admin page
+                            var details = {
+                                artist: artistArray,
+                                artistItems: artistItemsArray,
+                                daysLeft: days,
+                                hoursLeft: hours,
+                                minutesLeft: minutes,
+                                totalSold: sold,
+                                event: eventArray,
+                            }
+                            if (result){
+                                res.render('admin',details)
+                            }
+                            else {
+                                res.render('admin')
+                            }
+                        })
                     })
                 })     
             })

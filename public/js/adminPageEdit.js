@@ -15,27 +15,8 @@ $(document).ready(function () {
             }
         })
     })
-    /*
-    //send PUT method
-    $("#editArtistButton").click(function(){
-        $.ajax({
-            url: '/admin/editArtist',
-            type: 'PUT',
-            data: {
-                artistName: $('#editArtistName').html(),
-                artistID: $('#editArtistIDNo').html(),
-            }
-        })
-        $.put('/admin/editArtist', { artistName: $('#editArtistName').html(),
-                                    artistID: $('#editArtistIDNo').html(),
-                                    projection: "" }, function(result) {
-            if(result)
-;
-        });
-        console.log($('#editArtistName').html());
-        console.log($('#editArtistIDNo').html());
-    })
-    */
+    
+    
     
 
 });
