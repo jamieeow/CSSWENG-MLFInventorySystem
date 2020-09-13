@@ -10,21 +10,68 @@ const mainController = {
     getMain: function(req, res, next){
 
         //  if the logged in user is not an admin, therefore a cashier
-        if (req.session.isAdmin == false) {        
+        if (req.session.isAdmin == false || true) {      
 
+            const getIncome = async function(artistID) {
+                return new Promise(function (resolve, reject) {
+                    db.findMany(Items, {artistID: artistID}, 'itemsSold itemPrice', function (itemRes) {
+                        var income = 0;
+
+                        for (let j = 0; j < itemRes.length; j++) {
+                            income += (itemRes[j].itemsSold * itemRes[j].itemPrice)
+                        }
+
+                        db.findMany(Bundles, {artistID: artistID}, 'bundleSold bundlePrice', function (bundleRes) {
+                            for (let k = 0; k < bundleRes.length; k++) {
+                                income += (bundleRes[k].bundleSold * bundleRes[k].bundlePrice)
+                            }
+
+                            console.log(income)
+                            resolve(income)
+                        })
+                    })
+                })
+            }   
+
+            const getTotalSold = async function() {
+                return new Promise(function (resolve, reject) {
+                    db.findMany(Items, {}, '-_id itemsSold', function (itemRes) {
+                        var items = itemRes.map(function(i) { return i.itemsSold})
+                                            .reduce(function(t, n) { return t + n})
+
+                        db.findMany(Bundles, {}, '-_id bundleSold', function (bundleRes) {
+                            var bundles = bundleRes.map(function(b) { return b.bundleSold})
+                                                    .reduce(function(t, n) { return t + n})
+                            
+                            resolve(items + bundles)
+                        })
+                    })
+                })
+            }
+
+            const getDetails = async (artists) => {
+                let totalItems = await getTotalSold()
+                
+                for (let i = 0; i < artists.length; i++) {
+                    let income = 0;
+                    artists[i].income = await getIncome(artists[i].artistID)
+                }
+                
+                var details = {
+                    artist: artists,
+                    totalSold: totalItems
+                }
+
+                res.render('main', details)
+            };
+            
             //find artist then render with details
             db.findMany(Artists, {}, 'artistID artistName', result=>{
             
                 let artistArray = result;
                 let totalItems = 0;
-                 
-                //details of main page
-                var details = {
-                    artist: artistArray,
-                    totalSold: totalItems
-                }
-
-                res.render('main', details)
+                
+                artistArray = getDetails(artistArray)
             })
         } 
         
