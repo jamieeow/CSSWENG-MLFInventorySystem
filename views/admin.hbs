@@ -24,7 +24,6 @@
     <script src="js/adminPageAdd.js"></script>
     <script src="js/adminPageDelete.js"></script>
     <script src="js/adminPageEdit.js"></script>
-    <script src="js/artistSales.js"></script>
 
 </head>
 <body>
@@ -32,7 +31,9 @@
         {{> header}}
         <div id="lowerSection" class="container d-flex flex-row mt-4">
             <div id="artistsList" class="card p-2" style="width: 60rem;">
-                {{> artistCards}}
+                {{#each artist}}
+
+                {{/each}}
             </div>
             <div id="leftMenu" class="card p-3" data-spy="scroll" data-offset="0" style="width: 20rem;">
                 <div id="manageMenu" class="nav-item">
@@ -87,9 +88,9 @@
                             <p id="manageReminder">Select the artist you want to edit or delete.</p>
 
                             <div class="form-group mb-4">
-                                <form id="editArtist" class="form" method="POST" action="/admin/editArtist">
+                                <form id="editArtist" class="form">
                                     <div class="form-group mb-2">
-                                        <select id="artistsListDropdownEdit" class="form-control col-5" name="artistsListDropdownEdit">
+                                        <select id="artistsListDropdownEdit" class="form-control col-5" name="bundleSelectedArtist">
                                             <option class="defaultVal" value="" disabled selected>select artist</option>
                                             {{#each artist}}
                                             <option value="{{artistID}}">{{artistName}}</option>
@@ -99,12 +100,12 @@
                                     </div>
                                             
                                     <div class="form-group mb-2">
-                                        <label for="editArtistName" class="font-weight-normal">artist name</label>
-                                        <input id="editArtistName" class="form-control clearInput" name="editArtistName" type="text" required />
+                                        <label for="newArtistName" class="font-weight-normal">artist name</label>
+                                        <input id="newArtistName" class="form-control clearInput" name="newArtistName" type="text" required />
                                     </div>
                                     <div class="form-group mb-2">
-                                        <label for="editArtistIDNo" class="font-weight-normal">artist ID number</label>
-                                        <input id="editArtistIDNo" class="form-control clearInput" name="editArtistIDNo" type="number" min="0" max="99999999" required />
+                                        <label for="newArtistIDNo" class="font-weight-normal">artist ID number</label>
+                                        <input id="newArtistIDNo" class="form-control clearInput" name="newArtistIDNo" type="number" min="0" max="99999999" required />
                                     </div>
                                     <button name="editArtistButton" id="editArtistButton" class="btn btn-secondary btn-md col-4 mt-4 mb-2 float-right" type="submit">save</button>
                                 </form>
@@ -112,7 +113,7 @@
                             </div>
                         </div>
                         <div id="addArtistsSection" class="tab-pane fade" role="tabpanel" aria-labelledby="addArtistsOption">
-                            <form id="artistSelectArtist" class="form" method="POST" action="/admin/addArtist">
+                            <form id="artistSelect" class="form" method="POST" action="/admin/addArtist">
                                 <h5 class="modal-title">Add artist</h5>
                                 <p id="manageReminder">Fill in the form below before adding a new artist.</p>
                                 <div class="mt-2">
@@ -158,7 +159,6 @@
                             <h5 class="modal-title">Edit item</h5>
                             <p id="manageReminder">Select the artist and their item you want to edit or delete.</p>
 
-<<<<<<< HEAD
                             <form id="artistSelect" class="form" method="POST" action="/admin/addItem" enctype="multipart/form-data">
                                 <div id="otherInputSection" class="mt-2">
                                     <div class="row">
@@ -206,49 +206,20 @@
                                             <button name="addItemButton" id="addItemButton" class="btn btn-secondary btn-md col-6 mt-3 float-right" type="submit">save</button>
                                         </div>
                                     </div>
-=======
-                            <div class="form-group mb-4">
-                                <label for="artistsListDropdownItemEdit" class="font-weight-normal mr-2">artist name</label>
-                                <select id="artistsListDropdownItemEdit" class="form-control" name="artistsListDropdownItemEdit">
-                                    <option class="defaultVal" value="" disabled selected>select artist</option>
-                                    {{#each artist}}
-                                    <option value="{{artistID}}">{{artistName}}</option>
-                                    {{/each}}
-                                </select>
-                                <button></button>
-                            </div>
-                            
-                            <div class="form-group mb-2">
-                                <label for="manageItemSection" class="font-weight-normal mr-2">artist items</label>
-                                <div id="manageItemSection" class="card overflow-auto" style="height: 13rem;" data-spy="scroll" data-offset="0">
-
->>>>>>> 3ac38d8432adfa7e003ccd940b4baabc42d365e7
                                 </div>
                             </form>
                             
                         </div>
                         <div id="addItemSection" class="tab-pane fade" role="tabpanel" aria-labelledby="addItemOption">
-<<<<<<< HEAD
                             <h5 class="modal-title">Add item</h5>
                             <p id="manageReminder">Fill in the form below before adding a new item.</p>
                             <form id="artistSelect" class="form" method="POST" action="/admin/addItem" enctype="multipart/form-data">
                                 <div id="otherInputSection" class="mt-2">
-=======
-                            <form id="artistSelectItem" class="form" method="POST" action="/admin/addItem" enctype="multipart/form-data">
-                                <h5 class="modal-title">Add item</h5>
-                                <p id="manageReminder">Fill in the form below before adding a new item.</p>
-                                <div id="otherInputSection" class="mt-3">
->>>>>>> 3ac38d8432adfa7e003ccd940b4baabc42d365e7
                                     <div class="row">
                                         <div class="col mt-2">
                                             <div class="form-group mb-2">
-<<<<<<< HEAD
                                                 <label for="artistsListDropdownItem" class="font-weight-normal mr-2">artist name</label>
                                                 <select id="artistsListDropdownItem" class="form-control" name="itemSelectedArtist">
-=======
-                                                <label for="artistsListDropdownItemAdd" class="font-weight-normal mr-2">artist name</label>
-                                                <select id="artistsListDropdownItemAdd" class="form-control col-10" name="artistsListDropdownItemAdd">
->>>>>>> 3ac38d8432adfa7e003ccd940b4baabc42d365e7
                                                     <option class="defaultVal" value="" disabled selected>select artist</option>
                                                     {{#each artist}}
                                                     <option value="{{artistID}}">{{artistName}}</option>
@@ -264,12 +235,12 @@
                                                 <input name="newItemName" id="newItemName" class="form-control col-10 clearInput" type="text" required />
                                             </div>
                                             <div class="form-group mb-2">
-                                                <label for="newItemPriceStock" class="font-weight-normal mr-2">price</label>
-                                                <input name="newItemPriceStock" id="newItemPriceStock" class="form-control col-10 clearInput" type="number" min="0" max="99999999" required />
+                                                <label for="newPriceStock" class="font-weight-normal mr-2">price</label>
+                                                <input name="newPriceStock" id="newPriceStock" class="form-control col-10 clearInput" type="number" min="0" max="99999999" required />
                                             </div>
                                             <div class="form-group mb-2">
-                                                <label for="newItemStockQuantity" class="font-weight-normal mr-2">quantity</label>
-                                                <input name="newItemStockQuantity" id="newItemStockQuantity" class="form-control col-10 clearInput" type="number" min="0" max="99999999" required />
+                                                <label for="newStockQuantity" class="font-weight-normal mr-2">quantity</label>
+                                                <input name="newStockQuantity" id="newStockQuantity" class="form-control col-10 clearInput" type="number" min="0" max="99999999" required />
                                             </div>
                                         </div>
                                         <div id="itemPhotoPicker" class="col m-4">
@@ -297,7 +268,7 @@
     </div>
 
     <div id="manageBundlesWindow" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog modal-xl" role="document">
+        <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">Manage bundles</h5>
@@ -319,7 +290,6 @@
                             <h5 class="modal-title">Edit bundle</h5>
                             <p id="manageReminder">Select the artist and their bundle you want to edit or delete..</p>
 
-<<<<<<< HEAD
                             <form id="artistSelectBundle" class="form" method='POST' action="/admin/addBundle" enctype="multipart/form-data">
                                 <div id="otherInputSection" class="mt-3">
                                     <div class="row">
@@ -338,14 +308,18 @@
                                     <div class="row">
                                         <div id="textFields" class="col" style="width: 500px;">
                                             <div class="form-group mb-2">
-                                                <label for="artistsListDropdownBundle" class="font-weight-normal mr-2">item name</label>
-                                                <select id="artistsListDropdownBundle" class="form-control col-10" name="bundleSelectedArtist">
-                                                    <option class="defaultVal" value="" disabled selected>select bundle</option>
+                                                <label for="artistsListDropdownItem" class="font-weight-normal mr-2">item name</label>
+                                                <select id="artistsListDropdownItem" class="form-control col-10" name="itemSelectedArtist">
+                                                    <option class="defaultVal" value="" disabled selected>select item</option>
                                                 </select>
                                             </div>
                                             <div class="form-group mb-2">
                                                 <label for="newBundleName" class="font-weight-normal mr-2">bundle name</label>
                                                 <input name="newBundleName" id="newBundleName" class="form-control col-10 clearInput" type="text" required />
+                                            </div>
+                                            <div class="form-group mb-2">
+                                                <label for="newPriceStock" class="font-weight-normal mr-2">price</label>
+                                                <input name="newPriceStock" id="newPriceStock" class="form-control col-10 clearInput" type="number" min="0" max="99999999" required />
                                             </div>
                                             <div class="form-group mb-2">
                                                 <label for="newStockQuantity" class="font-weight-normal mr-2">quantity</label>
@@ -380,20 +354,6 @@
                                             <button name="addBundleButton" id="addBundleButton" class="btn btn-secondary btn-md col-6 mt-4 mb-2 float-right" type="submit">save</button>
                                         </div>
                                     </div>
-=======
-                            <div class="form-group mb-4">
-                                <label for="artistsListDropdownBundleEdit" class="font-weight-normal mr-2">artist name</label>
-                                <select id="artistsListDropdownBundleEdit" class="form-control" name="artistsListDropdownBundleEdit">
-                                    <option class="defaultVal" value="" disabled selected>select artist</option>
-                                    <div class="row row-cols-1 row-cols-sm-1 row-cols-md-3 row-cols-lg-4 itemGrid" id="editBundleItem">
-                                            </div>
-                                </select>
-                            </div>
-                            <div class="form-group mb-2">
-                                <label for="manageArtistSection" class="font-weight-normal mr-2">artist bundles</label>
-                                <div id="manageArtistSection" class="card overflow-auto" style="height: 13rem;" data-spy="scroll" data-offset="0">
-
->>>>>>> 3ac38d8432adfa7e003ccd940b4baabc42d365e7
                                 </div>
                             </form>
                             
@@ -404,17 +364,10 @@
                                 <p id="manageReminder">Fill in the form below before adding a new bundle.</p>
                                 <div id="otherInputSection" class="mt-3">
                                     <div class="row">
-<<<<<<< HEAD
                                         <div class="col mt-2">
                                             <div class="form-group mb-2">
                                                 <label for="artistsListDropdownBundle" class="font-weight-normal mr-2">artist name</label>
                                                 <select id="artistsListDropdownBundle" class="form-control" name="bundleSelectedArtist">
-=======
-                                        <div id="textFields" class="col" style="width: 500px;">
-                                            <div class="form-group mb-4">
-                                                <label for="artistsListDropdownBundleAdd" class="font-weight-normal mr-2">artist name</label>
-                                                <select id="artistsListDropdownBundleAdd" class="form-control col-10" name="artistsListDropdownBundleAdd">
->>>>>>> 3ac38d8432adfa7e003ccd940b4baabc42d365e7
                                                     <option class="defaultVal" value="" disabled selected>select artist</option>
                                                     {{#each artist}}
                                                     <option value="{{artistID}}">{{artistName}}</option>
@@ -430,12 +383,12 @@
                                                 <input name="newBundleName" id="newBundleName" class="form-control col-10 clearInput" type="text" required />
                                             </div>
                                             <div class="form-group mb-2">
-                                                <label for="newBundlePriceStock" class="font-weight-normal mr-2">price</label>
-                                                <input name="newBundlePriceStock" id="newBundlePriceStock" class="form-control col-10 clearInput" type="number" min="0" max="99999999" required />
+                                                <label for="newPriceStock" class="font-weight-normal mr-2">price</label>
+                                                <input name="newPriceStock" id="newPriceStock" class="form-control col-10 clearInput" type="number" min="0" max="99999999" required />
                                             </div>
                                             <div class="form-group mb-2">
-                                                <label for="newBundleStockQuantity" class="font-weight-normal mr-2">quantity</label>
-                                                <input name="newBundleStockQuantity" id="newBundleStockQuantity" class="form-control col-10 clearInput" type="number" min="0" max="99999999" required />
+                                                <label for="newStockQuantity" class="font-weight-normal mr-2">quantity</label>
+                                                <input name="newStockQuantity" id="newStockQuantity" class="form-control col-10 clearInput" type="number" min="0" max="99999999" required />
                                             </div>
                                         </div>
                                         <div id="BundlePhotoPicker" class="col m-4">
@@ -451,12 +404,11 @@
                                     <div class="row">
                                         <div class="col">
                                             <input type="hidden" id="selectedItems" name="selectedItems" value="" />
-                                            <div id="artistItemsSection">
+                                            <div id="bundleItemsSection">
                                                 <div class="form-group">
-                                                    <label for="bundleItemsList" class="font-weight-normal">select bundle items</label>
-                                                    <div id="bundleItemsList" class="card overflow-auto" style="height: 10rem;" data-spy="scroll" data-offset="0">
-                                                        <div class="row row-cols-1 row-cols-sm-1 row-cols-md-3 row-cols-lg-4 itemGrid" id="selectBundleItems">
-                                                        </div>
+                                                    <label for="artistItemsSection" class="font-weight-normal">select bundle items</label>
+                                                    <div id="artistItemsSection" class="card overflow-auto" style="height: 10rem;" data-spy="scroll" data-offset="0">
+                                                        {{> itemGridCards section="bundleItem" lgsize="4"}}
                                                     </div>
                                                 </div>
                                             </div>
@@ -498,15 +450,12 @@
                         <div div id="editEventsSection" class="tab-pane fade show active pb-4" role="tabpanel" aria-labelledby="editEventsOption">
                             <h5 class="modal-title">Edit event</h5>
                             <p id="manageReminder">Select the event you want to set as current. You can also edit and delete an event.</p>
-                            <form class="form" method="POST" action="/admin/editEvent">
+                            <form class="form">
                                 <div class="form-row mb-2">
                                     <div class="col mb-3">
                                         <label for="selectedEvent" class="font-weight-normal mr-2">select event</label>
                                         <select id="selectedEvent" class="form-control col-8" name="selectedEvent">
                                             <option class="defaultVal" value="" disabled selected>select event</option>
-                                            {{#each event}}
-                                            <option value="{{eventID}}">{{eventName}}</option>
-                                            {{/each}}
                                         </select>
                                         <button name="deleteEventButton" id="deleteEventButton" class="btn btn-secondary col-5" type="submit">delete</button>
                                     </div>
@@ -514,32 +463,28 @@
                                 <div class="form-row mb-2">
                                     <div class="col mb-2">
                                         <label for="editEventName" class="font-weight-normal mr-2">event name</label>
-                                        <input name="editEventName" id="editEventName" class="form-control col-14 clearInput" type="text" required />
+                                        <input name="editEventName" id="newEventName" class="form-control col-14 clearInput" type="text" required />
                                     </div>
                                 </div>
                                 <div class="form-row mb-2">
                                     <div class="col mb-2">
-                                        <label for="editStartEventDate" class="font-weight-normal mr-2">start date</label>
-                                        <input name="editStartEventDate" id="editStartEventDate" class="form-control clearInput" type="date" required />
+                                        <label for="startEventDate" class="font-weight-normal mr-2">date</label>
+                                        <input name="startEventDate" id="startEventDate" class="form-control clearInput" type="date" required />
                                     </div>
-                                    <!--
                                     <div class="col mb-2">
                                         <label for="startEventDate" class="font-weight-normal mr-2">time</label>
                                         <input name="startEventTime" id="startEventTime" class="form-control clearInput" type="time" required />
                                     </div>
-                                    -->
                                 </div>
                                 <div class="form-row mb-2">
                                     <div class="col mb-2">
-                                        <label for="editEndEventDate" class="font-weight-normal mr-2">end date</label>
-                                        <input name="editEndEventDate" id="editEndEventDate" class="form-control clearInput" type="date" required />
+                                        <label for="endEventDate" class="font-weight-normal mr-2">date</label>
+                                        <input name="endEventDate" id="endEventDate" class="form-control clearInput" type="date" required />
                                     </div>
-                                    <!--
                                     <div class="col mb-2">
                                         <label for="endEventTime" class="font-weight-normal mr-2">time</label>
                                         <input name="endEventTime" id="endEventTime" class="form-control clearInput" type="time" required />
                                     </div>
-                                    -->
                                 </div>
                                 <button name="editEventButton" id="editEventButton" class="btn btn-secondary btn-md col-4 mt-4 mb-2 float-right" type="submit">save</button>
                             </form>
@@ -547,7 +492,7 @@
                         <div div id="addEventsSection" class="tab-pane fade" role="tabpanel" aria-labelledby="addEventsOption">
                             <h5 class="modal-title">Add event</h5>
                             <p id="manageReminder">Fill in the form below before adding a new event.</p>
-                            <form class="form" method="POST" action="/admin/addEvent">
+                            <form class="form">
                                 <div class="form-row mb-2">
                                     <div class="col mb-2">
                                         <label for="newEventName" class="font-weight-normal mr-2">event name</label>
@@ -556,27 +501,23 @@
                                 </div>
                                 <div class="form-row mb-2">
                                     <div class="col mb-2">
-                                        <label for="addStartEventDate" class="font-weight-normal mr-2">start date</label>
-                                        <input name="addStartEventDate" id="addStartEventDate" class="form-control clearInput" type="date" required />
+                                        <label for="startEventDate" class="font-weight-normal mr-2">date</label>
+                                        <input name="startEventDate" id="startEventDate" class="form-control clearInput" type="date" required />
                                     </div>
-                                    <!--
                                     <div class="col mb-2">
                                         <label for="startEventDate" class="font-weight-normal mr-2">time</label>
                                         <input name="startEventTime" id="startEventTime" class="form-control clearInput" type="time" required />
                                     </div>
-                                    -->
                                 </div>
                                 <div class="form-row mb-2">
                                     <div class="col mb-2">
-                                        <label for="addEndEventDate" class="font-weight-normal mr-2">end date</label>
-                                        <input name="addEndEventDate" id="addEndEventDate" class="form-control clearInput" type="date" required />
+                                        <label for="endEventDate" class="font-weight-normal mr-2">date</label>
+                                        <input name="endEventDate" id="endEventDate" class="form-control clearInput" type="date" required />
                                     </div>
-                                    <!--
                                     <div class="col mb-2">
                                         <label for="endEventTime" class="font-weight-normal mr-2">time</label>
                                         <input name="endEventTime" id="endEventTime" class="form-control clearInput" type="time" required />
                                     </div>
-                                    -->
                                 </div>
                                 <button name="addEventButton" id="addEventButton" class="btn btn-secondary btn-md col-4 mt-4 mb-2 float-right" type="submit">save</button>
                             </form>
