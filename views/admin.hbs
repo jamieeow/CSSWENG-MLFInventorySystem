@@ -90,7 +90,8 @@
                             <div class="form-group mb-4">
                                 <form id="editArtist" class="form">
                                     <div class="form-group mb-2">
-                                        <select id="artistsListDropdownEdit" class="form-control col-5" name="bundleSelectedArtist">
+                                        <label for="artistsListDropdownEdit" class="font-weight-normal mr-2">artist</label>
+                                        <select id="artistsListDropdownEdit" class="form-control col-5" name="selectedArtistEdit">
                                             <option class="defaultVal" value="" disabled selected>select artist</option>
                                             {{#each artist}}
                                             <option value="{{artistID}}">{{artistName}}</option>
@@ -177,7 +178,7 @@
                                     <div class="row">
                                         <div id="textFields" class="col mt-2" style="width: 500px;">
                                             <div class="form-group mb-2">
-                                                <label for="artistsListDropdownItem" class="font-weight-normal mr-2">item name</label>
+                                                <label for="artistsListDropdownItem" class="font-weight-normal mr-2">item</label>
                                                 <select id="artistsListDropdownItem" class="form-control col-10" name="itemSelectedArtist">
                                                     <option class="defaultVal" value="" disabled selected>select item</option>
                                                 </select>
@@ -453,11 +454,17 @@
                             <form class="form mt-3">
                                 <div class="form-row mb-2">
                                     <div class="col mb-3">
-                                        <label for="selectedEvent" class="font-weight-normal mr-2">select event</label>
+                                        <label for="selectedEvent" class="font-weight-normal mr-2">event</label>
                                         <select id="selectedEvent" class="form-control col-8" name="selectedEvent">
                                             <option class="defaultVal" value="" disabled selected>select event</option>
                                         </select>
                                         <button name="deleteEventButton" id="deleteEventButton" class="btn btn-secondary col-5" type="submit">delete</button>
+                                    </div>
+                                </div>
+                                <div class="form-group ml-1 mb-2">
+                                    <div class="col mb-2">
+                                        <input name="setCurrentEvent" id="setCurrentEvent" class="form-check-input clearInput" type="checkbox" required />
+                                        <label for="setCurrentEvent" class="form-check-label">Set as current event</label>
                                     </div>
                                 </div>
                                 <div class="form-row mb-2">
@@ -497,6 +504,12 @@
                                     <div class="col mb-2">
                                         <label for="newEventName" class="font-weight-normal mr-2">event name</label>
                                         <input name="newEventName" id="newEventName" class="form-control col-14 clearInput" type="text" required />
+                                    </div>
+                                </div>
+                                <div class="form-group ml-1 mb-2">
+                                    <div class="col mb-2">
+                                        <input name="setCurrentEvent" id="setCurrentEvent" class="form-check-input clearInput" type="checkbox" required />
+                                        <label for="setCurrentEvent" class="form-check-label">Set as current event</label>
                                     </div>
                                 </div>
                                 <div class="form-row mb-2">
