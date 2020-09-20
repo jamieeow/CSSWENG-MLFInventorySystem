@@ -33,7 +33,7 @@ function buyItem(itemID, itemName, itemPrice, stockQuantity, itemType) {
         var q;
 
         if (cart[i].quantity == stockQuantity) {
-            alert("No more stocks!")
+            Swal.fire("No more stocks!")
         } else {
             cart[i].quantity += 1
             q = cart[i].quantity
