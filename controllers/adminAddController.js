@@ -52,7 +52,7 @@ const adminAddController = {
                         artistItemsArray.push(artistItemsObj); //array of artist item (this is for artistItems in details)
                     })
                 }
-                //Set event count down for days, hours, and minutes
+                //Set event count down for days, hours, minutes, and seconds
                 db.findOne(Events, {isCurrentEvent: true},'', eventResult=>{
                     if (eventResult) { //if theres an event make time to 00:00
                         if (eventResult.startDate < new Date) {
@@ -67,14 +67,18 @@ const adminAddController = {
                         var diffDate = 0;
                     }
                     var minutes = 0;
+                    var seconds = 0;
+                    var totalSeconds = 0;
                     if (diffDate >= 0) { //if there is time remaining
                         minutes = Math.floor(diffDate / (1000 * 60));
+                        seconds = Math.floor(diffDate / (1000));
+                        totalSeconds = seconds;
                     }
                     var hours = Math.floor(minutes / 60);
                     var days = Math.floor(hours/24);
                     hours = hours%24;
                     minutes = minutes%60;
-
+                    seconds = seconds%60;
                     //find how many items were sold
                     db.findMany(Items, {}, '', itemResult=>{
                         var sold=0;
@@ -97,6 +101,8 @@ const adminAddController = {
                                 daysLeft: days,
                                 hoursLeft: hours,
                                 minutesLeft: minutes,
+                                secondsLeft: seconds,
+                                totalSeconds: totalSeconds,
                                 totalSold: sold,
                                 event: eventArray,
                             }
