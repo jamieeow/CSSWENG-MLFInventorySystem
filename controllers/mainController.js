@@ -70,25 +70,38 @@ const mainController = {
             db.findMany(Artists, {}, 'artistID artistName', result=>{
 
                 db.findOne(Events, {isCurrentEvent: true},'', eventResult=>{
-                    if (eventResult) {
-                        var diffDate = parseInt((eventResult.endDate - Date.now())); //change new date to eventresult
+                    if (eventResult) { //if theres an event make time to 00:00
+                        if (eventResult.startDate < new Date) {
+                            eventResult.endDate.setHours(0);
+                            var diffDate = parseInt((eventResult.endDate - new Date));
+                        }
+                        else {
+                            var diffDate = 0;
+                        }
                     }
                     else {
                         var diffDate = 0;
                     }
                     var minutes = 0;
+                    var seconds = 0;
+                    var totalSeconds = 0;
                     if (diffDate >= 0) { //if there is time remaining
-                        minutes = Math.ceil(diffDate / (1000 * 60));
+                        minutes = Math.floor(diffDate / (1000 * 60));
+                        seconds = Math.floor(diffDate / (1000));
+                        totalSeconds = seconds;
                     }
                     var hours = Math.floor(minutes / 60);
                     var days = Math.floor(hours/24);
                     hours = hours%24;
                     minutes = minutes%60;
-
+                    seconds = seconds%60;
+                    
                     var details = { 
                         daysLeft: days,
                         hoursLeft: hours,
-                        minutesLeft: minutes
+                        minutesLeft: minutes,
+                        secondsLeft: seconds,
+                        totalSeconds: totalSeconds,
                     }
                     
                     getDetails(result, details)
