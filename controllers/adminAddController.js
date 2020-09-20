@@ -164,7 +164,6 @@ const adminAddController = {
     },
 
     //Add item to database
-    //TODO: eventID and multer for itemPicture
     postAddItem: function(req, res, next){
         //multer storage
         const storage = multer.diskStorage({

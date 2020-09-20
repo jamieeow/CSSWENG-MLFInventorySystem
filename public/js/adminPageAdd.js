@@ -28,18 +28,16 @@ function addArtist(e) {
             if (result) {
                 exist = true;
             }
-            console.log(result);
             if (!exist) {
                     $.post('/admin/addArtist', {newArtistIDNo: artistIDNumber, newArtistName: artistName}, function(result){
                         if (result) {
-                            console.log("post success");
                             window.location = '/admin';
                             return true;
                         }
                 })
             }
             else {
-                alert('Artist ID already exist');
+                Swal.fire('Error adding artist','Artist ID already exist. Please type in another artist ID');
                 e.preventDefault();
                 return false;
             }
@@ -75,7 +73,7 @@ $(document).ready(function () {
     //if bundle not selected then alert
     $("#addArtistSelectBundle").submit(function(e) {
         if (bundleItemSelected.length == 0) {
-            alert("Please select an item!");
+            Swal.fire("Error adding bundle","Please select at least one item to be added in the bundle");
             e.preventDefault();
         }
     })
@@ -85,7 +83,6 @@ $(document).ready(function () {
         var selected = $(this).children("option:selected").val();
 
         $.get('/admin/getItems', {artistID: selected, projection: "_id itemName itemPrice stockQuantity itemPicture"}, function(result){
-            console.log(result)
             for (i = 0; i < result.length; i++) {
 
                 if (result[i].stockQuantity > 0) {

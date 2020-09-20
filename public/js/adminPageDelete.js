@@ -17,7 +17,7 @@ function deleteArtist(e) {
         }
     }
     else {
-        alert('Please select an artist!');
+        Swal.fire('Error deleting artist','Please select an artist');
         e.preventDefault();
         return false;
     }
@@ -41,7 +41,7 @@ function deleteItem(e) {
         }
     }
     else {
-        alert('Please select an artist!');
+        Swal.fire('Error deleting item','Please select an artist');
         e.preventDefault();
         return false;
     }
@@ -65,7 +65,7 @@ function deleteBundle(e) {
         }
     }
     else {
-        alert('Please select a bundle!');
+        Swal.fire('Error deleting bundle','Please select a bundle');
         e.preventDefault();
         return false;
     }
@@ -89,7 +89,7 @@ function deleteEvent(e) {
         }
     }
     else {
-        alert('Please select an event!');
+        Swal.fire('Error deleting event','Please select an event');
         e.preventDefault();
         return false;
     }
