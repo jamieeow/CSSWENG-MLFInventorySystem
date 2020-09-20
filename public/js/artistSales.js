@@ -17,7 +17,7 @@ function showArtistModal (artistID, artistName) {
 
         $.get('/getBundles', {artistID: artistID, projection: "bundleName bundlePrice bundleSold bundleStock"}, function(bundleRes){
             for (i = 0; i < bundleRes.length; i++) {
-                $("#" + artistID + "-table").append("<tr><td>" + bundleRes[i].bundleName + 
+                $("#artistSales").append("<tr><td>" + bundleRes[i].bundleName + 
                                         "</td><td>" + bundleRes[i].bundleStock + 
                                         "</td><td>" + bundleRes[i].bundlePrice.toFixed(2) + 
                                         "</td><td>" + bundleRes[i].bundleSold + "</td></tr>")
