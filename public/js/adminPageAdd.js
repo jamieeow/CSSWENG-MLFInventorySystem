@@ -18,6 +18,35 @@ function addSelectBundleItems(itemID, itemName, itemPrice) {
     $("#addSelectedItems").val(bundleItemSelected);
 }
 
+function addArtist(e) {
+    var artistName = $("#newArtistName").val();
+    var artistIDNumber = $("#newArtistIDNo").val();
+    var exist = false;
+    //check if artist ID exist
+    if ($("#newArtistIDNo").val() != '' && $("#newArtistName").val() != '') {
+        $.get('/admin/getArtist', {artistID: artistIDNumber, projection: "_id artistID artistName"}, function(result){
+            if (result) {
+                exist = true;
+            }
+            console.log(result);
+            if (!exist) {
+                    $.post('/admin/addArtist', {newArtistIDNo: artistIDNumber, newArtistName: artistName}, function(result){
+                        if (result) {
+                            console.log("post success");
+                            window.location = '/admin';
+                            return true;
+                        }
+                })
+            }
+            else {
+                alert('Artist ID already exist');
+                e.preventDefault();
+                return false;
+            }
+        })
+    }
+}
+
 $(document).ready(function () {
     //Codes for bundle
     $("[id$=bundleItem]").addClass("mx-0")
@@ -74,7 +103,4 @@ $(document).ready(function () {
             }
         })
     })
-
-    
-
 });
