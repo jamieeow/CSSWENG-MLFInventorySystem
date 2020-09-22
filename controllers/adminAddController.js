@@ -279,13 +279,8 @@ const adminAddController = {
             isCurrentEvent: isCurrEvent,
         }
 
-        db.updateOne(Events, {isCurrentEvent: true}, {isCurrentEvent: false}, result=>{
-            if (result) {
-                console.log("Successfully updated isCurrentEvent from true to false");
-            }
-            else {
-                console.log("Error updating isCurrentEvent or no current event is selected yet.");
-            }
+        //If not set to current event then simply add. Else, update current event to false then set this event to current.
+        if (!isCurrEvent) {
             db.insertOne(Events, eventData, result=>{
                 if (result) {
                     console.log("Successfully added artist to the artists collection");
@@ -295,7 +290,21 @@ const adminAddController = {
                 }
                 res.redirect('/admin');
             });
-        })
+        }
+        else {
+            db.updateOne(Events, {isCurrentEvent: true}, {isCurrentEvent: false}, result=>{
+                db.insertOne(Events, eventData, result=>{
+                    if (result) {
+                        console.log("Successfully added artist to the artists collection");
+                    }
+                    else {
+                        console.log("Error adding artist to the artists collection");
+                    }
+                    res.redirect('/admin');
+                });
+            });
+        }
+        
     },
     
     
