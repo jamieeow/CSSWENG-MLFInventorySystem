@@ -38,13 +38,17 @@ const mainController = {
             const getTotalSold = async function() {
                 return new Promise(function (resolve, reject) {
                     db.findMany(Items, {}, '-_id itemsSold', function (itemRes) {
-                        var items = itemRes.map(function(i) { return i.itemsSold})
+                        var items = 0;
+                        if (Object.keys(itemRes).length > 0) {
+                            items = itemRes.map(function(i) { return i.itemsSold})
                                             .reduce(function(t, n) { return t + n})
-
+                        }
                         db.findMany(Bundles, {}, '-_id bundleSold', function (bundleRes) {
-                            var bundles = bundleRes.map(function(b) { return b.bundleSold})
+                            var bundles = 0
+                            if (Object.keys(bundleRes).length > 0) {
+                                bundles = bundleRes.map(function(b) { return b.bundleSold})
                                                     .reduce(function(t, n) { return t + n})
-                            
+                            }
                             resolve(items + bundles)
                         })
                     })
