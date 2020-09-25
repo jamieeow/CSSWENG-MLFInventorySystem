@@ -16,19 +16,21 @@ const mainController = {
             /* gets income of each artist */
             const getIncome = async function(artistID) {
                 return new Promise(function (resolve, reject) {
-                    db.findMany(Items, {artistID: artistID}, 'itemsSold itemPrice', function (itemRes) {
-                        var income = 0;
+                    db.findOne(Events, {isCurrentEvent: true}, '_id', function(event) {
+                        db.findMany(Items, {artistID: artistID, eventID: event._id}, 'itemsSold itemPrice', function (itemRes) {
+                            var income = 0;
 
-                        for (let j = 0; j < itemRes.length; j++) {
-                            income += (itemRes[j].itemsSold * itemRes[j].itemPrice)
-                        }
-
-                        db.findMany(Bundles, {artistID: artistID}, 'bundleSold bundlePrice', function (bundleRes) {
-                            for (let k = 0; k < bundleRes.length; k++) {
-                                income += (bundleRes[k].bundleSold * bundleRes[k].bundlePrice)
+                            for (let j = 0; j < itemRes.length; j++) {
+                                income += (itemRes[j].itemsSold * itemRes[j].itemPrice)
                             }
 
-                            resolve(income)
+                            db.findMany(Bundles, {artistID: artistID, eventID: event._id}, 'bundleSold bundlePrice', function (bundleRes) {
+                                for (let k = 0; k < bundleRes.length; k++) {
+                                    income += (bundleRes[k].bundleSold * bundleRes[k].bundlePrice)
+                                }
+
+                                resolve(income.toFixed(2))
+                            })
                         })
                     })
                 })
@@ -37,19 +39,21 @@ const mainController = {
             /*  gets number of total sold items and bundles */
             const getTotalSold = async function() {
                 return new Promise(function (resolve, reject) {
-                    db.findMany(Items, {}, '-_id itemsSold', function (itemRes) {
-                        var items = 0;
-                        if (Object.keys(itemRes).length > 0) {
-                            items = itemRes.map(function(i) { return i.itemsSold})
-                                            .reduce(function(t, n) { return t + n})
-                        }
-                        db.findMany(Bundles, {}, '-_id bundleSold', function (bundleRes) {
-                            var bundles = 0
-                            if (Object.keys(bundleRes).length > 0) {
-                                bundles = bundleRes.map(function(b) { return b.bundleSold})
-                                                    .reduce(function(t, n) { return t + n})
+                    db.findOne(Events, {isCurrentEvent: true}, '_id', function(event) {
+                        db.findMany(Items, {eventID: event._id}, '-_id itemsSold', function (itemRes) {
+                            var items = 0;
+                            if (Object.keys(itemRes).length > 0) {
+                                items = itemRes.map(function(i) { return i.itemsSold})
+                                                .reduce(function(t, n) { return t + n})
                             }
-                            resolve(items + bundles)
+                            db.findMany(Bundles, {eventID: event._id}, '-_id bundleSold', function (bundleRes) {
+                                var bundles = 0
+                                if (Object.keys(bundleRes).length > 0) {
+                                    bundles = bundleRes.map(function(b) { return b.bundleSold})
+                                                        .reduce(function(t, n) { return t + n})
+                                }
+                                resolve(items + bundles)
+                            })
                         })
                     })
                 })

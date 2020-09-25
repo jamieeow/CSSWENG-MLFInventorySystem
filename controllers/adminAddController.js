@@ -15,6 +15,41 @@ const adminAddController = {
     getLoginAdmin: function(req, res, next){
         //if logged in user is admin
         if (req.session.isAdmin) {
+            /* gets income of each artist */
+            const getIncome = async function(artistID) {
+                return new Promise(function (resolve, reject) {
+                    db.findOne(Events, {isCurrentEvent: true}, '_id', function(event) {
+                        db.findMany(Items, {artistID: artistID, eventID: event._id}, 'itemsSold itemPrice', function (itemRes) {
+                            var income = 0;
+
+                            for (let j = 0; j < itemRes.length; j++) {
+                                income += (itemRes[j].itemsSold * itemRes[j].itemPrice)
+                            }
+
+                            db.findMany(Bundles, {artistID: artistID, eventID: event._id}, 'bundleSold bundlePrice', function (bundleRes) {
+                                for (let k = 0; k < bundleRes.length; k++) {
+                                    income += (bundleRes[k].bundleSold * bundleRes[k].bundlePrice)
+                                }
+
+                                resolve(income.toFixed(2))
+                            })
+                        })
+                    })
+                })
+            }   
+
+            /* renders admin page with details */
+            const getDetails = async (artists, details) => {
+                for (let i = 0; i < artists.length; i++) {
+                    let income = 0;
+                    artists[i].income = await getIncome(artists[i].artistID)
+                }
+
+                details.artist = artists
+
+                res.render('admin', details)
+            };
+
             //find artist then render with details
             db.findMany(Artists, {}, '', result=>{
             
@@ -116,12 +151,8 @@ const adminAddController = {
                                     totalSold: sold,
                                     event: eventArray,
                                 }
-                                if (result){
-                                    res.render('admin',details)
-                                }
-                                else {
-                                    res.render('admin')
-                                }
+
+                                getDetails(artistArray, details);
                             })
                         })
                     })
