@@ -25,7 +25,7 @@ function buyItem(itemID, itemName, itemPrice, stockQuantity, itemType) {
         totalPrice += parseFloat(itemPrice)
 
         $("#checkoutItemsList").append("<tr id='" + itemID + "Cart'>" + 
-                                        "<td style='width: 10%'><button type='button' class='close' onclick='removeCartItem(" + itemID + ", " + itemPrice + ", " + itemType + ")' aria-label='Close'>" + 
+                                        "<td style='width: 10%'><button type='button' class='close' onclick='removeCartItem(\"" + itemID + "\", " + itemPrice + ", \"" + itemType + "\")' aria-label='Close'>" + 
                                             "<span aria-hidden='true'>&times;</span></button></td>" + 
                                         "<td id='" + itemID + "Quantity'>(1) " + itemName + "</td>" + 
                                         "<td id='" + itemID + "Total' class='text-right'>" + parseFloat(itemPrice).toFixed() + "</td></tr>")
@@ -46,6 +46,8 @@ function buyItem(itemID, itemName, itemPrice, stockQuantity, itemType) {
         }
         
     }
+
+    console.log("ADD ", cart);
     
     $("#totalPrice").html(parseFloat(totalPrice).toFixed(2))
     $("#checkoutBtn").prop("disabled", false)
@@ -56,11 +58,9 @@ function removeCartItem(itemID, itemPrice, itemType) {
     var i ;
     var cart, inCart;
     
-    if (itemType = 'item') {
+    if (itemType == 'item') {
         cart = itemCart
         inCart = inItemCart
-
-        $("#" + itemID + "Cart").remove()
     } else {
         cart = bundleCart
         inCart = inBundleCart
@@ -72,6 +72,7 @@ function removeCartItem(itemID, itemPrice, itemType) {
     cart.splice(i, 1)
     inCart.splice(i, 1)
     $("#totalPrice").html(parseFloat(totalPrice).toFixed(2))
+    $("#" + itemID + "Cart").remove()
 
     if (inItemCart.length + inBundleCart.length == 0) {
         $("#checkoutBtn").prop("disabled", true)
