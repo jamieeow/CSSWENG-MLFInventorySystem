@@ -45,30 +45,30 @@ $(document).ready(function () {
         $.get('/getItems', {artistID: selected, projection: "itemName itemPrice itemsSold"}, function(itemRes){
             
             if (itemRes) {
-                $("#salesList").html("<tr><td>" + itemRes[0].itemName + 
-                                        "</td><td>" + itemRes[0].itemPrice.toFixed(2) + 
-                                        "</td><td>" + itemRes[0].itemsSold + "</td></tr>")
+                $("#salesList").html("<tr class='row m-0'><td class='col-6'>" + itemRes[0].itemName + 
+                                        "</td><td class='col-3'>" + itemRes[0].itemPrice.toFixed(2) + 
+                                        "</td><td class='col-3'>" + itemRes[0].itemsSold + "</td></tr>")
             }
 
             for (i = 1; i < itemRes.length; i++) {
                 total += (itemRes[i].itemPrice * itemRes[i].itemsSold)
-                $("#salesList").append("<tr><td>" + itemRes[i].itemName + 
-                                    "</td><td>" + itemRes[i].itemPrice.toFixed(2) + 
-                                    "</td><td>" + itemRes[i].itemsSold + "</td></tr>")
+                $("#salesList").append("<tr class='row m-0'><td class='col-6'>" + itemRes[i].itemName + 
+                                    "</td><td class='col-3'>" + itemRes[i].itemPrice.toFixed(2) + 
+                                    "</td><td class='col-3'>" + itemRes[i].itemsSold + "</td></tr>")
             }
 
             $.get('/getBundles', {artistID: selected, projection: "bundleName bundlePrice bundleSold"}, function(bundleRes){
                 
                 for (i = 0; i < bundleRes.length; i++) {
                     total += (bundleRes[i].bundlePrice * bundleRes[i].bundleSold)
-                    $("#salesList").append("<tr><td>" + bundleRes[i].bundleName + 
-                                        "</td><td>" + bundleRes[i].bundlePrice.toFixed(2) + 
-                                        "</td><td>" + bundleRes[i].bundleSold + "</td></tr>")
+                    $("#salesList").append("<tr class='row m-0'><td class='col-6'>" + bundleRes[i].bundleName + 
+                                        "</td><td class='col-3'>" + bundleRes[i].bundlePrice.toFixed(2) + 
+                                        "</td><td class='col-3'>" + bundleRes[i].bundleSold + "</td></tr>")
                 }
                 
                 if (!itemRes && !bundleRes) {
-                    $("#salesList").html("<tr><td> No items for sale</td>" + 
-                                            "<td>0.00</td> <td>0</td></tr>")
+                    $("#salesList").html("<tr class='row m-0'><td class='col-6'> No items for sale</td>" + 
+                                            "<td class='col-3'>0.00</td> <td class='col-3'>0</td></tr>")
                 }
 
                 $("#totalSoldSales").html("PHP " + parseFloat(total).toFixed(2))
