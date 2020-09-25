@@ -3,7 +3,7 @@ var bundleCart = []
 var inItemCart = []
 var inBundleCart = []
 var totalPrice = 0
-var financialSelected
+var financialSelected = ""
 
 /* updates the checkout List and local variables when an item card is clicked */
 function buyItem(itemID, itemName, itemPrice, stockQuantity, itemType) {
@@ -203,7 +203,7 @@ $(document).ready(function () {
         inItemCart = []
         inBundleCart = []
         totalPrice = 0
-        financialSelected = ''
+        financialSelected = ""
     })
 
     /*  new order submit button */
@@ -221,7 +221,7 @@ $(document).ready(function () {
     })
 
     /*  add stocks submit button */
-    $("#saveOrder").click(function() {
+    $("#addStocks").click(function() {
         var label = $("label[for='newPriceStock']").text()
         var input = $("#newPriceStock").val()
 
@@ -236,6 +236,10 @@ $(document).ready(function () {
                 $("#financialWindow").modal('toggle')
                 showToast("Restock", result)
             })
+        } else if (financialSelected == "") {
+            Swal.fire('Error adding stocks','Please select an artist and their item to restock.');
+        } else {
+            Swal.fire('Error adding stocks','Please input a valid number of stocks to add');
         }
     })
 })
