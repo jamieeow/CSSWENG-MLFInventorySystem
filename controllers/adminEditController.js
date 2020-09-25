@@ -179,13 +179,21 @@ const adminEditController = {
 
     /*  returns items */
     getItems: function(req, res, next){
-        db.findMany(Items, {artistID: req.query.artistID}, req.query.projection, function(result) {
-            if (result.length > 0) {
-                res.send(result)
+        db.findOne(Events, {isCurrentEvent: true}, '', function(resultEvent) {
+            if (resultEvent) {
+                db.findMany(Items, {artistID: req.query.artistID, eventID:resultEvent._id}, req.query.projection, function(result) {
+                    if (result.length > 0) {
+                        res.send(result)
+                    }
+                    else {
+                        console.log('Item ' + req.query.artistID + ' not found in the collection.')
+                        res.send(false)
+                    }
+                })
             }
-            else {
-                console.log('Item ' + req.query.artistID + ' not found in the collection.')
-                res.send(false)
+            else
+            {
+                console.log('no event');
             }
         })
     },
@@ -205,13 +213,20 @@ const adminEditController = {
 
     /*  return bundles */
     getBundles: function(req, res, next){
-        db.findMany(Bundles, {artistID: req.query.artistID}, req.query.projection, function(result) {
-            if (result.length > 0) {
-                res.send(result)
+        db.findOne(Events, {isCurrentEvent: true}, '', function(resultEvent) {
+            if (resultEvent) {
+                db.findMany(Bundles, {artistID: req.query.artistID, eventID:resultEvent._id}, req.query.projection, function(result) {
+                    if (result.length > 0) {
+                        res.send(result)
+                    }
+                    else {
+                        console.log('Bundle ' + req.query.artistID + ' not found in the collection.')
+                        res.send(false)
+                    }
+                })
             }
             else {
-                console.log('Bundle ' + req.query.artistID + ' not found in the collection.')
-                res.send(false)
+                console.log('no event');
             }
         })
     },
