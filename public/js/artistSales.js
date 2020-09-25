@@ -45,6 +45,7 @@ $(document).ready(function () {
         $.get('/getItems', {artistID: selected, projection: "itemName itemPrice itemsSold"}, function(itemRes){
             
             if (itemRes) {
+                total += (itemRes[0].itemPrice * itemRes[0].itemsSold)
                 $("#salesList").html("<tr class='row m-0'><td class='col-6'>" + itemRes[0].itemName + 
                                         "</td><td class='col-3'>" + itemRes[0].itemPrice.toFixed(2) + 
                                         "</td><td class='col-3'>" + itemRes[0].itemsSold + "</td></tr>")
