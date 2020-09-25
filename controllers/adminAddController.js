@@ -134,6 +134,7 @@ const adminAddController = {
 
     //Add artist to database
     postAddArtist: function(req, res, next){
+        console.log(req.body);
         artistData = {
             _id: new mongoose.Types.ObjectId(),
             artistID: req.body.newArtistIDNo,
@@ -142,7 +143,7 @@ const adminAddController = {
         cashierData = {
             _id: new mongoose.Types.ObjectId(),
             artistID: req.body.newArtistIDNo,
-            password: 'pw123',
+            password: req.body.newArtistPassword,
         }
         db.insertOne(Artists, artistData, result=>{
             if (result) {

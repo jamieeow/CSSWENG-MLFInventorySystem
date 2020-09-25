@@ -21,15 +21,16 @@ function addSelectBundleItems(itemID, itemName, itemPrice) {
 function addArtist(e) {
     var artistName = $("#newArtistName").val();
     var artistIDNumber = $("#newArtistIDNo").val();
+    var artistPassword = $("#newArtistPassword").val();
     var exist = false;
     //check if artist ID exist
-    if ($("#newArtistIDNo").val() != '' && $("#newArtistName").val() != '') {
+    if ($("#newArtistIDNo").val() != '' && $("#newArtistName").val() != '' && $("#newArtistPassword").val() != '') {
         $.get('/admin/getArtist', {artistID: artistIDNumber, projection: "_id artistID artistName"}, function(result){
             if (result) {
                 exist = true;
             }
             if (!exist) {
-                    $.post('/admin/addArtist', {newArtistIDNo: artistIDNumber, newArtistName: artistName}, function(result){
+                    $.post('/admin/addArtist', {newArtistIDNo: artistIDNumber, newArtistName: artistName, newArtistPassword: artistPassword}, function(result){
                         if (result) {
                             window.location = '/admin';
                             return true;
