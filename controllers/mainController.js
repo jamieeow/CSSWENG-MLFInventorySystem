@@ -219,28 +219,39 @@ const mainController = {
 
     /*  returns all items of a specific artist */
     getItems: function(req, res, next){
-        db.findMany(Items, {artistID: req.query.artistID}, req.query.projection, function(result) {
-                
-            if (result.length > 0) {
-                res.send(result)
-            }
-            else {
-                console.log('Artist ' + req.query.artistID + ' not found in the collection.')
+        db.findOne(Events, {isCurrentEvent: true}, "_id", function(event) {
+            if (event) {
+                db.findMany(Items, {artistID: req.query.artistID, eventID: event._id}, req.query.projection, function(result) {
+                    
+                    if (result.length > 0) {
+                        res.send(result)
+                    }
+                    else {
+                        console.log('Artist ' + req.query.artistID + ' not found in the collection.')
+                        res.send(false)
+                    }
+                })
+            } else {
+                console.log("There is no current event.")
                 res.send(false)
             }
-        })
+        })       
     },
 
     /*  returns all bundles of a specific artist */
     getBundles: function(req, res, next){
-        db.findMany(Bundles, {artistID: req.query.artistID}, req.query.projection, function(result) {
-                
-            if (result.length > 0) {
-                res.send(result)
-            }
-            else {
-                console.log('Artist ' + req.query.artistID + ' not found in the collection.')
-                res.send(false)
+        db.findOne(Events, {isCurrentEvent: true}, "_id", function(event) {
+            if (event) {
+                db.findMany(Bundles, {artistID: req.query.artistID, eventID: event._id}, req.query.projection, function(result) {
+                        
+                    if (result.length > 0) {
+                        res.send(result)
+                    }
+                    else {
+                        console.log('Artist ' + req.query.artistID + ' not found in the collection.')
+                        res.send(false)
+                    }
+                })
             }
         })
     },
