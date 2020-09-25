@@ -6,6 +6,7 @@ const Artists = require('../models/ArtistModel.js');
 const Items = require('../models/ItemModel.js');
 const Bundles = require('../models/BundleModel.js');
 const Events = require('../models/EventModel.js');
+const Cashiers = require('../models/CashierModel.js');
 
 const adminDeleteController = {
     //delete artist from the database (this also removes item and bundle associated with the artist from the database)
@@ -31,7 +32,15 @@ const adminDeleteController = {
                     else {
                         console.log("Error removing bundles!");
                     }
-                    res.redirect('/admin');
+                    db.deleteOne(Cashiers,{"artistID": req.body.artistID},result=>{
+                        if (result) {
+                            console.log("Removed cashier successfully!");
+                        }
+                        else {
+                            console.log("Error removing cashier!");
+                        }
+                        res.redirect('/admin');
+                    });
                 });
             });
         });
