@@ -31,30 +31,35 @@ const adminAddController = {
                     artistArray.push(artistObj);
                 }
 
-                //push all items to an array to be used in details below
-                for (let i=0;i<result.length;i++){ //artist
-                    db.findMany(Items,{artistID: result[i].artistID},'', itemResult=>{ //returns item of artist
-                        itemArray = []; //empties the item array for the next set of items for artist
-                        for (let j=0;j<itemResult.length;j++){ //item
-                            itemObj = { //item object containing item info
-                                itemID: itemResult[j]._id,
-                                itemPicture: itemResult[j].itemPicture,
-                                itemName: itemResult[j].itemName,
-                                itemPrice: itemResult[j].itemPrice,
-                                stocksQuantity: itemResult[j].stockQuantity,
-                            }
-                            itemArray.push(itemObj); //array of item info
+                db.findOne(Events, {isCurrentEvent: true}, '', eventResult=> {
+                    if (eventResult) {
+                        //push all items to an array to be used in details below
+                        for (let i=0;i<result.length;i++){ //artist
+                            db.findMany(Items,{artistID: result[i].artistID, eventID: eventResult._id},'', itemResult=>{ //returns item of artist
+                                itemArray = []; //empties the item array for the next set of items for artist
+                                for (let j=0;j<itemResult.length;j++){ //item
+                                    itemObj = { //item object containing item info
+                                        itemID: itemResult[j]._id,
+                                        itemPicture: itemResult[j].itemPicture,
+                                        itemName: itemResult[j].itemName,
+                                        itemPrice: itemResult[j].itemPrice,
+                                        stocksQuantity: itemResult[j].stockQuantity,
+                                    }
+                                    itemArray.push(itemObj); //array of item info
+                                }
+                                artistItemsObj = { //artist item object containing item info and artist ID
+                                    artistID: result[i].artistID,
+                                    item: itemArray,
+                                }
+                                artistItemsArray.push(artistItemsObj); //array of artist item (this is for artistItems in details)
+                            })
                         }
-                        artistItemsObj = { //artist item object containing item info and artist ID
-                            artistID: result[i].artistID,
-                            item: itemArray,
-                        }
-                        artistItemsArray.push(artistItemsObj); //array of artist item (this is for artistItems in details)
-                    })
-                }
+                    }
+                })
                 //Set event count down for days, hours, minutes, and seconds
                 db.findOne(Events, {isCurrentEvent: true},'', eventResult=>{
                     if (eventResult) { //if theres an event make time to 00:00
+                        eventResultID = eventResult._id;
                         if (eventResult.startDate < new Date) {
                             eventResult.endDate.setHours(0);
                             var diffDate = parseInt((eventResult.endDate - new Date));
@@ -65,6 +70,7 @@ const adminAddController = {
                     }
                     else {
                         var diffDate = 0;
+                        eventResultID = new mongoose.Types.ObjectId();
                     }
                     var minutes = 0;
                     var seconds = 0;
@@ -80,12 +86,12 @@ const adminAddController = {
                     minutes = minutes%60;
                     seconds = seconds%60;
                     //find how many items were sold
-                    db.findMany(Items, {}, '', itemResult=>{
+                    db.findMany(Items, {eventID:eventResultID}, '', itemResult=>{
                         var sold=0;
                         for (let i=0; i<itemResult.length;i++) {
                             sold += itemResult[i].itemsSold;
                         }
-                        db.findMany(Bundles, {}, '', bundleResult=>{
+                        db.findMany(Bundles, {eventID:eventResultID}, '', bundleResult=>{
                             for (let i=0;i<bundleResult.length;i++) {
                                 sold += bundleResult[i].bundleSold;
                             }
