@@ -90,15 +90,19 @@
 
                             <div class="form-group mb-4">
                                 <form id="editArtist" class="form" method="POST" action="/admin/editArtist">
-                                    <div class="form-group mb-2">
-                                        <label for="artistsListDropdownEdit" class="font-weight-normal mr-2">artist</label>
-                                        <select id="artistsListDropdownEdit" class="form-control col-5" name="artistsListDropdownEdit" required>
-                                            <option class="defaultVal" value="" disabled selected>select artist</option>
-                                            {{#each artist}}
-                                            <option value="{{artistID}}">{{artistName}}</option>
-                                            {{/each}}
-                                        </select>
-                                        <button name="deleteArtistButton" id="deleteArtistButton" class="btn btn-secondary " type="button" onclick="deleteArtist(event);">delete</button>
+                                    <div class="form-row mb-2">
+                                        <div class="col">
+                                            <!--<label for="artistsListDropdownEdit" class="font-weight-normal mr-2">artist</label>-->
+                                            <select id="artistsListDropdownEdit" class="form-control col-14" name="artistsListDropdownEdit" required>
+                                                <option class="defaultVal" value="" disabled selected>select artist</option>
+                                                {{#each artist}}
+                                                <option value="{{artistID}}">{{artistName}}</option>
+                                                {{/each}}
+                                            </select>
+                                        </div>
+                                        <div class="col">
+                                            <button name="deleteArtistButton" id="deleteArtistButton" class="btn btn-secondary " type="button" onclick="deleteArtist(event);"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
+                                        </div>
                                     </div>
                                             
                                     <div class="form-group mb-2">
@@ -167,28 +171,27 @@
 
                             <form id="artistSelectEdit" class="form" method="POST" action="/admin/editItem" enctype="multipart/form-data">
                                 <div id="otherInputSection" class="mt-2">
-                                    <div class="row">
-                                        <div class="col mt-2">
-                                            <div class="form-group mb-2">
-                                                <label for="artistsListDropdownItemEdit" class="font-weight-normal mr-2">artist</label>
-                                                <select id="artistsListDropdownItemEdit" class="form-control manageItemsArtist" name="artistsListDropdownItemEdit" required>
-                                                    <option class="defaultVal" value="" disabled selected>select artist</option>
-                                                    {{#each artist}}
-                                                    <option value="{{artistID}}">{{artistName}}</option>
-                                                    {{/each}}
-                                                </select>
-                                            </div>
+                                    <div class="form-group mb-2">
+                                        <select id="artistsListDropdownItemEdit" class="form-control manageItemsArtist" name="artistsListDropdownItemEdit" required>
+                                            <option class="defaultVal" value="" disabled selected>select artist</option>
+                                            {{#each artist}}
+                                            <option value="{{artistID}}">{{artistName}}</option>
+                                            {{/each}}
+                                        </select>
+                                    </div>
+                                    <div class="form-row mb-2">
+                                        <!--<label for="artistsListDropdownItem" class="font-weight-normal mr-2">item name</label>-->
+                                        <div class="col">
+                                            <select id="artistsListDropdownItem" class="form-control manageItemsList" name="artistsListDropdownItem" required>
+                                                <option class="defaultVal" value="" disabled selected>select item</option>
+                                            </select>
+                                        </div>
+                                        <div class="col">
+                                            <button name="deleteItemButton" id="deleteItemButton" class="btn btn-secondary " type="button" onclick="deleteItem(event);"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
                                         </div>
                                     </div>
-                                    <div class="row">
-                                        <div id="textFields" class="col mt-2" style="width: 500px;">
-                                            <div class="form-group mb-2">
-                                                <label for="artistsListDropdownItem" class="font-weight-normal mr-2">item name</label>
-                                                <select id="artistsListDropdownItem" class="form-control col-10 manageItemsList" name="artistsListDropdownItem" required>
-                                                    <option class="defaultVal" value="" disabled selected>select item</option>
-                                                </select>
-                                                <button name="deleteItemButton" id="deleteItemButton" class="btn btn-secondary " type="button"  onclick="deleteItem(event);" >delete</button>
-                                            </div>
+                                    <div class="row mt-2">
+                                        <div id="editItemsSection" class="col">
                                             <div class="form-group mb-2">
                                                 <label for="editItemName" class="font-weight-normal mr-2">item name</label>
                                                 <input name="editItemName" id="editItemName" class="form-control col-10 clearInput" type="text" required />
@@ -197,14 +200,17 @@
                                                 <label for="editItemStockQuantity" class="font-weight-normal mr-2">quantity</label>
                                                 <input name="editItemStockQuantity" id="editItemStockQuantity" class="form-control col-10 clearInput" type="number" min="0" max="99999999" required />
                                             </div>
+                                            
                                         </div>
-                                        <div id="itemPhotoPicker" class="col m-4">
-                                            <div class="d-flex justify-content-center">
-                                                <img name="editItemPhoto" id="editItemPhoto" class = "photos" src="photo/item-photo.png" />
-                                            </div>
-                                            <div class="custom-file mt-2">
-                                                <input name="editItemPhotoPickerInput" id="editItemPhotoPickerInput" type="file" class="custom-file-input clearInput" onchange="document.getElementById('editItemPhoto').src = window.URL.createObjectURL(this.files[0])"/>
-                                                <label class="custom-file-label " for="editItemPhotoPickerInput">Choose photo</label>
+                                        <div class="col">
+                                            <div id="itemPhotoPicker" class="col m-4">
+                                                <div class="d-flex justify-content-center">
+                                                    <img name="editItemPhoto" id="editItemPhoto" class="photos" src="photo/item-photo.png" />
+                                                </div>
+                                                <div class="custom-file mt-2">
+                                                    <input name="editItemPhotoPickerInput" id="editItemPhotoPickerInput" type="file" class="custom-file-input clearInput" onchange="document.getElementById('editItemPhoto').src = window.URL.createObjectURL(this.files[0])" />
+                                                    <label class="custom-file-label " for="editItemPhotoPickerInput">Choose photo</label>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -461,14 +467,17 @@
                             <form class="form mt-3" method="post" action="/admin/editEvent">
                                 <div class="form-row mb-2">
                                     <div class="col mb-3">
-                                        <label for="selectedEvent" class="font-weight-normal mr-2">event</label>
-                                        <select id="selectedEvent" class="form-control col-8" name="selectedEvent" required>
+                                        <!--<label for="selectedEvent" class="font-weight-normal mr-2">event</label>-->
+                                        <select id="selectedEvent" class="form-control col-12" name="selectedEvent" required>
                                             <option class="defaultVal" value="" disabled selected>select event</option>
                                             {{#each event}}
-                                                    <option value="{{eventID}}">{{eventName}}</option>
+                                            <option value="{{eventID}}">{{eventName}}</option>
                                             {{/each}}
                                         </select>
-                                        <button name="deleteEventButton" id="deleteEventButton" class="btn btn-secondary col-5" type="button" onclick="deleteEvent(event);">delete</button>
+                                        
+                                    </div>
+                                    <div class="col">
+                                        <button name="deleteEventButton" id="deleteEventButton" class="btn btn-secondary" type="button" onclick="deleteEvent(event);"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
                                     </div>
                                 </div>
                                 <div class="form-group ml-1 mb-2">
