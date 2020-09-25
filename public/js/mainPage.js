@@ -197,8 +197,8 @@ $(document).ready(function () {
             bundles: bundleCart
         }
         if (itemCart.length + bundleCart.length > 0) {
-            $.post('/orderCheckOut', cart, function(result){
-                $("#newOrderWindow").modal('toggle')
+            $.post('/orderCheckOut', cart, function(){
+                location.reload();
             })
         }
     })
@@ -215,13 +215,13 @@ $(document).ready(function () {
                 value: input
             }
 
-            $.post('/restockItem', details, function(result){
-                $("#financialWindow").modal('toggle')
+            $.post('/restockItem', details, function(){
+                location.reload();
             })
         } else if (financialSelected == "") {
             Swal.fire('Error adding stocks','Please select an artist and their item to restock.');
         } else {
-            Swal.fire('Error adding stocks','Please input a valid number of stocks to add');
+            Swal.fire('Error adding stocks','Please input a valid number of stocks to add.');
         }
     })
 })

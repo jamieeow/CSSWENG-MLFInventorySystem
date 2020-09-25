@@ -169,8 +169,11 @@ const mainController = {
                 }
             })
         }
-        res.send(success)
-
+        
+        if (!success) {
+            console.log('Error processing checkout.')
+        }
+        res.redirect('/');  
     },
 
     /*  add stocks increments stockQuantity */
@@ -184,7 +187,9 @@ const mainController = {
                         stockQuantity: result.stockQuantity + parseInt(req.body.value),
                     }
                     db.updateOne(Items, {_id: req.body.item}, update, function(result1) {
-                        res.send(result1)
+                        if (!result1) {
+                            console.log('Error adding stocks to item.');
+                        }
                     })
                 }
                 else {
@@ -199,7 +204,9 @@ const mainController = {
                         bundleStock: result.bundleStock + parseInt(req.body.value),
                     }
                     db.updateOne(Bundles, {_id: req.body.item}, update, function(result1) {
-                        res.send(result1)
+                        if (!result1) {
+                            console.log('Error adding stocks to bundle.')
+                        }
                     })
                 }
                 else {
@@ -207,6 +214,7 @@ const mainController = {
                 }
             })
         }
+        res.redirect('/');
     },
 
     /*  returns all items of a specific artist */
