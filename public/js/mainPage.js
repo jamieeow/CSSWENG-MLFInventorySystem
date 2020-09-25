@@ -89,22 +89,6 @@ function financialItem(itemID, itemType) {
     }
 }
 
-/*  shows toast */
-function showToast(func, state) {
-    $(".toast").toast("hide")
-    if (state) {
-        $(".toast-title").addClass('text-success')
-        $(".toast-title").html('Success')
-        $(".toast-body").html(func + ' processed successfully')
-        $(".toast").toast("show")
-    } else {
-        $(".toast-title").addClass('text-danger')
-        $(".toast-title").html('Failed')
-        $(".toast-body").html(func + ' failed to process')
-        $(".toast").toast("show")
-    }
-}
-
 $(document).ready(function () {
     $("[id$=financialItem]").addClass("mx-0")
     
@@ -215,7 +199,6 @@ $(document).ready(function () {
         if (itemCart.length + bundleCart.length > 0) {
             $.post('/orderCheckOut', cart, function(result){
                 $("#newOrderWindow").modal('toggle')
-                showToast("Checkout", result)
             })
         }
     })
@@ -234,7 +217,6 @@ $(document).ready(function () {
 
             $.post('/restockItem', details, function(result){
                 $("#financialWindow").modal('toggle')
-                showToast("Restock", result)
             })
         } else if (financialSelected == "") {
             Swal.fire('Error adding stocks','Please select an artist and their item to restock.');
