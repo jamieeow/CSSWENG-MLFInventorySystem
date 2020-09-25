@@ -284,10 +284,10 @@ const adminAddController = {
         if (!isCurrEvent) {
             db.insertOne(Events, eventData, result=>{
                 if (result) {
-                    console.log("Successfully added artist to the artists collection");
+                    console.log("Successfully added event to the artists collection");
                 }
                 else {
-                    console.log("Error adding artist to the artists collection");
+                    console.log("Error adding event to the artists collection");
                 }
                 res.redirect('/admin');
             });
@@ -296,10 +296,10 @@ const adminAddController = {
             db.updateOne(Events, {isCurrentEvent: true}, {isCurrentEvent: false}, result=>{
                 db.insertOne(Events, eventData, result=>{
                     if (result) {
-                        console.log("Successfully added artist to the artists collection");
+                        console.log("Successfully added event to the artists collection");
                     }
                     else {
-                        console.log("Error adding artist to the artists collection");
+                        console.log("Error adding event to the artists collection");
                     }
                     res.redirect('/admin');
                 });
