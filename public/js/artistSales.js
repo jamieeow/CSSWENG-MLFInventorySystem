@@ -1,4 +1,62 @@
+var headers = {
+    itemID: "Item ID",
+    itemName: "Item Name",
+    itemType: "Item or Bundle",
+    itemPrice: "Price",
+    itemsSold: "Quantity Sold",
+    stockQuantity: "Stocks Left",
+    includedItems: "Bundled Items"
+};
 
+/*  converts objects to csv */
+const convertToCSV = function (objArray) {
+    var array = typeof objArray != 'object' ? JSON.parse(objArray) : objArray;
+    var str = '';
+
+    for (var i = 0; i < array.length; i++) {
+        var line = '';
+        for (var index in array[i]) {
+            if (line != '') line += ','
+
+            line += array[i][index];
+        }
+
+        str += line + '\r\n';
+    }
+
+    return str;
+}
+
+/*  exports sales report to CSV file */
+const exportCSVFile = function (headers, items, fileTitle) {
+    if (headers) {
+        items.unshift(headers);
+    }
+
+    // Convert Object to JSON
+    var jsonObject = JSON.stringify(items);
+
+    var csv = convertToCSV(jsonObject);
+
+    var exportedFilenmae = fileTitle + '.csv' || 'export.csv';
+
+    var blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+    if (navigator.msSaveBlob) { // IE 10+
+        navigator.msSaveBlob(blob, exportedFilenmae);
+    } else {
+        var link = document.createElement("a");
+        if (link.download !== undefined) { // feature detection
+            // Browsers that support HTML5 download attribute
+            var url = URL.createObjectURL(blob);
+            link.setAttribute("href", url);
+            link.setAttribute("download", exportedFilenmae);
+            link.style.visibility = 'hidden';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+    }
+}
 
 /*  shows the table for artist modals */
 function showArtistModal (artistID, artistName) {
@@ -36,7 +94,7 @@ function showArtistModal (artistID, artistName) {
 }
 
 $(document).ready(function () {
-    
+    $("input[value='export data']").prop("disabled", true);
     /*  shows the sales report according to selected artist */
     $("select[name='selectedArtistSales']").change(function() {
         var selected = $(".salesReportArtist").children("option:selected").val();
@@ -44,6 +102,7 @@ $(document).ready(function () {
         var total = 0;
 
         if (selected != '') {
+            $("input[value='export data']").prop("disabled", false);
             $.get('/getSorted', {artistID: selected, sort: sort}, function(itemRes){
                 if (itemRes) {
                     total += (itemRes[0].itemPrice * itemRes[0].itemsSold)
@@ -70,10 +129,26 @@ $(document).ready(function () {
         }
     })
 
+    /* exports sales report */
+    $("input[value='export data']").click(function() {
+        var selected = $(".salesReportArtist").children("option:selected").val();
+        var sort = $(".salesReportSort").children("option:selected").val();
+
+        if (selected != '') {
+            $.get('/export', {artistID: selected, sort: sort}, function(result){
+                if (result) {
+                    exportCSVFile(headers, result.items, result.filename);
+                }
+            })
+        }
+
+    })
+
     /*  resets values upon closing of modal */
     $(".modal").on('hidden.bs.modal', function() {
         $("#salesList").html("<tr class='row m-0'><td class='col'>Select an artist</td></tr>")
         $("#totalSoldSales").html(parseFloat(0))
         $("#artistSales").html('')
+        $("input[value='export data']").prop("disabled", true)
     })
 })
