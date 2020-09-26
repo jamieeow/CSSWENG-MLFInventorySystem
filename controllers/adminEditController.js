@@ -256,6 +256,19 @@ const adminEditController = {
             }
         })
     },
+
+    /*  return event */
+    getCurrEvent: function(req, res, next){
+        db.findOne(Events, {isCurrentEvent: true}, '', function(result) {
+            if (result) {
+                res.send(result)
+            }
+            else {
+                console.log('Event not found in the collection.')
+                res.send(false)
+            }
+        })
+    },
 }
 
 module.exports = adminEditController;

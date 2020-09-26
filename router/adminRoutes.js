@@ -11,6 +11,7 @@ router.get('/admin/getArtist', adminEditController.getArtist);
 router.get('/admin/getItems', adminEditController.getItems);
 router.get('/admin/getBundles', adminEditController.getBundles);
 router.get('/admin/getEvent', adminEditController.getEvent);
+router.get('/admin/getCurrEvent', adminEditController.getCurrEvent);
 router.get('/admin/getItemsProp', adminEditController.getItemsProp);
 router.get('/admin/getBundlesProp', adminEditController.getBundlesProp);
 

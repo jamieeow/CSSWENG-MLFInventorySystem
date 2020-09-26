@@ -101,4 +101,30 @@ $(document).ready(function () {
             }
         })
     })
+
+    
+    $('#manageItems').click(function(e) {
+        $.get('/admin/getCurrEvent', {}, function(result){
+            if (!result) {
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Warning',
+                    text: 'There is no current event happening. Please select an event or items will not be added to any existing event',
+                  })
+            }
+        })
+    });
+
+    $('#manageBundles').click(function(e) {
+        $.get('/admin/getCurrEvent', {}, function(result){
+            if (!result) {
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Warning',
+                    text: 'There is no current event happening. Please select an event or bundles will not be added to any existing event',
+                  })
+            }
+        })
+    });
+    
 });
