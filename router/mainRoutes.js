@@ -9,5 +9,6 @@ router.post('/orderCheckOut', mainController.postOrderCheckOut);
 router.post('/restockItem', mainController.postRestock);
 router.get('/getItems', mainController.getItems);
 router.get('/getBundles', mainController.getBundles);
+router.get('/getSorted', mainController.sortItemBundles);
 
 module.exports = router;

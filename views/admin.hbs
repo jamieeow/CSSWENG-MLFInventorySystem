@@ -554,12 +554,19 @@
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                    <div id="salesReportSection" class="card-header bg-secondary">
-                        <select id="artistSalesListDropdown" class="form-control" name="selectedArtistSales">
+                    <div id="salesReportSection" class="card-header bg-secondary row mx-0 d-flex justify-content-around">
+                        <select id="artistSalesListDropdown" class="form-control salesReportArtist col-md-7 col-sm-12 my-1" name="selectedArtistSales">
                             <option value="" class="defaultVal" disabled selected>select artist</option>
                             {{#each artist}}
                                 <option value="{{artistID}}">{{artistName}}</option>
-                                {{/each}}
+                            {{/each}}
+                        </select>
+                        <select id="sortItemsDropdown" class="form-control salesReportSort d-md-inline-block col-md-4 col-sm-12 my-1" name="selectedArtistSales">
+                            <option value="name" class="defaultVal" selected>sort by name</option>
+                            <option value="price asc">sort by price (ascending)</option>
+                            <option value="price desc">sort by price (descending)</option>
+                            <option value="sold asc">sort by quantity sold (ascending)</option>
+                            <option value="sold desc">sort by quantity sold (descending)</option>
                         </select>
                     </div>
                     <div class="modal-body bg-light">
@@ -576,9 +583,9 @@
                             </tbody>
                         </table>
                         <table id="totalSalesTable" class="table">
-                            <tr>
-                                <td class="font-weight-bold" scope="col">Total</td>
-                                <td scope="col" id="totalSoldSales">0.00</td>
+                            <tr class="row m-0">
+                                <td class="font-weight-bold col-9">Total</td>
+                                <td class="col-3" id="totalSoldSales">PHP 0.00</td>
                             </tr>
                             <tbody>
                             </tbody>
