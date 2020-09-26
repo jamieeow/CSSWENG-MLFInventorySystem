@@ -314,7 +314,8 @@ const adminAddController = {
 
     //Add event to database
     postAddEvent: function(req, res, next){
-        var isCurrEvent = false;
+        console.log(req.body);
+        var isCurrEvent = true;
         if (req.body.addSetCurrentEvent == 'on') {
             isCurrEvent = true;
         }

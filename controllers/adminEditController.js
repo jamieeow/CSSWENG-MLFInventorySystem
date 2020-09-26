@@ -131,7 +131,7 @@ const adminEditController = {
 
     //Edit event information (eventName, startDate, endDate)
     postEditEvent: function(req, res, next){
-        var isCurrEvent = false;
+        var isCurrEvent = true;
         if (req.body.editSetCurrentEvent == 'on') {
             isCurrEvent = true;
         }
