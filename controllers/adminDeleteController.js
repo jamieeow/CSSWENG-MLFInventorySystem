@@ -76,13 +76,29 @@ const adminDeleteController = {
     postRemoveEvent: function(req, res, next){
         db.deleteOne(Events,{"_id": req.body.eventID},result=>{
             if (result) {
-                console.log("Removed successfully!");
+                console.log("Removed event successfully!");
             }
             else {
-                console.log("Error removing!");
+                console.log("Error event removing!");
             }
+            db.deleteMany(Items, {eventID: req.body.eventID}, result=>{
+                if (result) {
+                    console.log("Removed items successfully!");
+                }
+                else {
+                    console.log("Error item removing!");
+                }
+                db.deleteMany(Bundles, {eventID: req.body.eventID}, result=>{
+                    if (result) {
+                        console.log("Removed bundle successfully!");
+                    }
+                    else {
+                        console.log("Error bundle removing!");
+                    }
+                    res.redirect('/admin');
+                })
+            })
         });
-        res.redirect('/admin');
     },
 
 }
