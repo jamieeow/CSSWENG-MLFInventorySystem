@@ -314,15 +314,13 @@ const adminAddController = {
 
     //Add event to database
     postAddEvent: function(req, res, next){
-        console.log(req.body);
         var isCurrEvent = true;
-        if (req.body.addSetCurrentEvent == 1) {
+        if (req.body.addCurrentEvent == 1) {
             isCurrEvent = true;
         }
         else {
             isCurrEvent = false;
         }
-        console.log("Add is " + isCurrEvent);
         let eventData = {
             _id: new mongoose.Types.ObjectId(),
             eventName: req.body.newEventName,

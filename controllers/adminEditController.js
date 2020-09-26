@@ -184,7 +184,7 @@ const adminEditController = {
     //event _id do not change
     postEditEvent: function(req, res, next){
         var isCurrEvent = true;
-        if (req.body.editSetCurrentEvent == 1) {
+        if (req.body.editCurrentEvent == 1) {
             isCurrEvent = true;
         }
         else {
