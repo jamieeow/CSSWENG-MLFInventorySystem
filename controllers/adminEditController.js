@@ -151,6 +151,8 @@ const adminEditController = {
     },
 
     //Edit event information (eventName, startDate, endDate)
+    //No need to edit items and bundles because they have event's _id
+    //event _id do not change
     postEditEvent: function(req, res, next){
         var isCurrEvent = true;
         if (req.body.editSetCurrentEvent == 1) {
