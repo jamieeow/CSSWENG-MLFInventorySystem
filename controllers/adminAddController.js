@@ -316,7 +316,7 @@ const adminAddController = {
     postAddEvent: function(req, res, next){
         console.log(req.body);
         var isCurrEvent = true;
-        if (req.body.addSetCurrentEvent == 'on') {
+        if (req.body.addSetCurrentEvent == 1) {
             isCurrEvent = true;
         }
         else {
