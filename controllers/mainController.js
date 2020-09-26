@@ -1,4 +1,5 @@
 const path = require('path');
+const mongoose = require('mongoose');
 const db = require('../models/database.js');
 const Items = require('../models/ItemModel.js')
 const Bundles = require('../models/BundleModel.js')
@@ -17,14 +18,18 @@ const mainController = {
             const getIncome = async function(artistID) {
                 return new Promise(function (resolve, reject) {
                     db.findOne(Events, {isCurrentEvent: true}, '_id', function(event) {
-                        db.findMany(Items, {artistID: artistID, eventID: event._id}, 'itemsSold itemPrice', function (itemRes) {
+                        eventResultID = new mongoose.Types.ObjectId();
+                        if (event) {
+                            eventResultID = event._id;
+                        }
+                        db.findMany(Items, {artistID: artistID, eventID: eventResultID}, 'itemsSold itemPrice', function (itemRes) {
                             var income = 0;
 
                             for (let j = 0; j < itemRes.length; j++) {
                                 income += (itemRes[j].itemsSold * itemRes[j].itemPrice)
                             }
 
-                            db.findMany(Bundles, {artistID: artistID, eventID: event._id}, 'bundleSold bundlePrice', function (bundleRes) {
+                            db.findMany(Bundles, {artistID: artistID, eventID: eventResultID}, 'bundleSold bundlePrice', function (bundleRes) {
                                 for (let k = 0; k < bundleRes.length; k++) {
                                     income += (bundleRes[k].bundleSold * bundleRes[k].bundlePrice)
                                 }
@@ -40,13 +45,17 @@ const mainController = {
             const getTotalSold = async function() {
                 return new Promise(function (resolve, reject) {
                     db.findOne(Events, {isCurrentEvent: true}, '_id', function(event) {
-                        db.findMany(Items, {eventID: event._id}, '-_id itemsSold', function (itemRes) {
+                        eventResultID = new mongoose.Types.ObjectId();
+                        if (event) {
+                            eventResultID = event._id;
+                        }
+                        db.findMany(Items, {eventID: eventResultID}, '-_id itemsSold', function (itemRes) {
                             var items = 0;
                             if (Object.keys(itemRes).length > 0) {
                                 items = itemRes.map(function(i) { return i.itemsSold})
                                                 .reduce(function(t, n) { return t + n})
                             }
-                            db.findMany(Bundles, {eventID: event._id}, '-_id bundleSold', function (bundleRes) {
+                            db.findMany(Bundles, {eventID: eventResultID}, '-_id bundleSold', function (bundleRes) {
                                 var bundles = 0
                                 if (Object.keys(bundleRes).length > 0) {
                                     bundles = bundleRes.map(function(b) { return b.bundleSold})
@@ -256,6 +265,9 @@ const mainController = {
                         res.send(false)
                     }
                 })
+            } else {
+                console.log("There is no current event.")
+                res.send(false)
             }
         })
     },
