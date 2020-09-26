@@ -126,5 +126,23 @@ $(document).ready(function () {
             }
         })
     });
+
+    $('#addSetCurrentEvent').click(function(e) {
+        if ($('#addCurrentEvent').val() == 0) {
+            $('#addCurrentEvent').val(1);
+        }
+        else if ($('#addCurrentEvent').val() == 1){
+            $('#addCurrentEvent').val(0);
+        }
+    })
+
+    $('#editSetCurrentEvent').click(function(e) {
+        if ($('#editCurrentEvent').val() == 0) {
+            $('#editCurrentEvent').val(1);
+        }
+        else if ($('#editCurrentEvent').val() == 1){
+            $('#editCurrentEvent').val(0);
+        }
+    })
     
 });
