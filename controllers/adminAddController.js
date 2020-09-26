@@ -15,18 +15,23 @@ const adminAddController = {
     getLoginAdmin: function(req, res, next){
         //if logged in user is admin
         if (req.session.isAdmin) {
+
             /* gets income of each artist */
             const getIncome = async function(artistID) {
                 return new Promise(function (resolve, reject) {
                     db.findOne(Events, {isCurrentEvent: true}, '_id', function(event) {
-                        db.findMany(Items, {artistID: artistID, eventID: event._id}, 'itemsSold itemPrice', function (itemRes) {
+                        eventResultID = new mongoose.Types.ObjectId();
+                        if (event) {
+                            eventResultID = event._id;
+                        }
+                        db.findMany(Items, {artistID: artistID, eventID: eventResultID}, 'itemsSold itemPrice', function (itemRes) {
                             var income = 0;
 
                             for (let j = 0; j < itemRes.length; j++) {
                                 income += (itemRes[j].itemsSold * itemRes[j].itemPrice)
                             }
 
-                            db.findMany(Bundles, {artistID: artistID, eventID: event._id}, 'bundleSold bundlePrice', function (bundleRes) {
+                            db.findMany(Bundles, {artistID: artistID, eventID: eventResultID}, 'bundleSold bundlePrice', function (bundleRes) {
                                 for (let k = 0; k < bundleRes.length; k++) {
                                     income += (bundleRes[k].bundleSold * bundleRes[k].bundlePrice)
                                 }
@@ -36,7 +41,7 @@ const adminAddController = {
                         })
                     })
                 })
-            }   
+            }
 
             /* renders admin page with details */
             const getDetails = async (artists, details) => {
@@ -50,113 +55,120 @@ const adminAddController = {
                 res.render('admin', details)
             };
 
-            //find artist then render with details
-            db.findMany(Artists, {}, '', result=>{
-            
-                let artistArray = [];
-                let artistItemsArray = [];
-                let itemArray = [];
-
-                //push all artistID and artistName to an array to be used in details below
-                for (let i=0;i<result.length;i++){
-                    artistObj = { //artist object containing artist ID and artist name
-                        artistID: result[i].artistID,
-                        artistName: result[i].artistName,
-                    }
-                    artistArray.push(artistObj);
+            //Get current event, if no event then assign random id 
+            //(Random ID doesnt affect the program since no items and bundles match this ID)
+            eventResultID = new mongoose.Types.ObjectId();
+            db.findOne(Events, {isCurrentEvent: true}, '_id', eventResult=>{
+                if (eventResult) {
+                    eventResultID = eventResult._id;
                 }
-
-                db.findOne(Events, {isCurrentEvent: true}, '', eventResult=> {
-                    if (eventResult) {
-                        //push all items to an array to be used in details below
-                        for (let i=0;i<result.length;i++){ //artist
-                            db.findMany(Items,{artistID: result[i].artistID, eventID: eventResult._id},'', itemResult=>{ //returns item of artist
-                                itemArray = []; //empties the item array for the next set of items for artist
-                                for (let j=0;j<itemResult.length;j++){ //item
-                                    itemObj = { //item object containing item info
-                                        itemID: itemResult[j]._id,
-                                        itemPicture: itemResult[j].itemPicture,
-                                        itemName: itemResult[j].itemName,
-                                        itemPrice: itemResult[j].itemPrice,
-                                        stocksQuantity: itemResult[j].stockQuantity,
-                                    }
-                                    itemArray.push(itemObj); //array of item info
-                                }
-                                artistItemsObj = { //artist item object containing item info and artist ID
-                                    artistID: result[i].artistID,
-                                    item: itemArray,
-                                }
-                                artistItemsArray.push(artistItemsObj); //array of artist item (this is for artistItems in details)
-                            })
+                //find artist then render with details
+                db.findMany(Artists, {}, '', result=>{
+                    let artistArray = [];
+                    let artistItemsArray = [];
+                    let itemArray = [];
+                    //push all artistID and artistName to an array to be used in details below
+                    for (let i=0;i<result.length;i++){
+                        artistObj = { //artist object containing artist ID and artist name
+                            artistID: result[i].artistID,
+                            artistName: result[i].artistName,
                         }
+                        artistArray.push(artistObj);
                     }
-                })
-                //Set event count down for days, hours, minutes, and seconds
-                db.findOne(Events, {isCurrentEvent: true},'', eventResult=>{
-                    if (eventResult) { //if theres an event make time to 00:00
-                        eventResultID = eventResult._id;
-                        if (eventResult.startDate < new Date) {
-                            eventResult.endDate.setHours(0);
-                            var diffDate = parseInt((eventResult.endDate - new Date));
+
+                    db.findOne(Events, {isCurrentEvent: true}, '', eventResult=> {
+                        if (eventResult) {
+                            //push all items to an array to be used in details below
+                            for (let i=0;i<result.length;i++){ //artist
+                                db.findMany(Items,{artistID: result[i].artistID, eventID: eventResult._id},'', itemResult=>{ //returns item of artist
+                                    itemArray = []; //empties the item array for the next set of items for artist
+                                    for (let j=0;j<itemResult.length;j++){ //item
+                                        itemObj = { //item object containing item info
+                                            itemID: itemResult[j]._id,
+                                            itemPicture: itemResult[j].itemPicture,
+                                            itemName: itemResult[j].itemName,
+                                            itemPrice: itemResult[j].itemPrice,
+                                            stocksQuantity: itemResult[j].stockQuantity,
+                                        }
+                                        itemArray.push(itemObj); //array of item info
+                                    }
+                                    artistItemsObj = { //artist item object containing item info and artist ID
+                                        artistID: result[i].artistID,
+                                        item: itemArray,
+                                    }
+                                    artistItemsArray.push(artistItemsObj); //array of artist item (this is for artistItems in details)
+                                })
+                            }
+                        }
+                    })
+                    //Set event count down for days, hours, minutes, and seconds
+                    db.findOne(Events, {isCurrentEvent: true},'', eventResult=>{
+                        if (eventResult) { //if theres an event make time to 00:00
+                            eventResultID = eventResult._id;
+                            if (eventResult.startDate < new Date) {
+                                eventResult.endDate.setHours(0);
+                                var diffDate = parseInt((eventResult.endDate - new Date));
+                            }
+                            else {
+                                var diffDate = 0;
+                            }
                         }
                         else {
                             var diffDate = 0;
+                            eventResultID = new mongoose.Types.ObjectId();
                         }
-                    }
-                    else {
-                        var diffDate = 0;
-                        eventResultID = new mongoose.Types.ObjectId();
-                    }
-                    var minutes = 0;
-                    var seconds = 0;
-                    var totalSeconds = 0;
-                    if (diffDate >= 0) { //if there is time remaining
-                        minutes = Math.floor(diffDate / (1000 * 60));
-                        seconds = Math.floor(diffDate / (1000));
-                        totalSeconds = seconds;
-                    }
-                    var hours = Math.floor(minutes / 60);
-                    var days = Math.floor(hours/24);
-                    hours = hours%24;
-                    minutes = minutes%60;
-                    seconds = seconds%60;
-                    //find how many items were sold
-                    db.findMany(Items, {eventID:eventResultID}, '', itemResult=>{
-                        var sold=0;
-                        for (let i=0; i<itemResult.length;i++) {
-                            sold += itemResult[i].itemsSold;
+                        var minutes = 0;
+                        var seconds = 0;
+                        var totalSeconds = 0;
+                        if (diffDate >= 0) { //if there is time remaining
+                            minutes = Math.floor(diffDate / (1000 * 60));
+                            seconds = Math.floor(diffDate / (1000));
+                            totalSeconds = seconds;
                         }
-                        db.findMany(Bundles, {eventID:eventResultID}, '', bundleResult=>{
-                            for (let i=0;i<bundleResult.length;i++) {
-                                sold += bundleResult[i].bundleSold;
+                        var hours = Math.floor(minutes / 60);
+                        var days = Math.floor(hours/24);
+                        hours = hours%24;
+                        minutes = minutes%60;
+                        seconds = seconds%60;
+                        //find how many items were sold
+                        db.findMany(Items, {eventID:eventResultID}, '', itemResult=>{
+                            var sold=0;
+                            for (let i=0; i<itemResult.length;i++) {
+                                sold += itemResult[i].itemsSold;
                             }
-                            db.findMany(Events, {}, '', manyEventsResult=>{
-                                eventArray = [];
-                                for (let i=0;i<manyEventsResult.length;i++){
-                                    eventObj = { //event object containing event info
-                                        eventID: manyEventsResult[i]._id,
-                                        eventName: manyEventsResult[i].eventName,
+                            db.findMany(Bundles, {eventID:eventResultID}, '', bundleResult=>{
+                                for (let i=0;i<bundleResult.length;i++) {
+                                    sold += bundleResult[i].bundleSold;
+                                }
+                                db.findMany(Events, {}, '', manyEventsResult=>{
+                                    eventArray = [];
+                                    for (let i=0;i<manyEventsResult.length;i++){
+                                        eventObj = { //event object containing event info
+                                            eventID: manyEventsResult[i]._id,
+                                            eventName: manyEventsResult[i].eventName,
+                                        }
+                                        eventArray.push(eventObj); //array of item info
                                     }
-                                    eventArray.push(eventObj); //array of item info
-                                }
-                                //details of admin page
-                                var details = {
-                                    artist: artistArray,
-                                    artistItems: artistItemsArray,
-                                    daysLeft: days,
-                                    hoursLeft: hours,
-                                    minutesLeft: minutes,
-                                    secondsLeft: seconds,
-                                    totalSeconds: totalSeconds,
-                                    totalSold: sold,
-                                    event: eventArray,
-                                }
+                                    //details of admin page
+                                    var details = {
+                                        artist: artistArray,
+                                        artistItems: artistItemsArray,
+                                        daysLeft: days,
+                                        hoursLeft: hours,
+                                        minutesLeft: minutes,
+                                        secondsLeft: seconds,
+                                        totalSeconds: totalSeconds,
+                                        totalSold: sold,
+                                        event: eventArray,
+                                    }
 
-                                getDetails(artistArray, details);
+                                    getDetails(artistArray, details);
+                                })
                             })
                         })
-                    })
-                })     
+                    })     
+                })
+
             })
         }
         // if the logged in user is not an admin, therefore a cashier
@@ -309,7 +321,8 @@ const adminAddController = {
         else {
             isCurrEvent = false;
         }
-        eventData = {
+        console.log("Add is " + isCurrEvent);
+        let eventData = {
             _id: new mongoose.Types.ObjectId(),
             eventName: req.body.newEventName,
             startDate: req.body.addStartEventDate,
