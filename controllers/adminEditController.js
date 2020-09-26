@@ -2,6 +2,8 @@ const path = require('path');
 const mongoose = require('mongoose');
 const multer = require('multer');
 const db = require('../models/database.js');
+const bcryptjs = require('bcryptjs');
+const saltRounds = 10;
 const Artists = require('../models/ArtistModel.js');
 const Items = require('../models/ItemModel.js');
 const Bundles = require('../models/BundleModel.js');
@@ -16,12 +18,25 @@ const adminEditController = {
             artistID: req.body.editArtistIDNo,
             artistName: req.body.editArtistName,
         }
+        let cashierDetails = {}
+        changePassword = true;
 
-        //Cashier details
-        cashierDetails = {
-            artistID: req.body.editArtistIDNo,
-            password: req.body.editArtistPassword,
+        //if empty don't change password. Else, change password
+        if (req.body.editArtistPassword == '') {
+            changePassword = false;
+            //Cashier details
+            cashierDetails = {
+                artistID: req.body.editArtistIDNo,
+            }
         }
+        else {
+            changePassword = true;
+            //Cashier details
+            cashierDetails = {
+                artistID: req.body.editArtistIDNo,
+                password: req.body.editArtistPassword,
+            }
+        }  
 
         db.updateOne(Artists, {artistID: req.body.artistsListDropdownEdit}, artistDetails, result=>{
             if (result) {
@@ -31,8 +46,22 @@ const adminEditController = {
                 console.log("Error updating artist details");
             }
 
-            bcryptjs.hash(cashierDetails.password, saltRounds, function(err, hash) {
-                cashierDetails.password = hash
+            //If password is not empty
+            if (changePassword) {
+                bcryptjs.hash(cashierDetails.password, saltRounds, function(err, hash) {
+                    cashierDetails.password = hash
+                    db.updateOne(Cashiers, {artistID: req.body.artistsListDropdownEdit}, cashierDetails, cResult=>{
+                        if (cResult) {
+                            console.log("Successfully updated cashiers details.");
+                        }
+                        else {
+                            console.log("Error updating cashiers details");
+                        }
+                    })
+                })
+            }
+            //password is empty
+            else {
                 db.updateOne(Cashiers, {artistID: req.body.artistsListDropdownEdit}, cashierDetails, cResult=>{
                     if (cResult) {
                         console.log("Successfully updated cashiers details.");
@@ -41,7 +70,7 @@ const adminEditController = {
                         console.log("Error updating cashiers details");
                     }
                 })
-            })
+            }
 
         })
 
