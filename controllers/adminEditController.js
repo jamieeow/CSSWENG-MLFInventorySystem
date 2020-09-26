@@ -6,22 +6,43 @@ const Artists = require('../models/ArtistModel.js');
 const Items = require('../models/ItemModel.js');
 const Bundles = require('../models/BundleModel.js');
 const Events = require('../models/EventModel.js');
+const Cashiers = require('../models/CashierModel.js');
 
 const adminEditController = {
     //Edit artist information (artistID and artistName)
     postEditArtist: function(req, res, next){
-        let retrievedData = { //change this
+        //Artist details
+        let artistDetails = {
             artistID: req.body.editArtistIDNo,
             artistName: req.body.editArtistName,
         }
 
-        db.updateOne(Artists, {artistID: req.body.artistsListDropdownEdit}, retrievedData, result=>{
+        //Cashier details
+        cashierDetails = {
+            artistID: req.body.editArtistIDNo,
+            password: req.body.editArtistPassword,
+        }
+
+        db.updateOne(Artists, {artistID: req.body.artistsListDropdownEdit}, artistDetails, result=>{
             if (result) {
                 console.log("Successfully updated artist details.");
             }
             else {
                 console.log("Error updating artist details");
             }
+
+            bcryptjs.hash(cashierDetails.password, saltRounds, function(err, hash) {
+                cashierDetails.password = hash
+                db.updateOne(Cashiers, {artistID: req.body.artistsListDropdownEdit}, cashierDetails, cResult=>{
+                    if (cResult) {
+                        console.log("Successfully updated cashiers details.");
+                    }
+                    else {
+                        console.log("Error updating cashiers details");
+                    }
+                })
+            })
+
         })
 
         res.redirect('/admin');
