@@ -39,9 +39,11 @@ $(document).ready(function () {
             //check and uncheck box according to isCurrentEvent
             if (result.isCurrentEvent) {
                 $("#editSetCurrentEvent").prop("checked", true);
+                $("#editCurrentEvent").val(1);
             }
             else {
                 $("#editSetCurrentEvent").prop("checked", false);
+                $("#editCurrentEvent").val(0);
             }
             
             d1 = new Date(result.startDate);
