@@ -106,6 +106,26 @@
 /*modal manage artist*/
 
 /*modal manage item*/
+.tab-content .selectedSection {
+    margin-top: 25px;
+}
+
+#artistSelectEdit #artistsListDropdownItem {
+    width: 290px;
+}
+
+#addItemSection #textFields {
+    margin-bottom: 20px;
+}
+
+/*.tab-content .itemPhotoPicker {
+    margin-top: 10px;
+}*/
+
+/*#artistSelectEdit itemPhotoPicker{
+    margin-top: 50px;
+    margin-right: 50px;
+}*/
 .photos {
     width: 49%;
     height: auto;
