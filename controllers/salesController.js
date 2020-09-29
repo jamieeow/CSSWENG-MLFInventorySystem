@@ -39,7 +39,7 @@ const salesController = {
                                 itemRes.sort(function(a, b){return (a.itemPrice - b.itemPrice) * sign});
                             } else {
                                 var sign = 1
-                                if (req.query.sort == 'quantity desc')
+                                if (req.query.sort == 'sold desc')
                                     sign = -1
                                 itemRes.sort(function(a, b){return (a.itemsSold - b.itemsSold) * sign});
                             }
@@ -99,7 +99,7 @@ const salesController = {
                                 items.sort(function(a, b){return (a.itemPrice - b.itemPrice) * sign});
                             } else {
                                 var sign = 1
-                                if (req.query.sort == 'quantity desc')
+                                if (req.query.sort == 'sold desc')
                                     sign = -1
                                 items.sort(function(a, b){return (a.itemsSold - b.itemsSold) * sign});
                             }
