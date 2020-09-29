@@ -18,6 +18,7 @@ function editSelectBundleItems(itemID, itemName, itemPrice) {
 }
 
 $(document).ready(function () {
+    
 
     //edit artist change values according to selector
     $("select[name='artistsListDropdownEdit']").change(function() {
@@ -136,6 +137,30 @@ $(document).ready(function () {
             }
         })
     })
+
+    var enteredFirst = true;
+
+    $("a[id^='manage']").click(function () {
+        if (enteredFirst == true) {
+            $("#editArtistsOption").attr("class", "nav-link active");
+            $("#editItemOption").attr("class", "nav-link active");
+            $("#editBundleOption").attr("class", "nav-link active");
+            $("#editEventsOption").attr("class", "nav-link active");
+            enteredFirst = false;
+        }
+        else {
+            if ($("a[id^='edit']a[id$='Option']").attr("class") != "nav-link active") {
+                $("#editArtistsOption").attr("class", "nav-link");
+            }
+        }
+    })
+
+    
+
+    /*$("div[id$='Window']").on('hidden.bs.modal', function () {
+        $(".manageItemsList").html('<option class="defaultVal" value="" disabled selected>select item</option>')
+    })*/
+    
 
     $("#manageItemsWindow").on('hidden.bs.modal', function(){
         $(".manageItemsList").html('<option class="defaultVal" value="" disabled selected>select item</option>')
