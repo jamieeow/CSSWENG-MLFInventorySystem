@@ -11,9 +11,6 @@ db.connect();
 const bcryptjs = require('bcryptjs');
 const saltRounds = 10;
 
-//TODO: populate the database using insertOne
-
-
 var user = {
     userName: "admin",
     password: "pw123",
