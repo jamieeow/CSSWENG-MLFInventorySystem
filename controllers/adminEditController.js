@@ -13,6 +13,7 @@ const Cashiers = require('../models/CashierModel.js');
 const adminEditController = {
     //Edit artist information (artistID and artistName)
     postEditArtist: function(req, res, next){
+        console.log(req.body);
         //Artist details
         let artistDetails = {
             artistID: req.body.editArtistIDNo,

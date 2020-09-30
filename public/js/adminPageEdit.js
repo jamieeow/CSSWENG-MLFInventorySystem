@@ -17,6 +17,40 @@ function editSelectBundleItems(itemID, itemName, itemPrice) {
     $("#editSelectedItems").val(bundleItemSelectedEdit);
 }
 
+function editArtist(e) {
+    var artistID = $("#artistsListDropdownEdit").children("option:selected").val();
+    var artistName = $("#editArtistName").val();
+    var artistIDNumber = $("#editArtistIDNo").val();
+    var artistPassword = $("#editArtistPassword").val();
+    var exist = false;
+    //check if artist ID exist
+    if ($("#editArtistIDNo").val() != '' && $("#editArtistName").val() != '') {
+        $.get('/admin/getArtist', {artistID: artistIDNumber, projection: "_id artistID artistName"}, function(result){
+            if (result) {
+                if (artistIDNumber == artistID) {
+                    exist = false;
+                }
+                else {
+                    exist = true;
+                }
+            }
+            if (!exist) {
+                    $.post('/admin/editArtist', {editArtistIDNo: artistIDNumber, editArtistName: artistName, editArtistPassword: artistPassword, artistsListDropdownEdit: artistID}, function(result){
+                        if (result) {
+                            window.location = '/admin';
+                            return true;
+                        }
+                })
+            }
+            else {
+                Swal.fire('Error editing artist','Artist ID already exist. Please type in another artist ID');
+                e.preventDefault();
+                return false;
+            }
+        })
+    }
+}
+
 $(document).ready(function () {
     
 
