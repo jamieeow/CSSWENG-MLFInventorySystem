@@ -73,6 +73,24 @@ const adminEditController = {
                 })
             }
 
+            db.updateMany(Items, {artistID:req.body.artistsListDropdownEdit}, {artistID:req.body.editArtistIDNo}, cResult=>{
+                if (cResult) {
+                    console.log("Successfully updated item details.");
+                }
+                else {
+                    console.log("Error updating item details");
+                }
+            })
+
+            db.updateMany(Bundles, {artistID:req.body.artistsListDropdownEdit}, {artistID:req.body.editArtistIDNo}, cResult=>{
+                if (cResult) {
+                    console.log("Successfully updated bundles details.");
+                }
+                else {
+                    console.log("Error updating bundles details");
+                }
+            })
+
         })
 
         res.redirect('/admin');
